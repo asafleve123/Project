@@ -32,7 +32,6 @@ namespace BE
         {
             return PrivateName + " " + FamilyName;
         }
-
         public int CompareTo(object obj)
         {
             return Id.CompareTo(((Tester)obj).Id);
@@ -65,6 +64,7 @@ namespace BE
             }
             Age = tester.Age;
         }
+        //constructor
         public Tester(string id)
         {
             Id = id;

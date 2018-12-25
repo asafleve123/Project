@@ -27,6 +27,27 @@ namespace BL
             {
                 throw new Exception("it's too early");
             }
+            if (trainee.DLessonPast < Configuration.MIN_NUMBER_OF_LESSONS)
+            {
+                throw new Exception("You need to do "+(20-trainee.DLessonPast)+" lessons");
+            }
+            try
+            {
+                if ((test.TestDay.Hour>=Configuration.MIN_HOUR&& test.TestDay.Hour<Configuration.MAX_HOUR)|| (int)test.TestDay.DayOfWeek>=Configuration.THURSDAY)
+                {
+                    test.IdTester = (TestersCollection()).Find(T => T.WorkTable[test.TestDay.Hour - 9, (int)test.TestDay.DayOfWeek]).Id;
+                }
+                else
+                {
+                    throw new ArgumentNullException();
+                }
+            }
+            catch (ArgumentNullException)
+            {
+
+                throw new Exception("There is'nt tester that free");
+            }
+            MyDal.AddTest(test);
         }
 
         public void AddTester(Tester tester)
