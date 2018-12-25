@@ -65,6 +65,7 @@ namespace BE
         }
         public Tester(string id)
         {
+
             Id = id;
         }
     }
