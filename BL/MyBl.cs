@@ -12,8 +12,21 @@ namespace BL
         private DAL.Idal MyDal = FactoryDal.getDal();
         public void AddTest(Test test)
         {
-            var PreTest = from item in TestsList() where (test.IdTrainee == item.IdTrainee) select item;
-
+            var StudentTests = from item in TestsCollection() where (test.IdTrainee == item.IdTrainee) select item;
+            var Trainee = from item in TraineesCollection() where (test.IdTrainee == item.Id) select item;
+            Trainee trainee = Trainee.First();
+            Test PreTest = Test.GetTestTemp(new DateTime(trainee.DOB.Year, trainee.DOB.Month, trainee.DOB.Day));
+            foreach (var item in StudentTests)
+            {
+                if (PreTest.TestDay < item.TestDay)
+                {
+                    PreTest = item;
+                }
+            }
+            if ((test.TestDay - PreTest.TestDay).Days < Configuration.RANGE_BETWEEN_TESTS)
+            {
+                throw new Exception("it's too early");
+            }
         }
 
         public void AddTester(Tester tester)
@@ -44,17 +57,17 @@ namespace BL
             throw new NotImplementedException();
         }
 
-        public List<Tester> TestersList()
+        public List<Tester> TestersCollection()
         {
             throw new NotImplementedException();
         }
 
-        public List<Test> TestsList()
+        public List<Test> TestsCollection()
         {
             throw new NotImplementedException();
         }
 
-        public List<Trainee> TraineesList()
+        public List<Trainee> TraineesCollection()
         {
             throw new NotImplementedException();
         }

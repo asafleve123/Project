@@ -65,7 +65,7 @@ namespace DAL
             }
         }
 
-        public List<Tester> TestersList()
+        public List<Tester> TestersCollection()
         {
             List<Tester> Temp = new List<Tester>();
             for (int i = 0; i < DataSource.testers.Count; i++)
@@ -75,7 +75,7 @@ namespace DAL
             return Temp;
         }
 
-        public List<Test> TestsList()
+        public List<Test> TestsCollection()
         {
             List<Test> Temp = new List<Test>();
             for (int i = 0; i < DataSource.tests.Count; i++)
@@ -85,7 +85,7 @@ namespace DAL
             return Temp;
         }
 
-        public List<Trainee> TraineesList()
+        public List<Trainee> TraineesCollection()
         {
             List<Trainee> Temp = new List<Trainee>();
             for (int i = 0; i < DataSource.trainees.Count; i++)

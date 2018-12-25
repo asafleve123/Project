@@ -21,8 +21,8 @@ namespace DAL
         void AddTest(Test test);
         void Update(Test test);
         //lists
-        List<Tester> TestersList();
-        List<Trainee> TraineesList();
-        List<Test> TestsList();
+        List<Tester> TestersCollection();
+        List<Trainee> TraineesCollection();
+        List<Test> TestsCollection();
     }
 }

@@ -31,14 +31,17 @@ namespace BE
         {
             criterions.Remove(item);
         }
-
+        public static Test GetTestTemp(DateTime date)
+        {
+            return new Test(date);
+        }
         public int CompareTo(object obj)
         {
             return NumTest.CompareTo(((Test)obj).NumTest);
         }
 
         /// <summary>
-        /// Constructor
+        /// Constructors
         /// </summary>
         public Test(Tester teacher, Trainee student, DateTime date, Address ATestAdress)
         {
@@ -48,6 +51,10 @@ namespace BE
             TestDay = date;
             TestAddress = ATestAdress;
             Comments = null;
+        }
+        private Test(DateTime date)
+        {
+            TestDay = date;
         }
         /// <summary>
         /// copy constructor - ables to copy by value.
