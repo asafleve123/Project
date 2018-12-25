@@ -25,6 +25,7 @@ namespace BE
         public Car TypeOfCar { get; set; }
         public bool[,] WorkTable { get => worktable; set => worktable = value; }
         public int MaxRange { get; set; }
+        public int Age { get; set; }
         //...
         //functions
         public override string ToString()
@@ -62,10 +63,10 @@ namespace BE
                     WorkTable[i, j] = tester.WorkTable[i, j];
                 }
             }
+            Age = tester.Age;
         }
         public Tester(string id)
         {
-
             Id = id;
         }
     }

@@ -23,6 +23,7 @@ namespace BE
         public int DLessonPast { get; set; }
         public bool CriminalRecord { get; set; }
         public Nation Mynation { get; set; }
+        public int Age { get; set; }
         //...
         //functions
         public override string ToString()
@@ -59,6 +60,7 @@ namespace BE
             TypeGearBox = trainee.TypeGearBox;
             CriminalRecord = trainee.CriminalRecord;
             Mynation = trainee.Mynation;
+            Age = trainee.Age;
         }
 
     }
