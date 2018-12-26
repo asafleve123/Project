@@ -16,7 +16,7 @@ namespace BE
         public string Id { get; private set; }
         public string FamilyName { get; set; }
         public string PrivateName { get; set; }
-        public DateTime DOB { get; set; }
+        public DateTime DOB { get;private set; }
         public Gender Gender { get; set; }
         public string Phone { get; set; }
         public Address Address { get; set; }
@@ -36,7 +36,10 @@ namespace BE
         {
             return Id.CompareTo(((Tester)obj).Id);
         }
+        /*public Tester(string Id, string FamilyName, string PrivateName DateTime DOBGender Gender string Phone Address Address int Years int MaxTests Car TypeOfCar)
+        {
 
+        }*/
         /// <summary>
         /// copy constructor - ables to copy by value.
         /// </summary>

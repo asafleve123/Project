@@ -24,11 +24,13 @@ namespace DAL
             try
             {
                 DataSource.testers.Exists(T => T.CompareTo(temp) == 0);
+                //throw new Exception("This tester already exist");
             }
             catch (ArgumentNullException)
             {
                 DataSource.testers.Add(temp);
             }
+            
         }
         public void AddTrainee(Trainee trainee)
         {
@@ -36,6 +38,7 @@ namespace DAL
             try
             {
                 DataSource.trainees.Exists(T => T.CompareTo(temp) == 0);
+                //throw new Exception("This Trainee already exist");
             }
             catch (ArgumentNullException)
             {
@@ -129,6 +132,31 @@ namespace DAL
             {
                 throw new ArgumentNullException("This trainee doesn't exist", e);
             }
+        }
+        public static bool IdCheck(string id)
+        {
+            if (id == null)
+                return false;
+
+            int tmp, count = 0;
+
+            if (!(int.TryParse(id, out tmp)) || id.Length != 9)
+                return false;
+
+            int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
+            id = id.PadLeft(9, '0');
+
+            for (int i = 0; i < 9; i++)
+            {
+                int num = Int32.Parse(id.Substring(i, 1)) * id_12_digits[i];
+
+                if (num > 9)
+                    num = (num / 10) + (num % 10);
+
+                count += num;
+            }
+
+            return (count % 10 == 0);
         }
     }
 }

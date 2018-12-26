@@ -44,7 +44,6 @@ namespace BL
             }
             catch (ArgumentNullException)
             {
-
                 throw new Exception("There is'nt tester that free");
             }
             MyDal.AddTest(test);
@@ -106,6 +105,32 @@ namespace BL
         public void UpdateTrainee(Trainee trainee)
         {
             throw new NotImplementedException();
+        }
+
+        public static bool IdCheck(string id)
+        {
+            if (id == null)
+                return false;
+
+            int tmp, count = 0;
+
+            if (!(int.TryParse(id, out tmp)) || id.Length != 9)
+                return false;
+
+            int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
+            id = id.PadLeft(9, '0');
+
+            for (int i = 0; i < 9; i++)
+            {
+                int num = Int32.Parse(id.Substring(i, 1)) * id_12_digits[i];
+
+                if (num > 9)
+                    num = (num / 10) + (num % 10);
+
+                count += num;
+            }
+
+            return (count % 10 == 0);
         }
     }
 }
