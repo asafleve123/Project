@@ -23,7 +23,7 @@ namespace BE
         public int DLessonPast { get; set; }
         public bool CriminalRecord { get; set; }
         public Nation Mynation { get; set; }
-        public int Age { get; set; }
+        public int Age { get { return DateTime.Now.Year - DOB.Year; }}
         //...
         //functions
         public override string ToString()
@@ -38,6 +38,23 @@ namespace BE
         public Trainee(string id)
         {
             Id = id;
+        }
+
+        public Trainee(string id, string privateName, string familyName, Gender gender, string phone, Address address, DateTime dOB, Car typeOfCar, Gearbox typeGearBox, string drivingSchool, string drivingTeacher, int dLessonPast, bool criminalRecord, Nation mynation) : this(id)
+        {
+            PrivateName = string.Copy(privateName);
+            FamilyName = string.Copy(familyName);
+            Gender = gender;
+            Phone = string.Copy(phone);
+            Address = address;
+            DOB = dOB;
+            TypeOfCar = typeOfCar;
+            TypeGearBox = typeGearBox;
+            DrivingSchool = string.Copy(drivingSchool);
+            DrivingTeacher = string.Copy(drivingTeacher);
+            DLessonPast = dLessonPast;
+            CriminalRecord = criminalRecord;
+            Mynation = mynation;
         }
 
         /// <summary>
@@ -60,7 +77,7 @@ namespace BE
             TypeGearBox = trainee.TypeGearBox;
             CriminalRecord = trainee.CriminalRecord;
             Mynation = trainee.Mynation;
-            Age = trainee.Age;
+           
         }
 
     }

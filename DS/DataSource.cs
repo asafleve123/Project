@@ -11,6 +11,5 @@ namespace DS
         public static List<Tester> testers = new List<Tester>();
         public static List<Test> tests = new List<Test>();
         public static List<Trainee> trainees = new List<Trainee>();
-
     }
 }

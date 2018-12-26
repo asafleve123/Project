@@ -29,11 +29,11 @@ namespace BL
             }
             if (trainee.DLessonPast < Configuration.MIN_NUMBER_OF_LESSONS)
             {
-                throw new Exception("You need to do "+(20-trainee.DLessonPast)+" lessons");
+                throw new Exception("You need to do "+(Configuration.MIN_NUMBER_OF_LESSONS - trainee.DLessonPast)+" lessons");
             }
             try
             {
-                if ((test.TestDay.Hour>=Configuration.MIN_HOUR&& test.TestDay.Hour<Configuration.MAX_HOUR)|| (int)test.TestDay.DayOfWeek>=Configuration.THURSDAY)
+                if ((test.TestDay.Hour >= Configuration.MIN_HOUR && test.TestDay.Hour < Configuration.MAX_HOUR) || (int)test.TestDay.DayOfWeek >= Configuration.THURSDAY) 
                 {
                     test.IdTester = (TestersCollection()).Find(T => T.WorkTable[test.TestDay.Hour - 9, (int)test.TestDay.DayOfWeek]).Id;
                 }
@@ -46,6 +46,7 @@ namespace BL
             {
                 throw new Exception("There is'nt tester that free");
             }
+            if ()
             MyDal.AddTest(test);
         }
 
@@ -105,6 +106,32 @@ namespace BL
         public void UpdateTrainee(Trainee trainee)
         {
             throw new NotImplementedException();
+        }
+
+        public static bool IdCheck(string id)
+        {
+            if (id == null)
+                return false;
+
+            int tmp, count = 0;
+
+            if (!(int.TryParse(id, out tmp)) || id.Length != 9)
+                return false;
+
+            int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
+            id = id.PadLeft(9, '0');
+
+            for (int i = 0; i < 9; i++)
+            {
+                int num = Int32.Parse(id.Substring(i, 1)) * id_12_digits[i];
+
+                if (num > 9)
+                    num = (num / 10) + (num % 10);
+
+                count += num;
+            }
+
+            return (count % 10 == 0);
         }
     }
 }
