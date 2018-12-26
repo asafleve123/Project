@@ -44,7 +44,6 @@ namespace BL
             }
             catch (ArgumentNullException)
             {
-
                 throw new Exception("There is'nt tester that free");
             }
             MyDal.AddTest(test);
