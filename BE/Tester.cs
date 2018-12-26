@@ -68,10 +68,10 @@ namespace BE
             MaxTests = tester.MaxTests;
             TypeOfCar = tester.TypeOfCar;
             MaxRange = tester.MaxRange;
-            worktable = new bool[6, 5];
-            for (int i = 0; i < 6; i++)
+            worktable = new bool[Configuration.HOURS, Configuration.THURSDAY];
+            for (int i = 0; i < Configuration.HOURS; i++)
             {
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < Configuration.THURSDAY; j++)
                 {
                     WorkTable[i, j] = tester.WorkTable[i, j];
                 }
