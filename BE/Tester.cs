@@ -25,7 +25,7 @@ namespace BE
         public Car TypeOfCar { get; set; }
         public bool[,] WorkTable { get => worktable; set => worktable = value; }
         public int MaxRange { get; set; }
-        public int Age { get; set; }
+        public int Age { get { return DateTime.Now.Year-DOB.Year; } }
         //...
         //functions
         public override string ToString()
@@ -36,10 +36,21 @@ namespace BE
         {
             return Id.CompareTo(((Tester)obj).Id);
         }
-        /*public Tester(string Id, string FamilyName, string PrivateName DateTime DOBGender Gender string Phone Address Address int Years int MaxTests Car TypeOfCar)
+        public Tester(string Id, string FamilyName, string PrivateName, DateTime DOBGender, Gender Gender, string Phone, Address Address, int Years, int MaxTests, Car TypeOfCar, bool[,] WorkTable, int MaxRange, int Age)
         {
-
-        }*/
+            this.Id = Id;
+            this.FamilyName = FamilyName;
+            this.PrivateName = PrivateName;
+            this.DOB = DOB;
+            this.Phone = Phone;
+            this.Address = Address;
+            this.Years = Years;
+            this.MaxTests = MaxTests;
+            this.TypeOfCar = TypeOfCar;
+            this.WorkTable = WorkTable;
+            this.MaxRange = MaxRange;
+            
+        }
         /// <summary>
         /// copy constructor - ables to copy by value.
         /// </summary>
@@ -65,12 +76,29 @@ namespace BE
                     WorkTable[i, j] = tester.WorkTable[i, j];
                 }
             }
-            Age = tester.Age;
+            
         }
         //constructor
         public Tester(string id)
         {
             Id = id;
+        }
+
+        public Tester(bool[,] worktable, string id, string familyName, string privateName, DateTime dOB, Gender gender, string phone, Address address, int years, int maxTests, Car typeOfCar, bool[,] workTable, int maxRange)
+        {
+            this.worktable = worktable;
+            Id = id;
+            FamilyName = string.Copy(familyName);
+            PrivateName = string.Copy(privateName);
+            DOB = dOB;
+            Gender = gender;
+            Phone = phone;
+            Address = address;
+            Years = years;
+            MaxTests = maxTests;
+            TypeOfCar = typeOfCar;
+            WorkTable = workTable;
+            MaxRange = maxRange;
         }
     }
 }
