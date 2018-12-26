@@ -87,7 +87,7 @@ namespace BE
         public Tester(bool[,] worktable, string id, string familyName, string privateName, DateTime dOB, Gender gender, string phone, Address address, int years, int maxTests, Car typeOfCar, bool[,] workTable, int maxRange)
         {
             this.worktable = worktable;
-            Id = id;
+            Id = string.Copy(id);
             FamilyName = string.Copy(familyName);
             PrivateName = string.Copy(privateName);
             DOB = dOB;

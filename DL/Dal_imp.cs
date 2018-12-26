@@ -70,32 +70,35 @@ namespace DAL
 
         public List<Tester> TestersCollection()
         {
-            List<Tester> Temp = new List<Tester>();
+            return (List<Tester>)from item in DataSource.testers select new Tester(item);
+            /*List<Tester> Temp = new List<Tester>();
             for (int i = 0; i < DataSource.testers.Count; i++)
             {
                 Temp.Add(new Tester(DataSource.testers[i]));
             }
-            return Temp;
+            return Temp;*/
         }
 
         public List<Test> TestsCollection()
         {
-            List<Test> Temp = new List<Test>();
+            return (List<Test>)from item in DataSource.tests select new Test(item);
+            /*List<Test> Temp = new List<Test>();
             for (int i = 0; i < DataSource.tests.Count; i++)
             {
                 Temp.Add(new Test(DataSource.tests[i]));
             }
-            return Temp;
+            return Temp;*/
         }
 
         public List<Trainee> TraineesCollection()
         {
-            List<Trainee> Temp = new List<Trainee>();
+            return (List<Trainee>) from item in DataSource.trainees select new Trainee(item);
+            /*List<Trainee> Temp = new List<Trainee>();
             for (int i = 0; i < DataSource.trainees.Count; i++)
             {
                 Temp.Add(new Trainee(DataSource.trainees[i]));
             }
-            return Temp;
+            return (List<Trainee>)newList;*/
         }
 
         public void Update(Test test)
