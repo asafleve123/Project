@@ -10,18 +10,19 @@ namespace BL
     public class MyBl : IBL
     {
         private DAL.Idal MyDal = FactoryDal.getDal();
+
         public void AddTest(Test test)
         {
-            /*int index;
-            index = (TraineesCollection()).FindIndex(item => item.Id == test.IdTrainee);
-            if (index == -1)
-                throw new Exception("there isnt any trainee with that ID");
-            Trainee trainee = (TraineesCollection())[index];
-            */
             var StudentTests = from item in TestsCollection() where (test.IdTrainee == item.IdTrainee) select item;
+            
+            IEnumerable<Tester> testers = TestersCollection();
+            IEnumerable<Test> tests = TestsCollection();
             
             var Trainee = from item in TraineesCollection() where (test.IdTrainee == item.Id) select item;
             Trainee trainee = Trainee.First();
+            foreach (Test item in StudentTests)
+                if (trainee.TypeOfCar == item.TypeOfCar && item.Grade == Grade.fail)
+                    throw new Exception("the trainee is already past the test on this type of car");
 
             Test PreTest = Test.GetTestTemp(new DateTime(trainee.DOB.Year, trainee.DOB.Month, trainee.DOB.Day));
             foreach (var item in StudentTests)
@@ -34,28 +35,23 @@ namespace BL
             if (trainee.DLessonPast < Configuration.MIN_NUMBER_OF_LESSONS)
                 throw new Exception("You need to do "+(Configuration.MIN_NUMBER_OF_LESSONS - trainee.DLessonPast)+" lessons");
 
-            /*try
-            {
-                if ((test.TestDay.Hour >= Configuration.MIN_HOUR && test.TestDay.Hour < Configuration.MAX_HOUR) || (int)test.TestDay.DayOfWeek <= Configuration.THURSDAY) 
-                {
-                    test.IdTester = (TestersCollection()).Find(T => T.WorkTable[test.TestDay.Hour - Configuration.MIN_HOUR, (int)test.TestDay.DayOfWeek]).Id;
-                }
-                else
-                {
-                    throw new ArgumentNullException();
-                }
-            }
-            catch (ArgumentNullException)
-            {
-                throw new Exception("There is'nt tester that free");
-            }*/
-
-            IEnumerable<Tester> testers = TestersCollection();
+            // Leaving only the testers who work on that date
             testers = from item in testers where item.WorkTable[test.TestDay.Hour - Configuration.MIN_HOUR, (int)test.TestDay.DayOfWeek] select item;
 
+            //Leaving only the testers who dont have another test on this hour
+            testers = from tester in testers
+                      where (TestsCollection()).Exists(T => (tester.Id == T.IdTester &&  T.TestTime==test.TestTime ) )
+                      select tester;
+
+            //Leaving only the testers who did not exceed the maximum number of tests that week
             testers = from tester in testers
                       let id = tester.Id
-                      where tester.MaxTests > (TestsCollection()).Count(tst => id == tst.IdTester) select tester;
+                      where tester.MaxTests > tests.Count(delegate (Test tst) { if (id == tst.IdTester && DatesAreInTheSameWeek(test.TestDay ,tst.TestDay)) return true; return false; } )select tester;
+            
+            //Leaving only the testers who test on the same type of car.
+            testers = from tester in testers where tester.TypeOfCar == trainee.TypeOfCar select tester;
+            //Leaving only the testers who dont have another test on the same hour
+            
 
 
             MyDal.AddTest(test);
@@ -114,6 +110,14 @@ namespace BL
             throw new NotImplementedException();
         }
 
+        private bool DatesAreInTheSameWeek(DateTime date1, DateTime date2)
+        {
+            var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
+            var d1 = date1.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date1));
+            var d2 = date2.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date2));
+
+            return d1 == d2;
+        }
         public static bool IdCheck(string id)
         {
             if (id == null)
