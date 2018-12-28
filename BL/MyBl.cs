@@ -59,6 +59,8 @@ namespace BL
 
         public void AddTester(Tester tester)
         {
+            if((TestersCollection()).Exists(T =>T.Id==tester.Id ))
+                throw new Exception("this tester doesnt exist");
             if (tester.Age < Configuration.MIN_AGE_TESTER)
             {
                 throw new Exception("You are too younger");
