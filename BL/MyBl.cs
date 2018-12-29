@@ -11,30 +11,62 @@ namespace BL
     {
         private DAL.Idal MyDal = FactoryDal.getDal();
 
+        private bool IsHeFree(Tester item, DateTime time)
+        {
+            if ((int)time.DayOfWeek > Configuration.THURSDAY || (time.Hour > Configuration.MIN_HOUR && time.Hour < Configuration.MAX_HOUR))
+            {
+                return false;
+            }
+            if (!item.WorkTable[time.Hour, (int)time.DayOfWeek])
+            {
+                return false;
+            }
+            if (!TestsCollection().TrueForAll(T => (T.IdTester != item.Id) || (T.TestDay != time)))
+            {
+                return false;
+            }
+            return true;
+        }
+        private Test LastTest(Trainee trainee)
+        {
+            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id);
+            Test temp = tests.First<Test>();
+            foreach (Test item in tests)
+            {
+                if (temp.TestDay < item.TestDay)
+                {
+                    temp = item;
+                }
+            }
+            return temp;
+        }
+
         public void AddTest(Test test)
         {
-            var StudentTests = from item in TestsCollection() where (test.IdTrainee == item.IdTrainee) select item;
             
             IEnumerable<Tester> testers = TestersCollection();
             IEnumerable<Test> tests = TestsCollection();
             
+            var StudentTests = from item in tests where (test.IdTrainee == item.IdTrainee) select item;
             var Trainee = from item in TraineesCollection() where (test.IdTrainee == item.Id) select item;
+            if (Trainee==null)
+            {
+                throw new Exception("this trainee doesnt exist");
+            }
             Trainee trainee = Trainee.First();
             foreach (Test item in StudentTests)
-                if (trainee.TypeOfCar == item.TypeOfCar && item.Grade == Grade.fail)
+                if (trainee.TypeOfCar == item.TypeOfCar && item.Grade == Grade.pass)
                     throw new Exception("the trainee is already past the test on this type of car");
 
-            Test PreTest = Test.GetTestTemp(new DateTime(trainee.DOB.Year, trainee.DOB.Month, trainee.DOB.Day));
-            foreach (var item in StudentTests)
-                if (PreTest.TestDay < item.TestDay)
-                    PreTest = item;
+            Test PreTest = LastTest(trainee);
             
             if ((test.TestDay - PreTest.TestDay).Days < Configuration.RANGE_BETWEEN_TESTS)
                 throw new Exception("it's too early to take a new test");
             
             if (trainee.DLessonPast < Configuration.MIN_NUMBER_OF_LESSONS)
                 throw new Exception("You need to do "+(Configuration.MIN_NUMBER_OF_LESSONS - trainee.DLessonPast)+" lessons");
-
+            
+            /*
             // Leaving only the testers who work on that date
             testers = from item in testers where item.WorkTable[test.TestDay.Hour - Configuration.MIN_HOUR, (int)test.TestDay.DayOfWeek] select item;
 
@@ -51,7 +83,7 @@ namespace BL
             //Leaving only the testers who test on the same type of car.
             testers = from tester in testers where tester.TypeOfCar == trainee.TypeOfCar select tester;
             //Leaving only the testers who dont have another test on the same hour
-            
+            */
 
 
             MyDal.AddTest(test);
@@ -60,7 +92,7 @@ namespace BL
         public void AddTester(Tester tester)
         {
             if((TestersCollection()).Exists(T =>T.Id==tester.Id ))
-                throw new Exception("this tester doesnt exist");
+                throw new Exception("this tester exist");
             if (tester.Age < Configuration.MIN_AGE_TESTER)
             {
                 throw new Exception("You are too younger");
@@ -112,7 +144,41 @@ namespace BL
         {
             throw new NotImplementedException();
         }
-
+        //the functions
+        public IEnumerable<Tester> DistanseFromAdress(Address adress)
+        {
+            Random r = new Random();
+            return from item in TestersCollection() where (r.Next(Configuration.DISTANCE+10)<Configuration.DISTANCE) select item;
+        }
+        public IEnumerable<Tester> IsFree(DateTime time)
+        {
+            return from item in TestersCollection() where (IsHeFree(item,time)) select item;
+        }
+        public IEnumerable<Test> AllTestsBy(Predicate<Test> func)
+        {
+            return from item in TestsCollection() where (func(item)) select item;
+        }
+        public int NumOfTraineesTests(Trainee trainee)
+        {
+            return AllTestsBy(T=>T.IdTrainee==trainee.Id).Count<Test>();
+        }
+        public bool IsAllowed(Trainee trainee)
+        {
+            Test test=LastTest(trainee);
+            if (test.Grade == Grade.fail)
+                return false;
+            return true;
+        }
+        public List<Test> ListByDay()
+        {
+            List<Test> testsByDay = new List<Test>();
+            foreach (Test item in TestsCollection())
+            {
+                testsByDay.Add(new Test(item));
+            }
+            return new List<Test>(testsByDay.OrderBy<Test, DateTime>(T=>T.TestDay));
+        }
+        //...
         private bool DatesAreInTheSameWeek(DateTime date1, DateTime date2)
         {
             var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
@@ -120,35 +186,6 @@ namespace BL
             var d2 = date2.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date2));
 
             return d1 == d2;
-        }
-        private bool IsHeFree(Tester item, DateTime time)
-        {
-            if ((int)time.DayOfWeek > Configuration.THURSDAY||(time.Hour>Configuration.MIN_HOUR&&time.Hour<Configuration.MAX_HOUR))
-            {
-                return false;
-            }
-            if (!item.WorkTable[time.Hour,(int)time.DayOfWeek])
-            {
-                return false;
-            }
-            if (!TestsCollection().TrueForAll(T => (T.IdTester != item.Id)||(T.TestDay!=time)))
-            {
-                return false;
-            }
-            return true;
-        }
-        private Test LastTest(Trainee trainee)
-        {
-            var tests=AllTestsBy(T=>T.IdTrainee==trainee.Id);
-            Test temp = tests.First<Test>();
-            foreach (Test item in tests)
-            {
-                if (temp.TestDay < item.TestDay)
-                {
-                    temp = item;
-                }
-            }
-            return temp;
         }
         public static bool IdCheck(string id)
         {
@@ -224,8 +261,8 @@ namespace BL
         public static void CheckTest(Test test)
         {
             /*
-             לבדוק שהשעה נמצאת בתחום הנכון של הטסטרים
-
+             (??)לבדוק שהשעה נמצאת בתחום הנכון של הטסטרים
+לבדוק שתאריך המבחן גדול מהתאריך של עכשיו           
             TestDay = test.TestDay;
             TestAddress = test.TestAddress;
             Grade = test.Grade;
@@ -241,39 +278,6 @@ namespace BL
             TypeOfCar = test.TypeOfCar;
             
             */
-        }
-        public IEnumerable<Tester> DistanseFromAdress(Address adress)
-        {
-            Random r = new Random();
-            return from item in TestersCollection() where (r.Next(Configuration.DISTANCE+10)<Configuration.DISTANCE) select item;
-        }
-        public IEnumerable<Tester> IsFree(DateTime time)
-        {
-            return from item in TestersCollection() where (IsHeFree(item,time)) select item;
-        }
-        public IEnumerable<Test> AllTestsBy(Predicate<Test> func)
-        {
-            return from item in TestsCollection() where (func(item)) select item;
-        }
-        public int AllTraineesTests(Trainee trainee)
-        {
-            return AllTestsBy(T=>T.IdTrainee==trainee.Id).Count<Test>();
-        }
-        public bool IsAllowed(Trainee trainee)
-        {
-            Test test=LastTest(trainee);
-            if (test.Grade == Grade.fail)
-                return false;
-            return true;
-        }
-        public List<Test> ListByDay()
-        {
-            List<Test> testsByDay = new List<Test>();
-            foreach (Test item in TestsCollection())
-            {
-                testsByDay.Add(new Test(item));
-            }
-            return new List<Test>(testsByDay.OrderBy<Test, DateTime>(T=>T.TestDay));
         }
     } 
 }

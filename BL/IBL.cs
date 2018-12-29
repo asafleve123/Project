@@ -25,5 +25,12 @@ namespace BL
         List<Tester> TestersCollection();
         List<Trainee> TraineesCollection();
         List<Test> TestsCollection();
+        //the functions
+        IEnumerable<Tester> DistanseFromAdress(Address adress);
+        IEnumerable<Tester> IsFree(DateTime time);
+        IEnumerable<Test> AllTestsBy(Predicate<Test> func);
+        int NumOfTraineesTests(Trainee trainee);
+        bool IsAllowed(Trainee trainee);
+        List<Test> ListByDay();
     }
 }
