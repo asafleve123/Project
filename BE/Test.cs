@@ -18,6 +18,7 @@ namespace BE
         public Address TestAddress { get; set; }
         public Grade Grade { get; set; }
         public string Comments { get; set; }
+        public Car TypeOfCar { get; set; }
         //functions
         public override string ToString()
         {

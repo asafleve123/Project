@@ -17,5 +17,6 @@ namespace BE
         public static int MIN_HOUR = 9;
         public static int MAX_HOUR = 15;
         public static int THURSDAY = 5;
+        public static int HOURS = MAX_HOUR - MIN_HOUR;
     }
 }
