@@ -8,7 +8,6 @@ namespace BE
 {
     public class Configuration
     {
-        public static int MinLessons;
         public static int num = 0;
         public static int MIN_AGE_TESTER = 40;
         public static int MIN_AGE_TRAINEE = 18;
@@ -18,5 +17,6 @@ namespace BE
         public static int MAX_HOUR = 15;
         public static int THURSDAY = 5;
         public static int HOURS = MAX_HOUR - MIN_HOUR;
+        public static int DISTANCE = 10;
     }
 }

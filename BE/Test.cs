@@ -75,6 +75,7 @@ namespace BE
             {
                 criterions.Add(item);
             }
+            TypeOfCar = test.TypeOfCar;
         }
     }
 }

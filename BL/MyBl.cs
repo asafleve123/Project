@@ -121,6 +121,35 @@ namespace BL
 
             return d1 == d2;
         }
+        private bool IsHeFree(Tester item, DateTime time)
+        {
+            if ((int)time.DayOfWeek > Configuration.THURSDAY||(time.Hour>Configuration.MIN_HOUR&&time.Hour<Configuration.MAX_HOUR))
+            {
+                return false;
+            }
+            if (!item.WorkTable[time.Hour,(int)time.DayOfWeek])
+            {
+                return false;
+            }
+            if (!TestsCollection().TrueForAll(T => (T.IdTester != item.Id)||(T.TestDay!=time)))
+            {
+                return false;
+            }
+            return true;
+        }
+        private Test LastTest(Trainee trainee)
+        {
+            var tests=AllTestsBy(T=>T.IdTrainee==trainee.Id);
+            Test temp = tests.First<Test>();
+            foreach (Test item in tests)
+            {
+                if (temp.TestDay < item.TestDay)
+                {
+                    temp = item;
+                }
+            }
+            return temp;
+        }
         public static bool IdCheck(string id)
         {
             if (id == null)
@@ -196,6 +225,7 @@ namespace BL
         {
             /*
              לבדוק שהשעה נמצאת בתחום הנכון של הטסטרים
+
             TestDay = test.TestDay;
             TestAddress = test.TestAddress;
             Grade = test.Grade;
@@ -203,9 +233,47 @@ namespace BL
             IdTester = string.Copy(test.IdTester);
             IdTrainee = string.Copy(test.IdTrainee);
             TestTime = string.Copy(test.TestTime);
-            test.Comments
+            Comments = string.Copy(test.Comments);
+            foreach (Criterion item in test.criterions)
+            {
+                criterions.Add(item);
+            }
+            TypeOfCar = test.TypeOfCar;
             
             */
         }
-    }
+        public IEnumerable<Tester> DistanseFromAdress(Address adress)
+        {
+            Random r = new Random();
+            return from item in TestersCollection() where (r.Next(Configuration.DISTANCE+10)<Configuration.DISTANCE) select item;
+        }
+        public IEnumerable<Tester> IsFree(DateTime time)
+        {
+            return from item in TestersCollection() where (IsHeFree(item,time)) select item;
+        }
+        public IEnumerable<Test> AllTestsBy(Predicate<Test> func)
+        {
+            return from item in TestsCollection() where (func(item)) select item;
+        }
+        public int AllTraineesTests(Trainee trainee)
+        {
+            return AllTestsBy(T=>T.IdTrainee==trainee.Id).Count<Test>();
+        }
+        public bool IsAllowed(Trainee trainee)
+        {
+            Test test=LastTest(trainee);
+            if (test.Grade == Grade.fail)
+                return false;
+            return true;
+        }
+        public List<Test> ListByDay()
+        {
+            List<Test> testsByDay = new List<Test>();
+            foreach (Test item in TestsCollection())
+            {
+                testsByDay.Add(new Test(item));
+            }
+            return new List<Test>(testsByDay.OrderBy<Test, DateTime>(T=>T.TestDay));
+        }
+    } 
 }
