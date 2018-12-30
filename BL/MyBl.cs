@@ -53,6 +53,7 @@ namespace BL
 
         public void AddTest(Test test)
         {
+            CheckTest(test);
             if (test.TestDay <= DateTime.Now)
             {
                 throw new Exception("Wrong date!");
@@ -95,6 +96,7 @@ namespace BL
 
         public void AddTester(Tester tester)
         {
+            CheckTester(tester);
             if((TestersCollection()).Exists(T =>T.Id==tester.Id ))
                 throw new Exception("this tester exist");
             if (tester.Age < Configuration.MIN_AGE_TESTER)
@@ -106,7 +108,7 @@ namespace BL
         }
         public void AddTrainee(Trainee trainee)
         {
-
+            CheckTrainee(trainee);
             if ((TraineesCollection()).Exists(T => T.Id == trainee.Id))
                 throw new Exception("this trainee exist");
             if (trainee.Age < Configuration.MIN_AGE_TRAINEE)
@@ -149,6 +151,7 @@ namespace BL
 
         public void Update(Test test)
         {
+            CheckTest(test);
             if (test.Grade == null)
             {
                 throw new Exception("you forget to fill the grade");
@@ -157,7 +160,7 @@ namespace BL
         }
         public void UpdateTester(Tester tester)
         {
-
+            CheckTester(tester);
             if (!TestersCollection().Exists(T => tester.Id == T.Id))
             {
                 throw new Exception("there isn't such tester");
@@ -166,6 +169,7 @@ namespace BL
         }
         public void UpdateTrainee(Trainee trainee)
         {
+            CheckTrainee(trainee);
             if (!TraineesCollection().Exists(T => trainee.Id == T.Id))
             {
                 throw new Exception("there isn't such tester");
@@ -203,6 +207,39 @@ namespace BL
         public List<Test> ListByDay()
         {
             return new List<Test>(from item in TestsCollection() where(item.TestDay>=DateTime.Now) orderby item.TestDay   select item);
+        }
+        public IEnumerable<IGrouping<Car, Tester>> ListOfTestersByCar(bool order)
+        {
+            if (order)
+            {
+                return from item in TestersCollection() orderby item.ToString() group item by item.TypeOfCar;
+            }
+            return from item in TestersCollection() group item by item.TypeOfCar;
+        }
+        public IEnumerable<IGrouping<string, Trainee>> ListOfTraineesByTeacher(bool order)
+        {
+            if (order)
+            {
+                return from item in TraineesCollection() orderby item.ToString() group item by item.DrivingTeacher;
+            }
+            return from item in TraineesCollection() group item by item.DrivingTeacher;
+
+        }
+        public IEnumerable<IGrouping<string, Trainee>> ListOfTestersBytTeacher(bool order)
+        {
+            if (order)
+            {
+                return from item in TraineesCollection() orderby item.ToString() group item by item.DrivingTeacher;
+            }
+            return from item in TraineesCollection() group item by item.DrivingTeacher;
+        }
+        public IEnumerable<IGrouping<int, Trainee>> ListOfTraineesByNumOflessons(bool order)
+        {
+            if (order)
+            {
+                return from item in TraineesCollection() orderby item.ToString() group item by item.DLessonPast;
+            }
+            return from item in TraineesCollection() group item by item.DLessonPast;
         }
         //...
         public static bool IdCheck(string id)
@@ -293,7 +330,7 @@ namespace BL
                 throw new Exception("wrong test time");
             if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
                  throw new Exception("the dates arent same");
-            if (!IdCheck(test.IdTester))
+            if ((test.IdTester != null)&&!IdCheck(test.IdTester))
                  throw new Exception("Wrong id tester!");
             if (!IdCheck(test.IdTrainee))
                  throw new Exception("Wrong id trainee!");
