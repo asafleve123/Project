@@ -7,7 +7,7 @@ using BE;
 
 namespace BL
 {
-    interface IBL
+    public interface IBL
     {
         //Tester
         void AddTester(Tester tester);

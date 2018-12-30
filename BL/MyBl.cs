@@ -10,10 +10,10 @@ namespace BL
     public class MyBl : IBL
     {
         private DAL.Idal MyDal = FactoryDal.getDal();
-
+        
         private bool IsHeFree(Tester item, DateTime time)
         {
-            if ((int)time.DayOfWeek > Configuration.THURSDAY || (time.Hour > Configuration.MIN_HOUR && time.Hour < Configuration.MAX_HOUR))
+            if ((int)time.DayOfWeek > Configuration.THURSDAY || (time.Hour < Configuration.MIN_HOUR || time.Hour > Configuration.MAX_HOUR))
             {
                 return false;
             }
@@ -39,6 +39,14 @@ namespace BL
                 }
             }
             return temp;
+        }
+        private bool DatesAreInTheSameWeek(DateTime date1, DateTime date2)
+        {
+            var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
+            var d1 = date1.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date1));
+            var d2 = date2.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date2));
+
+            return d1 == d2;
         }
 
         public void AddTest(Test test)
@@ -179,14 +187,6 @@ namespace BL
             return new List<Test>(testsByDay.OrderBy<Test, DateTime>(T=>T.TestDay));
         }
         //...
-        private bool DatesAreInTheSameWeek(DateTime date1, DateTime date2)
-        {
-            var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
-            var d1 = date1.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date1));
-            var d2 = date2.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date2));
-
-            return d1 == d2;
-        }
         public static bool IdCheck(string id)
         {
             if (id == null)

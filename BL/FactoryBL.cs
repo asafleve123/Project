@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace BL
 {
-    public class FactoryDal
+    public class FactoryBL
     {
-        static Idal instance =null;
-        public static Idal getDal()
+        static IBL instance = null;
+        public static IBL getBl()
         {
             if (instance == null)
-                instance = new Dal_imp();
+                instance = new MyBl();
             return instance;
         }
     }
