@@ -8,13 +8,14 @@ namespace BE
 {
     public struct Address
     {
-        string Street;
-        int NumOfHome;
-        string City;
+       public string Street;
+       public int NumOfHome;
+       public string City;
     }
     public struct Criterion
     {
-        string name;
-        Grade grade;
+        
+       public string name;
+       public Grade grade;
     }
 }

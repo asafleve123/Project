@@ -16,9 +16,10 @@ namespace BE
         public string TestTime { get; set; }
         public DateTime TestDay { get; set; }
         public Address TestAddress { get; set; }
-        public Grade Grade { get; set; }
+        public Grade? Grade { get; set; }
         public string Comments { get; set; }
         public Car TypeOfCar { get; set; }
+        public List<Criterion> Criterions { get=>criterions; set=>criterions=value; }
         //functions
         public override string ToString()
         {
@@ -31,10 +32,6 @@ namespace BE
         public void RemoveCretrion(Criterion item)
         {
             criterions.Remove(item);
-        }
-        public static Test GetTestTemp(DateTime date)
-        {
-            return new Test(date);
         }
         public int CompareTo(object obj)
         {
@@ -52,10 +49,7 @@ namespace BE
             TestDay = date;
             TestAddress = ATestAdress;
             Comments = null;
-        }
-        private Test(DateTime date)
-        {
-            TestDay = date;
+            Grade = null;
         }
         /// <summary>
         /// copy constructor - ables to copy by value.

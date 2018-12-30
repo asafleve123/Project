@@ -9,7 +9,7 @@ namespace PL
     class Program
     {
         private BL.IBL myBl = FactoryBL.getBl();
-         void Print()
+        static void  Print()
         {
 
             Console.WriteLine("1: add a tester");
@@ -34,22 +34,64 @@ namespace PL
         static void Main(string[] args)
         {
             Print();
-            int input;
-            try
-            {
-             input = int.Parse(Console.ReadLine());
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("please enter only numbers");
-            }
+            int input = 18;
+            bool flag = true;
+            while (flag)
+            {  try
+                {
+                    input = int.Parse(Console.ReadLine());
+                    flag = false;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("please enter only numbers");
+                }
+             }
+          
             while (input != 18)
             {
                 switch (input)
                 {
                     case 1:
+                        Console.WriteLine("enter id:");
+
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        break;
+                    case 8:
+                        break;
+                    case 9:
+                        break;
+                    case 10:
+                        break;
+                    case 11:
+                        break;
+                    case 12:
+                        break;
+                    case 13:
+                        break;
+                    case 14:
+                        break;
+                    case 15:
+                        break;
+                    case 16:
+                        break;
+                    case 17:
+                        break;
+
                 }
             }
+            Console.WriteLine("good bye");
         }
     }
 }
