@@ -29,15 +29,12 @@ namespace BL
         }
         private Test LastTest(Trainee trainee)
         {
-            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id);
+            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id &&T.TypeOfCar==trainee.TypeOfCar);
             Test temp = tests.First<Test>();
             foreach (Test item in tests)
-            {
                 if (temp.TestDay < item.TestDay)
-                {
                     temp = item;
-                }
-            }
+
             return temp;
         }
         private bool DatesAreInTheSameWeek(DateTime date1, DateTime date2)
@@ -127,7 +124,7 @@ namespace BL
 
         public List<Tester> TestersCollection()
         {
-            throw new NotImplementedException();
+            return MyDal.TestersCollection();
         }
         public List<Test> TestsCollection()
         {
@@ -261,7 +258,7 @@ namespace BL
         public static void CheckTest(Test test)
         {
             /*
-             (??)לבדוק שהשעה נמצאת בתחום הנכון של הטסטרים
+            
 לבדוק שתאריך המבחן גדול מהתאריך של עכשיו           
             TestDay = test.TestDay;
             TestAddress = test.TestAddress;

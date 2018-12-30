@@ -9,7 +9,7 @@ namespace PL
     class Program
     {
         private BL.IBL myBl = FactoryBL.getBl();
-         void Print()
+        static void Print()
         {
 
             Console.WriteLine("1: add a tester");
