@@ -293,12 +293,12 @@ namespace BL
                 throw new Exception("wrong test time");
             if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
                  throw new Exception("the dates arent same");
-            if (!IdCheck(test.IdTester)||!test.IdTester.All(char.IsDigit))
+            if (!IdCheck(test.IdTester))
                  throw new Exception("Wrong id tester!");
-            if (!IdCheck(test.IdTrainee)|| !test.IdTrainee.All(char.IsDigit))
+            if (!IdCheck(test.IdTrainee))
                  throw new Exception("Wrong id trainee!");
             if (!test.TestAddress.Street.All(char.IsLetter))
-                throw new Exception("Wrong  street name!");
+                throw new Exception("Wrong street name!");
             
             if (!test.TestAddress.City.All(char.IsLetter))
                  throw new Exception("Wrong city name!");

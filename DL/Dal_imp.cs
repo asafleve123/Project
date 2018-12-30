@@ -161,5 +161,85 @@ namespace DAL
 
             return (count % 10 == 0);
         }
+        public static void CheckTrainee(Trainee trainee)
+        {
+            if (!IdCheck(trainee.Id))
+                throw new Exception("the ID of the trainee isn't good");
+
+            if (!trainee.PrivateName.All(Char.IsLetter))
+                throw new Exception("the Private Name of the trainee isn't good");
+
+            if (!trainee.FamilyName.All(Char.IsLetter))
+                throw new Exception("the Family Name of the trainee isn't good");
+
+            if (!trainee.DrivingSchool.All(Char.IsLetter))
+                throw new Exception("the Driving School Name isn't good");
+
+            if (!trainee.DrivingTeacher.All(Char.IsLetter))
+                throw new Exception("the Driving Teacher Name isn't good");
+
+            if (trainee.Phone.Length != 10 || !trainee.Phone.All(Char.IsDigit))
+                throw new Exception("the Phone Number of the trainee isn't good");
+
+            if (trainee.DLessonPast < 0)
+                throw new Exception("the number of lesson cant be a negative number");
+            if (!trainee.Address.Street.All(char.IsLetter))
+                throw new Exception("Wrong  street name!");
+
+            if (!trainee.Address.City.All(char.IsLetter))
+                throw new Exception("Wrong city name!");
+        }
+        public static void CheckTester(Tester tester)
+        {
+            if (!IdCheck(tester.Id))
+                throw new Exception("the ID of the trainee isn't good");
+
+            if (!tester.PrivateName.All(Char.IsLetter))
+                throw new Exception("the Private Name of the tester isn't good");
+
+            if (!tester.FamilyName.All(Char.IsLetter))
+                throw new Exception("the Family Name of the tester isn't good");
+
+            if (tester.Phone.Length != 10 || !tester.Phone.All(Char.IsDigit))
+                throw new Exception("the Phone Number of the tester isn't good");
+
+            if (tester.MaxTests < 0)
+                throw new Exception("the maximum of tests in a week cant be negative number");
+
+            if (tester.MaxRange < 0)
+                throw new Exception("the Max Range cant be  a negative number");
+
+            if (tester.Years < 0)
+                throw new Exception("the Years of experience cant be  a negative number");
+
+            if (!tester.Address.Street.All(char.IsLetter))
+                throw new Exception("Wrong  street name!");
+
+            if (!tester.Address.City.All(char.IsLetter))
+                throw new Exception("Wrong city name!");
+        }
+        public static void CheckTest(Test test)
+        {
+            if (test.TestTime.All(char.IsLetter))
+                throw new Exception("wrong test time");
+            if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
+                throw new Exception("the dates arent same");
+            if (!IdCheck(test.IdTester))
+                throw new Exception("Wrong id tester!");
+            if (!IdCheck(test.IdTrainee))
+                throw new Exception("Wrong id trainee!");
+            if (!test.TestAddress.Street.All(char.IsLetter))
+                throw new Exception("Wrong street name!");
+
+            if (!test.TestAddress.City.All(char.IsLetter))
+                throw new Exception("Wrong city name!");
+            foreach (Criterion item in test.Criterions)
+            {
+                if (!item.name.All(char.IsLetter))
+                {
+                    throw new Exception("wrong Criterion " + item.name + "!");
+                }
+            }
+        }
     }
 }
