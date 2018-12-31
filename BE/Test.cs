@@ -50,6 +50,7 @@ namespace BE
             TestAddress = ATestAdress;
             Comments = null;
             Grade = null;
+            TypeOfCar = student.TypeOfCar;
         }
         /// <summary>
         /// copy constructor - ables to copy by value.
@@ -60,10 +61,15 @@ namespace BE
             TestDay = test.TestDay;
             TestAddress = test.TestAddress;
             Grade = test.Grade;
+            if (test.NumTest != null)
             NumTest = string.Copy(test.NumTest);
+            if(test.IdTester!=null)
             IdTester = string.Copy(test.IdTester);
+            if(test.IdTrainee!=null)
             IdTrainee = string.Copy(test.IdTrainee);
-            TestTime = string.Copy(test.TestTime);
+            if (test.TestTime != null)
+                TestTime = string.Copy(test.TestTime);
+            if(test.Comments!=null)
             Comments = string.Copy(test.Comments);
             foreach (Criterion item in test.criterions)
             {

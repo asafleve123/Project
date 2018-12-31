@@ -80,7 +80,7 @@ namespace BL
 
         IEnumerable<IGrouping<Car, Tester>> ListOfTestersByCar(bool order);
         IEnumerable<IGrouping<string, Trainee>> ListOfTraineesByTeacher(bool order);
-        IEnumerable<IGrouping<string, Trainee>> ListOfTestersBytTeacher(bool order);
+        IEnumerable<IGrouping<string, Trainee>> ListOfTraineesByDTeacher(bool order);
         IEnumerable<IGrouping<int, Trainee>> ListOfTraineesByNumOfTests(bool order);
     }
 }

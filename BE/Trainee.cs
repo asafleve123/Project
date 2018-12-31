@@ -21,7 +21,6 @@ namespace BE
         public string DrivingSchool { get; set; }
         public string DrivingTeacher { get; set; }
         public int DLessonPast { get; set; }
-        public Nation Mynation { get; set; }
         public int Age { get { return DateTime.Now.Year - DOB.Year; }}
         //...
         //functions
@@ -39,20 +38,24 @@ namespace BE
             Id = id;
         }
 
-        public Trainee(string id, string privateName, string familyName, Gender gender, string phone, Address address, DateTime dOB, Car typeOfCar, Gearbox typeGearBox, string drivingSchool, string drivingTeacher, int dLessonPast, bool criminalRecord, Nation mynation) : this(id)
+        public Trainee(string id, string privateName, string familyName, Gender gender, string phone, Address address, DateTime dOB, Car typeOfCar, Gearbox typeGearBox, string drivingSchool, string drivingTeacher, int dLessonPast, bool criminalRecord) : this(id)
         {
+            if(privateName!=null)
             PrivateName = string.Copy(privateName);
+            if(familyName!=null)
             FamilyName = string.Copy(familyName);
             Gender = gender;
+            if(phone!=null)
             Phone = string.Copy(phone);
             Address = address;
             DOB = dOB;
             TypeOfCar = typeOfCar;
             TypeGearBox = typeGearBox;
+            if(drivingSchool!=null)
             DrivingSchool = string.Copy(drivingSchool);
+            if(drivingTeacher!=null)
             DrivingTeacher = string.Copy(drivingTeacher);
             DLessonPast = dLessonPast;
-            Mynation = mynation;
         }
 
         /// <summary>
@@ -61,20 +64,24 @@ namespace BE
         /// <param name="trainee"></param>
         public Trainee(Trainee trainee)
         {
+            if(trainee.PrivateName!=null)
             PrivateName = string.Copy(trainee.PrivateName);
+            if(trainee.Id!=null)
             Id = string.Copy(trainee.Id);
+            if(trainee.FamilyName!=null)
             FamilyName = string.Copy(trainee.FamilyName);
+            if(trainee.Phone!=null)
             Phone = string.Copy(trainee.Phone);
+            if(trainee.DrivingSchool != null)
             DrivingSchool = string.Copy(trainee.DrivingSchool);
-            DrivingTeacher = string.Copy(trainee.DrivingTeacher);
+            if (trainee.DrivingSchool != null)
+                DrivingTeacher = string.Copy(trainee.DrivingTeacher);
             DLessonPast = trainee.DLessonPast;
             Gender = trainee.Gender;
             Address = trainee.Address;
             DOB = trainee.DOB;
             TypeOfCar = trainee.TypeOfCar;
             TypeGearBox = trainee.TypeGearBox;
-            Mynation = trainee.Mynation;
-           
         }
 
     }
