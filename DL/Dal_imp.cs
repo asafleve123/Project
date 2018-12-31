@@ -18,7 +18,7 @@ namespace DAL
             CheckTest(test);
             Test temp = new Test(test)
             {
-                NumTest = (Configuration.num).ToString("00000000")
+                NumTest = (Configuration.num++).ToString("00000000")
             };
             DataSource.tests.Add(temp);
         }

@@ -19,7 +19,7 @@ namespace BL
         {
             if ((int)time.DayOfWeek > Configuration.THURSDAY || (time.Hour < Configuration.MIN_HOUR || time.Hour > Configuration.MAX_HOUR))
                 return false;
-            if (!item.WorkTable[time.Hour, (int)time.DayOfWeek])
+            if (!item.WorkTable[time.Hour-Configuration.MIN_HOUR, (int)time.DayOfWeek])
                 return false;
             if (item.MaxTests <=NumOfTestsByDays(item,time))
                 return false;
@@ -82,7 +82,7 @@ namespace BL
             var testers=IsFree(test.TestDay);
             if (testers == null)
             {
-                throw new Exception("there isnt tester free in that date");
+                throw new Exception(test+":there isnt tester free in that date");
             }
             test.IdTester = testers.First().Id;
         }
@@ -128,10 +128,10 @@ namespace BL
             if (trainee.DLessonPast < Configuration.MIN_NUMBER_OF_LESSONS)
                 throw new Exception("You need to do "+(Configuration.MIN_NUMBER_OF_LESSONS - trainee.DLessonPast)+" lessons");
 
-            // Leaving only the testers who work on that date
+            //Leaving only the testers who work on that date
             List<Tester> testersList = new List<Tester>(IsFree(test.TestDay));
-            testersList.RemoveAll(T=>T.TypeOfCar!=test.TypeOfCar);
-            if (testersList.Count()==0)
+            testersList.RemoveAll(T => T.TypeOfCar != test.TypeOfCar);
+            if (testersList.Count() == 0)
             {
                 throw new Exception("there isn't any tester on this date");
             }
