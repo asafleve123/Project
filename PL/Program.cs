@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BL;
+using BE;
 namespace PL
 {
     class Program
     {
+        #region the past...
+        /*
         private BL.IBL myBl = FactoryBL.getBl();
         static void Print()
         {
@@ -93,5 +96,20 @@ namespace PL
             }
             Console.WriteLine("good bye");
         }
+        */
+        #endregion
+        bool[,] worktable = new bool[6, 5]
+           {
+                { true, true, true, true, true},
+                { true, true, true, true, true},
+                { true, true, true, true, true},
+                { true, true, true, true, true},
+                { true, true, true, true, true},
+                { true, true, true, true, true},
+           };
+        Tester tester1 = new Tester("212384507", "Levi", "Asaf", new DateTime(1990, 2, 2), Gender.Male, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = 11 }, 19, 20, Car.PrivateCar, worktable, 10),
+               tester2 = new Tester("323947747", "Garber", "Shmuel", new DateTime(1980, 5, 10), Gender.Male, "0503363230", new Address { }, 19, 20, Car.PrivateCar, worktable, 10);
+        Trainee trainee1 = new Trainee("058371246", "Renana", "Levi", Gender.Female, "123456789", new Address(), new DateTime(), Car.PrivateCar, Gearbox.automatic, ),
+             trainee2 = new Trainee();
     }
 }

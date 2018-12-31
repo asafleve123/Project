@@ -21,7 +21,6 @@ namespace BE
         public string DrivingSchool { get; set; }
         public string DrivingTeacher { get; set; }
         public int DLessonPast { get; set; }
-        public bool CriminalRecord { get; set; }
         public Nation Mynation { get; set; }
         public int Age { get { return DateTime.Now.Year - DOB.Year; }}
         //...
@@ -53,7 +52,6 @@ namespace BE
             DrivingSchool = string.Copy(drivingSchool);
             DrivingTeacher = string.Copy(drivingTeacher);
             DLessonPast = dLessonPast;
-            CriminalRecord = criminalRecord;
             Mynation = mynation;
         }
 
@@ -75,7 +73,6 @@ namespace BE
             DOB = trainee.DOB;
             TypeOfCar = trainee.TypeOfCar;
             TypeGearBox = trainee.TypeGearBox;
-            CriminalRecord = trainee.CriminalRecord;
             Mynation = trainee.Mynation;
            
         }

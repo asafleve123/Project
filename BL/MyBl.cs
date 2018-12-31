@@ -230,7 +230,7 @@ namespace BL
             }
             return from item in TraineesCollection() group item by item.DrivingTeacher;
         }
-        public IEnumerable<IGrouping<int, Trainee>> ListOfTraineesByNumOflessons(bool order)
+        public IEnumerable<IGrouping<int, Trainee>> ListOfTraineesByNumOfTests(bool order)
         {
             if (order)
             {
