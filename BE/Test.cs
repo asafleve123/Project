@@ -41,9 +41,9 @@ namespace BE
         /// <summary>
         /// Constructors
         /// </summary>
-        public Test(Tester teacher, Trainee student, DateTime date, Address ATestAdress)
+        public Test( Trainee student, DateTime date, Address ATestAdress)
         {
-            IdTester = teacher.Id;
+            IdTester = null;
             IdTrainee = student.Id;
             TestTime = date.Day + "/" + date.Month + "/" + date.Year;
             TestDay = date;

@@ -9,22 +9,32 @@ namespace DAL
 {
     class Dal_imp : Idal
     {
+        /// <summary>
+        /// Func that add a test to  the system
+        /// </summary>
+        /// <param name="test"></param>
         public void AddTest(Test test)
         {
+            CheckTest(test);
             Test temp = new Test(test)
             {
                 NumTest = (Configuration.num).ToString("00000000")
             };
             DataSource.tests.Add(temp);
         }
-
+        /// <summary>
+        /// Func that add a test to the system
+        /// </summary>
+        /// <param name="tester"></param>
         public void AddTester(Tester tester)
         {
+           
+            CheckTester(tester);
             Tester temp = new Tester(tester);
             try
             {
                 DataSource.testers.Exists(T => T.CompareTo(temp) == 0);
-                //throw new Exception("This tester already exist");
+                throw new Exception("This tester already exist");
             }
             catch (ArgumentNullException)
             {
@@ -32,19 +42,29 @@ namespace DAL
             }
             
         }
+        /// <summary>
+        /// func that add a trainee to the system.
+        /// </summary>
+        /// <param name="trainee"></param>
         public void AddTrainee(Trainee trainee)
         {
+            CheckTrainee(trainee);
             Trainee temp = new Trainee(trainee);
             try
             {
                 DataSource.trainees.Exists(T => T.CompareTo(temp) == 0);
-                //throw new Exception("This Trainee already exist");
+                throw new Exception("This Trainee already exist");
             }
             catch (ArgumentNullException)
             {
                 DataSource.trainees.Add(temp);
             }
         }
+        
+        /// <summary>
+        /// func that delete a tester from the tester
+        /// </summary>
+        /// <param name="tester"></param>
         public void DeleteTester(Tester tester)
         {
             try
@@ -56,6 +76,10 @@ namespace DAL
                 throw new ArgumentNullException("The tester isn't found", e);
             }
         }
+        /// <summary>
+        /// Delete a Trainee from the system
+        /// </summary>
+        /// <param name="trainee"></param>
         public void DeleteTrainee(Trainee trainee)
         {
             try
@@ -68,28 +92,26 @@ namespace DAL
             }
         }
 
+        /// <summary>
+        /// Func that return the Testers 
+        /// </summary>
+        /// <returns></returns>
         public List<Tester> TestersCollection()
         {
             return (List<Tester>)from item in DataSource.testers select new Tester(item);
-            /*List<Tester> Temp = new List<Tester>();
-            for (int i = 0; i < DataSource.testers.Count; i++)
-            {
-                Temp.Add(new Tester(DataSource.testers[i]));
-            }
-            return Temp;*/
         }
-
+        /// <summary>
+        /// Func that return the Tests
+        /// </summary>
+        /// <returns></returns>
         public List<Test> TestsCollection()
         {
             return (List<Test>)from item in DataSource.tests select new Test(item);
-            /*List<Test> Temp = new List<Test>();
-            for (int i = 0; i < DataSource.tests.Count; i++)
-            {
-                Temp.Add(new Test(DataSource.tests[i]));
-            }
-            return Temp;*/
         }
-
+        /// <summary>
+        /// func that return the Trainees
+        /// </summary>
+        /// <returns></returns>
         public List<Trainee> TraineesCollection()
         {
             return (List<Trainee>) from item in DataSource.trainees select new Trainee(item);
@@ -101,8 +123,13 @@ namespace DAL
             return (List<Trainee>)newList;*/
         }
 
+        /// <summary>
+        /// Func that update a  test
+        /// </summary>
+        /// <param name="test"></param>
         public void Update(Test test)
         {
+            CheckTest(test);
             try
             {
                 DataSource.tests[DataSource.tests.IndexOf(DataSource.tests.Find(T => T.CompareTo(test) == 0))] = new Test(test);
@@ -112,9 +139,13 @@ namespace DAL
                 throw new ArgumentNullException("This test doesn't exist", e);
             }
         }
-
+        /// <summary>
+        /// func that Update Tester
+        /// </summary>
+        /// <param name="tester"></param>
         public void UpdateTester(Tester tester)
         {
+            CheckTester(tester);
             try
             {
                 DataSource.testers[DataSource.testers.IndexOf(DataSource.testers.Find(T => T.CompareTo(tester) == 0))] = new Tester(tester);
@@ -124,9 +155,13 @@ namespace DAL
                 throw new ArgumentNullException("This tester doesn't exist", e);
             }
         }
-
+        /// <summary>
+        /// func thatt Update aTrainee
+        /// </summary>
+        /// <param name="trainee"></param>
         public void UpdateTrainee(Trainee trainee)
         {
+            CheckTrainee(trainee);
             try
             {
                 DataSource.trainees[DataSource.trainees.IndexOf(DataSource.trainees.Find(T => T.CompareTo(trainee) == 0))] = new Trainee(trainee);
@@ -136,6 +171,12 @@ namespace DAL
                 throw new ArgumentNullException("This trainee doesn't exist", e);
             }
         }
+
+        /// <summary>
+        /// func that check if the Id is correct
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static bool IdCheck(string id)
         {
             if (id == null)
@@ -161,6 +202,7 @@ namespace DAL
 
             return (count % 10 == 0);
         }
+        //functions that check the correctness of the paremters enter to the system.
         public static void CheckTrainee(Trainee trainee)
         {
             if (!IdCheck(trainee.Id))
@@ -241,5 +283,6 @@ namespace DAL
                 }
             }
         }
+
     }
 }

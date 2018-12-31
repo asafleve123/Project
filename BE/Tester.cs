@@ -36,7 +36,7 @@ namespace BE
         {
             return Id.CompareTo(((Tester)obj).Id);
         }
-        public Tester(string Id, string FamilyName, string PrivateName, DateTime DOBGender, Gender Gender, string Phone, Address Address, int Years, int MaxTests, Car TypeOfCar, bool[,] WorkTable, int MaxRange, int Age)
+        public Tester(string Id, string FamilyName, string PrivateName, DateTime DOB, Gender Gender, string Phone, Address Address, int Years, int MaxTests, Car TypeOfCar, bool[,] WorkTable, int MaxRange)
         {
             this.Id = Id;
             this.FamilyName = FamilyName;
@@ -84,21 +84,6 @@ namespace BE
             Id = id;
         }
 
-        public Tester(bool[,] worktable, string id, string familyName, string privateName, DateTime dOB, Gender gender, string phone, Address address, int years, int maxTests, Car typeOfCar, bool[,] workTable, int maxRange)
-        {
-            this.worktable = worktable;
-            Id = string.Copy(id);
-            FamilyName = string.Copy(familyName);
-            PrivateName = string.Copy(privateName);
-            DOB = dOB;
-            Gender = gender;
-            Phone = phone;
-            Address = address;
-            Years = years;
-            MaxTests = maxTests;
-            TypeOfCar = typeOfCar;
-            WorkTable = workTable;
-            MaxRange = maxRange;
-        }
+        
     }
 }
