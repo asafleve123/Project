@@ -11,6 +11,7 @@ namespace DAL
     {
         public void AddTest(Test test)
         {
+            CheckTest(test);
             Test temp = new Test(test)
             {
                 NumTest = (Configuration.num).ToString("00000000")
@@ -20,52 +21,37 @@ namespace DAL
 
         public void AddTester(Tester tester)
         {
+            CheckTester(tester);
             Tester temp = new Tester(tester);
-            try
-            {
-                DataSource.testers.Exists(T => T.CompareTo(temp) == 0);
-                //throw new Exception("This tester already exist");
-            }
-            catch (ArgumentNullException)
-            {
+               if( DataSource.testers.Exists(T => T.CompareTo(temp) == 0))
+                    throw new Exception("This tester already exist");
                 DataSource.testers.Add(temp);
-            }
-            
         }
         public void AddTrainee(Trainee trainee)
         {
+            CheckTrainee(trainee);
             Trainee temp = new Trainee(trainee);
-            try
-            {
-                DataSource.trainees.Exists(T => T.CompareTo(temp) == 0);
-                //throw new Exception("This Trainee already exist");
-            }
-            catch (ArgumentNullException)
-            {
+                if(DataSource.trainees.Exists(T => T.CompareTo(temp) == 0))
+                    throw new Exception("This Trainee already exist");
                 DataSource.trainees.Add(temp);
-            }
         }
         public void DeleteTester(Tester tester)
         {
-            try
+            if (!DataSource.testers.Exists(T=>T.CompareTo(tester)==0))
             {
+                throw new Exception("The tester isn't found");
+            }
                 DataSource.testers.Remove(DataSource.testers.Find(T => T.CompareTo(tester) == 0));
-            }
-            catch (ArgumentNullException e)
-            {
-                throw new ArgumentNullException("The tester isn't found", e);
-            }
+            
         }
         public void DeleteTrainee(Trainee trainee)
         {
-            try
+            if (!DataSource.trainees.Exists(T=>T.CompareTo(trainee)==0))
             {
+                throw new Exception("The trainee isn't found");
+            }
                 DataSource.trainees.Remove(DataSource.trainees.Find(T => T.CompareTo(trainee) == 0));
-            }
-            catch (ArgumentNullException e)
-            {
-                throw new ArgumentNullException("The trainee isn't found", e);
-            }
+            
         }
 
         public List<Tester> TestersCollection()
@@ -103,38 +89,35 @@ namespace DAL
 
         public void Update(Test test)
         {
-            try
+            CheckTest(test);
+            if (!DataSource.tests.Exists(T => T.CompareTo(test) == 0))
             {
+                throw new Exception("the test isnt exist");
+            }
                 DataSource.tests[DataSource.tests.IndexOf(DataSource.tests.Find(T => T.CompareTo(test) == 0))] = new Test(test);
-            }
-            catch (ArgumentNullException e)
-            {
-                throw new ArgumentNullException("This test doesn't exist", e);
-            }
+            
         }
 
         public void UpdateTester(Tester tester)
         {
-            try
+            CheckTester(tester);
+            if (!DataSource.testers.Exists(T => T.CompareTo(tester) == 0))
             {
-                DataSource.testers[DataSource.testers.IndexOf(DataSource.testers.Find(T => T.CompareTo(tester) == 0))] = new Tester(tester);
+                throw new Exception("This tester doesn't exist");
             }
-            catch (ArgumentNullException e)
-            {
-                throw new ArgumentNullException("This tester doesn't exist", e);
-            }
+            DataSource.testers[DataSource.testers.IndexOf(DataSource.testers.Find(T => T.CompareTo(tester) == 0))] = new Tester(tester);
+           
         }
 
         public void UpdateTrainee(Trainee trainee)
         {
-            try
+            CheckTrainee(trainee);
+            if (!DataSource.trainees.Exists(T => T.CompareTo(trainee) == 0))
             {
-                DataSource.trainees[DataSource.trainees.IndexOf(DataSource.trainees.Find(T => T.CompareTo(trainee) == 0))] = new Trainee(trainee);
+                throw new ArgumentNullException("This trainee doesn't exist");
             }
-            catch (ArgumentNullException e)
-            {
-                throw new ArgumentNullException("This trainee doesn't exist", e);
-            }
+            DataSource.trainees[DataSource.trainees.IndexOf(DataSource.trainees.Find(T => T.CompareTo(trainee) == 0))] = new Trainee(trainee);
+            
         }
         public static bool IdCheck(string id)
         {
