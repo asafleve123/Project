@@ -243,5 +243,9 @@ namespace DAL
                 }
             }
         }
+        public IEnumerable<Tester> testersByName()
+        {
+            return from item in TestersCollection() orderby item.ToString() select new Tester(item);
+        }
     }
 }
