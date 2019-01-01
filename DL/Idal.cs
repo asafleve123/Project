@@ -18,7 +18,7 @@ namespace DAL
         void DeleteTrainee(Trainee trainee);
         void UpdateTrainee(Trainee trainee);
         //Test
-        void AddTest(Test test);
+        string AddTest(Test test);
         void Update(Test test);
         //lists
         List<Tester> TestersCollection();

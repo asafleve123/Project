@@ -20,6 +20,7 @@ namespace BE
         public string Comments { get; set; }
         public Car TypeOfCar { get; set; }
         public List<Criterion> Criterions { get=>criterions; set=>criterions=value; }
+        public bool ChosenTester { get; set; }
         //functions
         public override string ToString()
         {
@@ -51,6 +52,7 @@ namespace BE
             Comments = null;
             Grade = null;
             TypeOfCar = student.TypeOfCar;
+            ChosenTester = false;
         }
         /// <summary>
         /// copy constructor - ables to copy by value.
@@ -76,6 +78,7 @@ namespace BE
                 criterions.Add(item);
             }
             TypeOfCar = test.TypeOfCar;
+            ChosenTester = test.ChosenTester;
         }
     }
 }

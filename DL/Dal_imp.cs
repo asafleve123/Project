@@ -13,7 +13,7 @@ namespace DAL
         /// Func that add a test to  the system
         /// </summary>
         /// <param name="test"></param>
-        public void AddTest(Test test)
+        public string AddTest(Test test)
         {
             CheckTest(test);
             Test temp = new Test(test)
@@ -21,6 +21,7 @@ namespace DAL
                 NumTest = (Configuration.num++).ToString("00000000")
             };
             DataSource.tests.Add(temp);
+            return new Test(temp).NumTest;
         }
         /// <summary>
         /// Func that add a test to the system

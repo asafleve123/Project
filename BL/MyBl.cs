@@ -29,7 +29,7 @@ namespace BL
         }
         private Test LastTest(Trainee trainee)
         {
-            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id &&T.TypeOfCar==trainee.TypeOfCar);
+            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id &&T.TypeOfCar==trainee.TypeOfCar&&T.ChosenTester);
             Test temp;
             try
             {
@@ -79,15 +79,23 @@ namespace BL
         }
         private void FindNewTester(Test test)
         {
-            var testers=IsFree(test.TestDay);
-            if (testers == null)
+            List<Tester> testersList = new List<Tester>(IsFree(test.TestDay));
+            testersList.RemoveAll(T => T.TypeOfCar != test.TypeOfCar);
+            if (testersList.Count() == 0)
             {
+                test.ChosenTester = false;
+                test.Grade = Grade.fail;
+                test.IdTester = null;
+                Update(test);
                 throw new Exception(test+":there isnt tester free in that date");
             }
-            test.IdTester = testers.First().Id;
+            test.IdTester = testersList.First().Id;
         }
-
-        public void AddTest(Test test)
+        private int NumOfFutureTest(Trainee trainee)
+        {
+            return (AllTestsBy(T => T.IdTrainee == trainee.Id).Count() - NumOfTraineesTests(trainee));
+        }
+        public string AddTest(Test test)
         {
             CheckTest(test);
             if (test.TestDay <= DateTime.Now)
@@ -135,8 +143,9 @@ namespace BL
             {
                 throw new Exception("there isn't any tester on this date");
             }
-            test.IdTester = testers.First().Id;
-            MyDal.AddTest(test);
+            test.IdTester = testersList.First().Id;
+            test.ChosenTester = true;
+            return MyDal.AddTest(test);
         }
         public void AddTester(Tester tester)
         {
@@ -149,6 +158,7 @@ namespace BL
             }
             
             MyDal.AddTester(tester);
+            
         }
         public void AddTrainee(Trainee trainee)
         {
@@ -181,6 +191,11 @@ namespace BL
             if (!TraineesCollection().Exists(T => trainee.Id == T.Id))
             {
                 throw new Exception("there isn't such trainee");
+            }
+
+            if (TestsCollection().Exists(T=>T.ChosenTester&&DateTime.Now<T.TestDay&&trainee.Id==T.IdTrainee))
+            {
+                throw new Exception("Can't earse trainee if you have a test");
             }
             MyDal.DeleteTrainee(trainee);
         }
@@ -245,7 +260,7 @@ namespace BL
         }
         public int NumOfTraineesTests(Trainee trainee)
         {
-            return AllTestsBy(T=>T.IdTrainee==trainee.Id).Count<Test>();
+            return AllTestsBy(T=>T.IdTrainee==trainee.Id&&(DateTime.Now>T.TestDay)).Count<Test>();
         }
         public bool IsAllowed(Trainee trainee)
         {
@@ -263,7 +278,7 @@ namespace BL
         }
         public List<Test> ListByDay()
         {
-            return new List<Test>(from item in TestsCollection() where(item.TestDay>=DateTime.Now) orderby item.TestDay   select item);
+            return new List<Test>(from item in TestsCollection() where(item.TestDay>=DateTime.Now&&item.ChosenTester) orderby item.TestDay   select item);
         }
         public IEnumerable<IGrouping<Car, Tester>> ListOfTestersByCar(bool order)
         {
@@ -273,13 +288,13 @@ namespace BL
             }
             return from item in TestersCollection() group item by item.TypeOfCar;
         }
-        public IEnumerable<IGrouping<string, Trainee>> ListOfTraineesByTeacher(bool order)
+        public IEnumerable<IGrouping<string, Trainee>> ListOfTraineesBySchool(bool order)
         {
             if (order)
             {
-                return from item in TraineesCollection() orderby item.ToString() group item by item.DrivingTeacher;
+                return from item in TraineesCollection() orderby item.ToString() group item by item.DrivingSchool;
             }
-            return from item in TraineesCollection() group item by item.DrivingTeacher;
+            return from item in TraineesCollection() group item by item.DrivingSchool;
 
         }
         public IEnumerable<IGrouping<string, Trainee>> ListOfTraineesByDTeacher(bool order)
