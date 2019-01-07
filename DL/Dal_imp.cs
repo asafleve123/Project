@@ -9,10 +9,7 @@ namespace DAL
 {
     class Dal_imp : Idal
     {
-        /// <summary>
-        /// Func that add a test to  the system
-        /// </summary>
-        /// <param name="test"></param>
+        
         public void AddTest(Test test)
         {
             CheckTest(test);
@@ -22,10 +19,7 @@ namespace DAL
             };
             DataSource.tests.Add(temp);
         }
-        /// <summary>
-        /// Func that add a test to the system
-        /// </summary>
-        /// <param name="tester"></param>
+        
         public void AddTester(Tester tester)
         {
             CheckTester(tester);
@@ -61,26 +55,15 @@ namespace DAL
             
         }
 
-        /// <summary>
-        /// Func that return the Testers 
-        /// </summary>
-        /// <returns></returns>
+        
         public List<Tester> TestersCollection()
         {
             return (List<Tester>)from item in DataSource.testers select new Tester(item);
         }
-        /// <summary>
-        /// Func that return the Tests
-        /// </summary>
-        /// <returns></returns>
         public List<Test> TestsCollection()
         {
             return (List<Test>)from item in DataSource.tests select new Test(item);
         }
-        /// <summary>
-        /// func that return the Trainees
-        /// </summary>
-        /// <returns></returns>
         public List<Trainee> TraineesCollection()
         {
             return (List<Trainee>) from item in DataSource.trainees select new Trainee(item);
@@ -92,10 +75,6 @@ namespace DAL
             return (List<Trainee>)newList;*/
         }
 
-        /// <summary>
-        /// Func that update a  test
-        /// </summary>
-        /// <param name="test"></param>
         public void Update(Test test)
         {
             CheckTest(test);
@@ -106,10 +85,6 @@ namespace DAL
                 DataSource.tests[DataSource.tests.IndexOf(DataSource.tests.Find(T => T.CompareTo(test) == 0))] = new Test(test);
             
         }
-        /// <summary>
-        /// func that Update Tester
-        /// </summary>
-        /// <param name="tester"></param>
         public void UpdateTester(Tester tester)
         {
             CheckTester(tester);
@@ -120,10 +95,6 @@ namespace DAL
             DataSource.testers[DataSource.testers.IndexOf(DataSource.testers.Find(T => T.CompareTo(tester) == 0))] = new Tester(tester);
            
         }
-        /// <summary>
-        /// func thatt Update aTrainee
-        /// </summary>
-        /// <param name="trainee"></param>
         public void UpdateTrainee(Trainee trainee)
         {
             CheckTrainee(trainee);
