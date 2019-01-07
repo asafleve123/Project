@@ -1,0 +1,32 @@
+﻿<Window x:Class="PLWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PLWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="auto" Width="auto">
+    <Window.Background>
+        <ImageBrush/>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="16*"/>
+            <RowDefinition Height="84*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock HorizontalAlignment="Center" Height="auto"  Name="TextBlock" Text="מערכת ניהול מבחני נהיגה" Width="800" Foreground="Orange" FontSize="60" TextAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Content="תלמידים" FontSize="60"  VerticalAlignment="center" Width="auto"/>
+            <Button Grid.Row="1" Content="בוחנים" FontSize="60"  VerticalAlignment="center" Width="auto"/>
+            <Button Grid.Row="2" Content="מבחנים" FontSize="60"  VerticalAlignment="center" Width="auto"/>
+        </Grid>
+    </Grid>
+</Window>
