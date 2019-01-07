@@ -50,9 +50,9 @@ namespace PLWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Trainees a = new Trainees();
+            Trainees trainees = new Trainees();
             Close();
-            a.Show();
+            trainees.Show();
         }
     }
 }
