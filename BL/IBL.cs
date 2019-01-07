@@ -48,7 +48,7 @@ namespace BL
         /// func that add a test to the system 
         /// </summary>
         /// <param name="test"></param>
-        void AddTest(Test test);
+        string AddTest(Test test);
         /// <summary>
         /// func that update a test 
         /// </summary>
@@ -79,8 +79,8 @@ namespace BL
         List<Test> ListByDay();
 
         IEnumerable<IGrouping<Car, Tester>> ListOfTestersByCar(bool order);
-        IEnumerable<IGrouping<string, Trainee>> ListOfTraineesByTeacher(bool order);
-        IEnumerable<IGrouping<string, Trainee>> ListOfTestersBytTeacher(bool order);
+        IEnumerable<IGrouping<string, Trainee>> ListOfTraineesBySchool(bool order);
+        IEnumerable<IGrouping<string, Trainee>> ListOfTraineesByDTeacher(bool order);
         IEnumerable<IGrouping<int, Trainee>> ListOfTraineesByNumOfTests(bool order);
     }
 }

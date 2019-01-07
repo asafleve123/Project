@@ -22,7 +22,7 @@ namespace BE
         public Address Address { get; set; }
         public int Years { get; set; }
         public int MaxTests { get; set; }
-        public Car TypeOfCar { get; set; }
+        public Car TypeOfCar { get; private set; }
         public bool[,] WorkTable { get => worktable; set => worktable = value; }
         public int MaxRange { get; set; }
         public int Age { get { return DateTime.Now.Year-DOB.Year; } }
@@ -49,7 +49,7 @@ namespace BE
             this.TypeOfCar = TypeOfCar;
             this.WorkTable = WorkTable;
             this.MaxRange = MaxRange;
-            
+            this.Gender = Gender;
         }
         /// <summary>
         /// copy constructor - ables to copy by value.
@@ -57,11 +57,15 @@ namespace BE
         /// <param name="tester"></param>
         public Tester(Tester tester)
         {
-            Id = string.Copy(tester.Id);
-            FamilyName = string.Copy(tester.FamilyName);
-            PrivateName = string.Copy(tester.PrivateName);
+            if(tester.Id!=null)
+                Id = string.Copy(tester.Id);
+            if (tester.FamilyName != null)
+                FamilyName = string.Copy(tester.FamilyName);
+            if (tester.PrivateName != null)
+                PrivateName = string.Copy(tester.PrivateName);
             DOB = tester.DOB;
             Gender = tester.Gender;
+            if(tester.Phone!=null)
             Phone = string.Copy(tester.Phone);
             Address = tester.Address;
             Years = tester.Years;

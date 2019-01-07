@@ -19,7 +19,7 @@ namespace BL
         {
             if ((int)time.DayOfWeek > Configuration.THURSDAY || (time.Hour < Configuration.MIN_HOUR || time.Hour > Configuration.MAX_HOUR))
                 return false;
-            if (!item.WorkTable[time.Hour, (int)time.DayOfWeek])
+            if (!item.WorkTable[time.Hour-Configuration.MIN_HOUR, (int)time.DayOfWeek])
                 return false;
             if (item.MaxTests <=NumOfTestsByDays(item,time))
                 return false;
@@ -27,12 +27,18 @@ namespace BL
                 return false;
             return true;
         }
-
-
         private Test LastTest(Trainee trainee)
         {
-            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id &&T.TypeOfCar==trainee.TypeOfCar);
-            Test temp = tests.First<Test>();
+            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id &&T.TypeOfCar==trainee.TypeOfCar&&T.ChosenTester);
+            Test temp;
+            try
+            {
+                temp = tests.First<Test>();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new Exception("there is'nt last test");
+            }
             foreach (Test item in tests)
                 if (temp.TestDay < item.TestDay)
                     temp = item;
@@ -47,8 +53,49 @@ namespace BL
 
             return d1 == d2;
         }
-
-        public void AddTest(Test test)
+        private bool FailedCriterion(Test test)
+        {
+            int Failnum = 0;
+            foreach (Criterion item in test.Criterions)
+            {
+                if (item.grade == Grade.fail)
+                {
+                    Failnum++;
+                }
+            }
+            return (Failnum>(test.Criterions.Count-Failnum));
+        }
+        private Trainee GetTrainee(Test test)
+        {
+            if(!TraineesCollection().Exists(T=>T.Id==test.IdTrainee))
+                throw new Exception("this trainee doesnt exist");
+            return (from item in TraineesCollection() where (item.Id == test.IdTrainee) select item).First();
+        }
+        private Tester GetTester(Test test)
+        {
+            if (!TestersCollection().Exists(T => T.Id == test.IdTester))
+                throw new Exception("this tester doesnt exist");
+            return (from item in TestersCollection() where (item.Id == test.IdTrainee) select item).First();
+        }
+        private void FindNewTester(Test test)
+        {
+            List<Tester> testersList = new List<Tester>(IsFree(test.TestDay));
+            testersList.RemoveAll(T => T.TypeOfCar != test.TypeOfCar);
+            if (testersList.Count() == 0)
+            {
+                test.ChosenTester = false;
+                test.Grade = Grade.fail;
+                test.IdTester = null;
+                Update(test);
+                throw new Exception(test+":there isnt tester free in that date");
+            }
+            test.IdTester = testersList.First().Id;
+        }
+        private int NumOfFutureTest(Trainee trainee)
+        {
+            return (AllTestsBy(T => T.IdTrainee == trainee.Id).Count() - NumOfTraineesTests(trainee));
+        }
+        public string AddTest(Test test)
         {
             CheckTest(test);
             if (test.TestDay <= DateTime.Now)
@@ -59,38 +106,47 @@ namespace BL
             IEnumerable<Test> tests = TestsCollection();
             
             var StudentTests = AllTestsBy(T => T.IdTrainee==test.IdTrainee);
-            var Trainee = from item in TraineesCollection() where (test.IdTrainee == item.Id) select item;
-            if (Trainee==null)
+            Trainee trainee;
+            try
             {
-                throw new Exception("this trainee doesnt exist");
-            }
-            Trainee trainee = Trainee.First();
-            if(IsAllowed(trainee))
-                throw new Exception("the trainee is already past the test on this type of car");
+                 trainee = GetTrainee(test);
 
-            Test PreTest = LastTest(trainee);
-            
-            if ((test.TestDay - PreTest.TestDay).Days < Configuration.RANGE_BETWEEN_TESTS)
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            if (IsAllowed(trainee))
+                throw new Exception("the trainee is already past the test on this type of car");
+            if (test.TypeOfCar != trainee.TypeOfCar)
+            {
+                throw new Exception("the trainee is'nt learn on this type car!");
+            }
+            Test PreTest;
+            try
+            {
+                PreTest = LastTest(trainee);
+                if ((test.TestDay - PreTest.TestDay).Days < Configuration.RANGE_BETWEEN_TESTS)
                 throw new Exception("it's too early to take a new test");
-            
+            }
+            catch (Exception)
+            {
+
+            }
             if (trainee.DLessonPast < Configuration.MIN_NUMBER_OF_LESSONS)
                 throw new Exception("You need to do "+(Configuration.MIN_NUMBER_OF_LESSONS - trainee.DLessonPast)+" lessons");
 
-            // Leaving only the testers who work on that date
-            testers = IsFree(test.TestDay);
-            //Leaving only the testers who test on the same type of car.
-            testers = from item in testers 
-                      let type=test.TypeOfCar 
-                      where (item.TypeOfCar == type)
-                      select item;
-            if (testers==null)
+            //Leaving only the testers who work on that date
+            List<Tester> testersList = new List<Tester>(IsFree(test.TestDay));
+            testersList.RemoveAll(T => T.TypeOfCar != test.TypeOfCar);
+            if (testersList.Count() == 0)
             {
                 throw new Exception("there isn't any tester on this date");
             }
-            test.IdTester = testers.First().Id;
-            MyDal.AddTest(test);
+            test.IdTester = testersList.First().Id;
+            test.ChosenTester = true;
+            return MyDal.AddTest(test);
         }
-
         public void AddTester(Tester tester)
         {
             CheckTester(tester);
@@ -102,6 +158,7 @@ namespace BL
             }
             
             MyDal.AddTester(tester);
+            
         }
         public void AddTrainee(Trainee trainee)
         {
@@ -121,13 +178,24 @@ namespace BL
             {
                 throw new Exception("there isn't such tester");
             }
+            
             MyDal.DeleteTester(tester);
+            var TestersTest = from item in TestsCollection() where (item.IdTester == tester.Id) select item;
+            foreach (Test item in TestersTest)
+            {
+                FindNewTester(item);
+            }
         }
         public void DeleteTrainee(Trainee trainee)
         {
             if (!TraineesCollection().Exists(T => trainee.Id == T.Id))
             {
-                throw new Exception("there isn't such tester");
+                throw new Exception("there isn't such trainee");
+            }
+
+            if (TestsCollection().Exists(T=>T.ChosenTester&&DateTime.Now<T.TestDay&&trainee.Id==T.IdTrainee))
+            {
+                throw new Exception("Can't earse trainee if you have a test");
             }
             MyDal.DeleteTrainee(trainee);
         }
@@ -144,14 +212,17 @@ namespace BL
         {
             return MyDal.TraineesCollection();        
         }
-
-
+        
         public void Update(Test test)
         {
             CheckTest(test);
             if (test.Grade == null)
             {
                 throw new Exception("you forget to fill the grade");
+            }
+            if (test.Grade == Grade.pass &&FailedCriterion(test))
+            {
+                test.Grade = Grade.fail;
             }
             MyDal.Update(test);
         }
@@ -189,7 +260,7 @@ namespace BL
         }
         public int NumOfTraineesTests(Trainee trainee)
         {
-            return AllTestsBy(T=>T.IdTrainee==trainee.Id).Count<Test>();
+            return AllTestsBy(T=>T.IdTrainee==trainee.Id&&(DateTime.Now>T.TestDay)).Count<Test>();
         }
         public bool IsAllowed(Trainee trainee)
         {
@@ -199,11 +270,15 @@ namespace BL
                         where (item.IdTrainee == id && item.TypeOfCar == type)
                         orderby item.TestDay descending
                         select item;
+            if(tests.Count()==0)
+            {
+                return false;
+            }
             return (tests.First().Grade == Grade.pass);
         }
         public List<Test> ListByDay()
         {
-            return new List<Test>(from item in TestsCollection() where(item.TestDay>=DateTime.Now) orderby item.TestDay   select item);
+            return new List<Test>(from item in TestsCollection() where(item.TestDay>=DateTime.Now&&item.ChosenTester) orderby item.TestDay   select item);
         }
         public IEnumerable<IGrouping<Car, Tester>> ListOfTestersByCar(bool order)
         {
@@ -213,16 +288,16 @@ namespace BL
             }
             return from item in TestersCollection() group item by item.TypeOfCar;
         }
-        public IEnumerable<IGrouping<string, Trainee>> ListOfTraineesByTeacher(bool order)
+        public IEnumerable<IGrouping<string, Trainee>> ListOfTraineesBySchool(bool order)
         {
             if (order)
             {
-                return from item in TraineesCollection() orderby item.ToString() group item by item.DrivingTeacher;
+                return from item in TraineesCollection() orderby item.ToString() group item by item.DrivingSchool;
             }
-            return from item in TraineesCollection() group item by item.DrivingTeacher;
+            return from item in TraineesCollection() group item by item.DrivingSchool;
 
         }
-        public IEnumerable<IGrouping<string, Trainee>> ListOfTestersBytTeacher(bool order)
+        public IEnumerable<IGrouping<string, Trainee>> ListOfTraineesByDTeacher(bool order)
         {
             if (order)
             {
@@ -230,7 +305,7 @@ namespace BL
             }
             return from item in TraineesCollection() group item by item.DrivingTeacher;
         }
-        public IEnumerable<IGrouping<int, Trainee>> ListOfTraineesByNumOflessons(bool order)
+        public IEnumerable<IGrouping<int, Trainee>> ListOfTraineesByNumOfTests(bool order)
         {
             if (order)
             {
@@ -267,82 +342,90 @@ namespace BL
         public static void CheckTrainee(Trainee trainee)
         {
             if (!IdCheck(trainee.Id))
-                throw new Exception("the ID of the trainee isn't good");
+                throw new Exception(trainee+":the ID of the trainee isn't good");
 
             if (!trainee.PrivateName.All(Char.IsLetter))
-                throw new Exception("the Private Name of the trainee isn't good");
+                throw new Exception(trainee + ":the Private Name of the trainee isn't good");
 
             if (!trainee.FamilyName.All(Char.IsLetter))
-                throw new Exception("the Family Name of the trainee isn't good");
+                throw new Exception(trainee + ":the Family Name of the trainee isn't good");
 
             if (!trainee.DrivingSchool.All(Char.IsLetter))
-                throw new Exception("the Driving School Name isn't good");
+                throw new Exception(trainee + ":the Driving School Name have to be only letters!");
 
             if (!trainee.DrivingTeacher.All(Char.IsLetter))
-                throw new Exception("the Driving Teacher Name isn't good");
+                throw new Exception(trainee + ":the Driving Teacher Name have to be only letters!");
 
             if (trainee.Phone.Length!=10 || !trainee.Phone.All(Char.IsDigit))
-                throw new Exception("the Phone Number of the trainee isn't good");
+                throw new Exception(trainee + ":the Phone Number of the trainee isn't good");
 
             if (trainee.DLessonPast < 0)
-                throw new Exception("the number of lesson cant be a negative number");
+                throw new Exception(trainee + ":the number of lesson cant be a negative number");
             if (!trainee.Address.Street.All(char.IsLetter))
-                throw new Exception("Wrong  street name!");
+                throw new Exception(trainee + ":Wrong  street name!");
 
             if (!trainee.Address.City.All(char.IsLetter))
-                throw new Exception("Wrong city name!");
+                throw new Exception(trainee + ":Wrong city name!");
         }
         public static void CheckTester(Tester tester)
         {
             if (!IdCheck(tester.Id))
-                throw new Exception("the ID of the trainee isn't good");
+                throw new Exception(tester+":the ID of the trainee isn't good");
 
             if (!tester.PrivateName.All(Char.IsLetter))
-                throw new Exception("the Private Name of the tester isn't good");
+                throw new Exception(tester + ":the Private Name of the tester isn't good");
 
             if (!tester.FamilyName.All(Char.IsLetter))
-                throw new Exception("the Family Name of the tester isn't good");
+                throw new Exception(tester + ":the Family Name of the tester isn't good");
 
             if (tester.Phone.Length != 10 || !tester.Phone.All(Char.IsDigit))
-                throw new Exception("the Phone Number of the tester isn't good");
+                throw new Exception(tester + ":the Phone Number of the tester isn't good");
 
             if (tester.MaxTests < 0)
-                throw new Exception("the maximum of tests in a week cant be negative number");
+                throw new Exception(tester + ":the maximum of tests in a week cant be negative number");
 
             if (tester.MaxRange < 0)
-                throw new Exception("the Max Range cant be  a negative number");
+                throw new Exception(tester + ":the Max Range cant be  a negative number");
 
             if (tester.Years < 0)
-                throw new Exception("the Years of experience cant be  a negative number");
+                throw new Exception(tester + ":the Years of experience cant be  a negative number");
 
             if (!tester.Address.Street.All(char.IsLetter))
-                throw new Exception("Wrong  street name!");
+                throw new Exception(tester + ":Wrong  street name!");
             
             if (!tester.Address.City.All(char.IsLetter))
-                throw new Exception("Wrong city name!");
+                throw new Exception(tester + ":Wrong city name!");
         }
         public static void CheckTest(Test test)
         {
             if (test.TestTime.All(char.IsLetter))
-                throw new Exception("wrong test time");
+                throw new Exception(test+":wrong test time");
             if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
-                 throw new Exception("the dates arent same");
+                 throw new Exception(test + ":the dates arent same");
             if ((test.IdTester != null)&&!IdCheck(test.IdTester))
-                 throw new Exception("Wrong id tester!");
+                 throw new Exception(test + ":Wrong id tester!");
             if (!IdCheck(test.IdTrainee))
-                 throw new Exception("Wrong id trainee!");
+                 throw new Exception(test + ":Wrong id trainee!");
             if (!test.TestAddress.Street.All(char.IsLetter))
-                throw new Exception("Wrong street name!");
+                throw new Exception(test + ":Wrong street name!");
             
             if (!test.TestAddress.City.All(char.IsLetter))
-                 throw new Exception("Wrong city name!");
+                 throw new Exception(test + ":Wrong city name!");
             foreach (Criterion item in test.Criterions)
             {
                 if (!item.name.All(char.IsLetter))
                 {
-                    throw new Exception("wrong Criterion "+item.name+"!");
+                    throw new Exception(test + ":wrong Criterion " + item.name + "!");
                 }
             }
+        }
+        public IEnumerable<object> TestsByDay(DateTime date)
+        {
+            return from item in TestsCollection() where (item.TestDay.Day == date.Day) orderby item.NumTest select new {test=item,trainee=GetTrainee(item),tester=GetTester(item)};
+        }
+        public IEnumerable<object> TestsNow()
+        {
+            return TestsByDay(DateTime.Now);
         }
     } 
 }

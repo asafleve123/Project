@@ -42,15 +42,7 @@ namespace DAL
         /// <param name="trainee"></param>
         void UpdateTrainee(Trainee trainee);
         //Test
-        /// <summary>
-        /// Func that add a test to the system
-        /// </summary>
-        /// <param name="tester"></param>
-        void AddTest(Test test);
-        /// <summary>
-        /// Func that update a  test
-        /// </summary>
-        /// <param name="test"></param>
+        string AddTest(Test test);
         void Update(Test test);
         //lists
         /// <summary>

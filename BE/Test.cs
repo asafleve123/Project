@@ -20,6 +20,7 @@ namespace BE
         public string Comments { get; set; }
         public Car TypeOfCar { get; set; }
         public List<Criterion> Criterions { get=>criterions; set=>criterions=value; }
+        public bool ChosenTester { get; set; }
         //functions
         public override string ToString()
         {
@@ -50,6 +51,8 @@ namespace BE
             TestAddress = ATestAdress;
             Comments = null;
             Grade = null;
+            TypeOfCar = student.TypeOfCar;
+            ChosenTester = false;
         }
         /// <summary>
         /// copy constructor - ables to copy by value.
@@ -60,16 +63,22 @@ namespace BE
             TestDay = test.TestDay;
             TestAddress = test.TestAddress;
             Grade = test.Grade;
+            if (test.NumTest != null)
             NumTest = string.Copy(test.NumTest);
+            if(test.IdTester!=null)
             IdTester = string.Copy(test.IdTester);
+            if(test.IdTrainee!=null)
             IdTrainee = string.Copy(test.IdTrainee);
-            TestTime = string.Copy(test.TestTime);
+            if (test.TestTime != null)
+                TestTime = string.Copy(test.TestTime);
+            if(test.Comments!=null)
             Comments = string.Copy(test.Comments);
             foreach (Criterion item in test.criterions)
             {
                 criterions.Add(item);
             }
             TypeOfCar = test.TypeOfCar;
+            ChosenTester = test.ChosenTester;
         }
     }
 }
