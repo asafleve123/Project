@@ -10,5 +10,5 @@ namespace BE
     public enum Gender { Female, Male }
     public enum Gearbox { manual, automatic }
     public enum Grade { fail, pass }
-    public enum Nation { Arabic, Jewish, Druze }
+   
 }

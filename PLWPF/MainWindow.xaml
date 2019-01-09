@@ -6,16 +6,22 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="auto" Width="auto">
+    <!--
     <Window.Background>
-        <ImageBrush/>
+            <ImageBrush/>
     </Window.Background>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="16*"/>
             <RowDefinition Height="84*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <TextBlock HorizontalAlignment="Center" Height="auto"  Name="TextBlock" Text="מערכת ניהול מבחני נהיגה" Width="800" Foreground="Orange" FontSize="60" TextAlignment="Center"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="53*"/>
+                <ColumnDefinition Width="708*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock HorizontalAlignment="Center" Height="auto"  Name="TextBlock" Text="מערכת ניהול מבחני נהיגה" Width="800" Foreground="Orange" FontSize="60" TextAlignment="Center" Grid.ColumnSpan="2" Margin="-19,0,-19.667,-0.333"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -28,5 +34,25 @@
             <Button Grid.Row="1" Content="בוחנים" FontSize="60"  VerticalAlignment="center" Width="auto"/>
             <Button Grid.Row="2" Content="מבחנים" FontSize="60"  VerticalAlignment="center" Width="auto"/>
         </Grid>
+    </Grid>
+    -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="75*"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="1"  HorizontalAlignment="Center" Height="300"  VerticalAlignment="Center" Width="500" >
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="21*"/>
+                        <ColumnDefinition Width="355*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

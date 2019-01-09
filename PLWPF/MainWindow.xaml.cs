@@ -26,7 +26,8 @@ namespace PLWPF
         public MainWindow()
         {
             InitializeComponent();
-            var ans = MessageBox.Show("תבחר מבין שתי רקעים שונים על ידי כן ולא","תמונות",MessageBoxButton.YesNo);
+            /*
+              var ans = MessageBox.Show("תבחר מבין שתי רקעים שונים על ידי כן ולא","תמונות",MessageBoxButton.YesNo);
             if (ans==MessageBoxResult.Yes)
             {
                 this.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this),"Pictures/cars.jpg")));
@@ -35,6 +36,7 @@ namespace PLWPF
             {
                 this.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this),"Pictures/fire-and-water-wallpaper.jpg")));
             }
+            */
             Closing += Close_click;
         }
 
