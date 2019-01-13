@@ -16,7 +16,7 @@ namespace BE
         public string Id { get; private set; }
         public string FamilyName { get; set; }
         public string PrivateName { get; set; }
-        public DateTime DOB { get;private set; }
+        public DateTime DOB { get; private set; }
         public Gender Gender { get; set; }
         public string Phone { get; set; }
         public Address Address { get; set; }
@@ -25,7 +25,8 @@ namespace BE
         public Car TypeOfCar { get; private set; }
         public bool[,] WorkTable { get => worktable; set => worktable = value; }
         public int MaxRange { get; set; }
-        public int Age { get { return DateTime.Now.Year-DOB.Year; } }
+        public int Age { get { return DateTime.Now.Year - DOB.Year; } }
+        public string Code { get; set; }
         //...
         //functions
         public override string ToString()
@@ -36,7 +37,7 @@ namespace BE
         {
             return Id.CompareTo(((Tester)obj).Id);
         }
-        public Tester(string Id, string FamilyName, string PrivateName, DateTime DOB, Gender Gender, string Phone, Address Address, int Years, int MaxTests, Car TypeOfCar, bool[,] WorkTable, int MaxRange)
+        public Tester(string Id, string FamilyName, string PrivateName, DateTime DOB, Gender Gender, string Phone, Address Address, int Years, int MaxTests, Car TypeOfCar, bool[,] WorkTable, int MaxRange , string code)
         {
             this.Id = Id;
             this.FamilyName = FamilyName;
@@ -50,6 +51,7 @@ namespace BE
             this.WorkTable = WorkTable;
             this.MaxRange = MaxRange;
             this.Gender = Gender;
+            this.Code = string.Copy(code);
         }
         /// <summary>
         /// copy constructor - ables to copy by value.
@@ -72,6 +74,7 @@ namespace BE
             MaxTests = tester.MaxTests;
             TypeOfCar = tester.TypeOfCar;
             MaxRange = tester.MaxRange;
+            Code = tester.Code;
             worktable = new bool[Configuration.HOURS, Configuration.THURSDAY];
             for (int i = 0; i < Configuration.HOURS; i++)
             {
@@ -80,7 +83,7 @@ namespace BE
                     WorkTable[i, j] = tester.WorkTable[i, j];
                 }
             }
-            
+            Code = string.Copy(tester.Code);
         }
         //constructor
         public Tester(string id)

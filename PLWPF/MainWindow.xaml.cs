@@ -49,5 +49,11 @@ namespace PLWPF
                 e.Cancel = true;
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var AddTesterWin = new AddTester();
+            AddTesterWin.ShowDialog();
+        }
     }
 }

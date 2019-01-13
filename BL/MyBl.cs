@@ -58,7 +58,7 @@ namespace BL
             int Failnum = 0;
             foreach (Criterion item in test.Criterions)
             {
-                if (item.grade == Grade.fail)
+                if (item.grade == Grade.נכשל)
                 {
                     Failnum++;
                 }
@@ -84,7 +84,7 @@ namespace BL
             if (testersList.Count() == 0)
             {
                 test.ChosenTester = false;
-                test.Grade = Grade.fail;
+                test.Grade = Grade.נכשל;
                 test.IdTester = null;
                 Update(test);
                 throw new Exception(test+":there isnt tester free in that date");
@@ -220,9 +220,9 @@ namespace BL
             {
                 throw new Exception("you forget to fill the grade");
             }
-            if (test.Grade == Grade.pass &&FailedCriterion(test))
+            if (test.Grade == Grade.עבר &&FailedCriterion(test))
             {
-                test.Grade = Grade.fail;
+                test.Grade = Grade.נכשל;
             }
             MyDal.Update(test);
         }
@@ -274,7 +274,7 @@ namespace BL
             {
                 return false;
             }
-            return (tests.First().Grade == Grade.pass);
+            return (tests.First().Grade == Grade.עבר);
         }
         public List<Test> ListByDay()
         {

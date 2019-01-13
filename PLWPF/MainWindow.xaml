@@ -5,54 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="auto" Width="auto">
-    <!--
-    <Window.Background>
-            <ImageBrush/>
-    </Window.Background>
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="16*"/>
-            <RowDefinition Height="84*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="53*"/>
-                <ColumnDefinition Width="708*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock HorizontalAlignment="Center" Height="auto"  Name="TextBlock" Text="מערכת ניהול מבחני נהיגה" Width="800" Foreground="Orange" FontSize="60" TextAlignment="Center" Grid.ColumnSpan="2" Margin="-19,0,-19.667,-0.333"/>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        Title="MainWindow">
+    <Window.Resources>
+        <Style x:Key="MyTabItem" TargetType="TabItem">
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Height" Value="50"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="0" Background="#FF29ABAB">
 
-            <Button Grid.Row="0" Content="תלמידים" FontSize="60"  VerticalAlignment="center" Width="auto"/>
-            <Button Grid.Row="1" Content="בוחנים" FontSize="60"  VerticalAlignment="center" Width="auto"/>
-            <Button Grid.Row="2" Content="מבחנים" FontSize="60"  VerticalAlignment="center" Width="auto"/>
-        </Grid>
-    </Grid>
-    -->
-    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="75*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="80*"/>
         </Grid.RowDefinitions>
-        <TabControl Grid.Row="1"  HorizontalAlignment="Center" Height="300"  VerticalAlignment="Center" Width="500" >
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="21*"/>
-                        <ColumnDefinition Width="355*"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
-            </TabItem>
-        </TabControl>
+
+        <Grid>
+            <TextBlock Background="#FF29ABAB" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100"   Text="משרד הרישוי מערכת מבחני נהיגה" TextAlignment="Center" Width="650" FontSize="40" FontWeight="Bold" />
+        </Grid>
+
+
+        <Grid  Grid.Row="1" >
+            <TabControl HorizontalAlignment="Center" Height="300"  VerticalAlignment="Top" Width="500" TabStripPlacement="Top"  BorderBrush="Black"  Margin="131,39,130.333,24.667"  >
+
+                <TabItem Header="בוחן" Style="{StaticResource MyTabItem}" BorderBrush="Black" Margin="0,1,-215.333,-1" VerticalAlignment="Top" >
+                    <StackPanel>
+                        <TextBlock Background="#FFDAD8D8" TextAlignment="Right" Text=":תעודת זהות" HorizontalAlignment="Right" Height="50" Width="500" />
+                        <TextBox Height="50"/>
+                        <TextBlock Background="#FFDAD8D8" Text=":סיסמה" TextAlignment="Right" HorizontalAlignment="Right" Height="50" Width="500" />
+                        <PasswordBox Height="50"/>
+                    
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="בוחן חדש? - לחץ כאן" Height="50" Click="Button_Click"/>
+                            <Button Content="התחבר" Height="50" Width="171"/>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem Header="נבחן"  Style="{StaticResource MyTabItem}" HorizontalAlignment="Stretch" Margin="212.667,0,-213.333,0" RenderTransformOrigin="0.036,0.833" >
+
+                    <StackPanel>
+                        <TextBlock Background="#FFDAD8D8" TextAlignment="Right" Text=":תעודת זהות" HorizontalAlignment="Right" Height="50" Width="500" />
+                        <TextBox Height="50"/>
+                        <TextBlock Background="#FFDAD8D8" Text=":סיסמה" TextAlignment="Right" HorizontalAlignment="Right" Height="50" Width="500" />
+                        <PasswordBox Height="50"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="נבחן חדש? - לחץ כאן" FontSize="30"  Height="Auto" Width="Auto"/>
+                            <Button Content="התחבר" Height="50" Width="171"/>
+
+                        </StackPanel>
+                        </StackPanel>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
     </Grid>
 </Window>

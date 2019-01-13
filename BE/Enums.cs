@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BE
 {
-    public enum Car { PrivateCar, TwoWheeledCar, MediumTruck, BigTruck }
-    public enum Gender { Female, Male }
-    public enum Gearbox { manual, automatic }
-    public enum Grade { fail, pass }
-   
+    public enum Car { משאית_בינונית, רכב_פרטי,רכב_דו_גלגלי,משאית_כבדה }
+    public enum Gender { זכר,נקבה }
+    public enum Gearbox { ידני,אוטומטי }
+    public enum Grade { עבר,נכשל }
 }
