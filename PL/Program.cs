@@ -26,12 +26,12 @@ namespace PL
               };
             try
             {
-                Tester tester1 = new Tester("212384507", "Levi", "Asaf", new DateTime(1950, 2, 2), Gender.Male, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = 11 }, 19, 20, Car.PrivateCar, worktable, 10),
-                       tester2 = new Tester("323947747", "Garber", "Shmuel", new DateTime(1950, 5, 10), Gender.Male, "0503363230", new Address { City = "Netania", Street = "somewhere", NumOfHome = 87 }, 19, 50, Car.PrivateCar, worktable, 20);
-                Trainee trainee1 = new Trainee("058371246", "Renana", "Levi", Gender.Female, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.PrivateCar, Gearbox.automatic, "toryarok", "moshe", 30, false);
-                Trainee trainee2 = new Trainee("322263310", "Yossef", "Katri", Gender.Female, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.PrivateCar, Gearbox.automatic, "toryarok", "Shimi", 20, false);
-                Trainee trainee3 = new Trainee("211780382", "Yosseg", "Kdtri", Gender.Female, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.PrivateCar, Gearbox.automatic, "toryarok", "Shimi", 20, false);
-                Trainee trainee4 = new Trainee("212147870", "rrrr", "aaaaa", Gender.Female, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.PrivateCar, Gearbox.automatic, "torahavomadaha", "David", 30, false);
+                Tester tester1 = new Tester("212384507", "Levi", "Asaf", new DateTime(1950, 2, 2), Gender.זכר, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = 11 }, 19, 20, Car.רכב_פרטי, worktable, 10),
+                       tester2 = new Tester("323947747", "Garber", "Shmuel", new DateTime(1950, 5, 10), Gender.זכר, "0503363230", new Address { City = "Netania", Street = "somewhere", NumOfHome = 87 }, 19, 50, Car.רכב_פרטי, worktable, 20);
+                Trainee trainee1 = new Trainee("058371246", "Renana", "Levi", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "moshe", 30, false);
+                Trainee trainee2 = new Trainee("322263310", "Yossef", "Katri", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "Shimi", 20, false);
+                Trainee trainee3 = new Trainee("211780382", "Yosseg", "Kdtri", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "Shimi", 20, false);
+                Trainee trainee4 = new Trainee("212147870", "rrrr", "aaaaa", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "torahavomadaha", "David", 30, false);
 
                 Test test2 = new Test(trainee2, new DateTime(2019, 2, 10,13,0,0), trainee2.Address);
                 myBl.AddTester(tester1);
@@ -54,7 +54,7 @@ namespace PL
                     Console.WriteLine(item);
                 tester1.FamilyName = "cohen";
                 tester2.FamilyName = "levi";
-                tester2.Gender =Gender.Female;
+                tester2.Gender =Gender.נקבה;
                 myBl.UpdateTester(tester1);
                 myBl.UpdateTester(tester2);
                 Console.WriteLine("-------------Testers-----------");
@@ -63,7 +63,7 @@ namespace PL
                     Console.WriteLine(item+"      "+item.Gender);
                 trainee1.TypeOfCar = Car.BigTruck;
                 trainee1.PrivateName = "Dafna";
-                trainee2.Gender = Gender.Male;
+                trainee2.Gender = Gender.זכר;
                 myBl.UpdateTrainee(trainee1);
                 myBl.UpdateTrainee(trainee2);
 
@@ -83,7 +83,7 @@ namespace PL
                     Console.WriteLine(e.Message);
                 }
                 #endregion
-                Tester tester3 = new Tester("323947739", "Levi", "Tran", new DateTime(1950, 2, 2), Gender.Male, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = 11 }, 19, 20, Car.BigTruck, worktable, 10);
+                Tester tester3 = new Tester("323947739", "Levi", "Tran", new DateTime(1950, 2, 2), Gender.זכר, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = 11 }, 19, 20, Car.BigTruck, worktable, 10);
                 myBl.AddTester(tester3);
                 Console.WriteLine("-------------Testers-----------");
                 testers = myBl.TestersCollection();
@@ -141,7 +141,7 @@ namespace PL
                 tests = myBl.TestsCollection();
                 foreach (var item in tests)
                     Console.WriteLine(item+"  "+item.Grade+" "+item.TestTime);
-                Tester tester4 = new Tester("323947739", "Levi", "Tran", new DateTime(1950, 2, 2), Gender.Male, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = 11 }, 19, 20, Car.BigTruck, worktable, 10);
+                Tester tester4 = new Tester("323947739", "Levi", "Tran", new DateTime(1950, 2, 2), Gender.זכר, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = 11 }, 19, 20, Car.BigTruck, worktable, 10);
                 myBl.AddTester(tester4);
                 Console.WriteLine("------------Tester------------");
                 IEnumerable<Tester> testers1 = myBl.DistanseFromAdress(trainee2.Address);
@@ -191,9 +191,9 @@ namespace PL
                                 Console.WriteLine("       " + item);
                             }
                             break;
-                        case Car.PrivateCar:
+                        case Car.רכב_פרטי:
 
-                            Console.WriteLine("PrivateCar:");
+                            Console.WriteLine("רכב_פרטי:");
                             foreach (var item in items)
                             {
                                 Console.WriteLine("       " + item);

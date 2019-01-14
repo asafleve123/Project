@@ -27,6 +27,7 @@ namespace BE
         public int MaxRange { get; set; }
         public int Age { get { return DateTime.Now.Year - DOB.Year; } }
         public string Code { get; set; }
+        
         //...
         //functions
         public override string ToString()
@@ -37,6 +38,7 @@ namespace BE
         {
             return Id.CompareTo(((Tester)obj).Id);
         }
+        
         public Tester(string Id, string FamilyName, string PrivateName, DateTime DOB, Gender Gender, string Phone, Address Address, int Years, int MaxTests, Car TypeOfCar, bool[,] WorkTable, int MaxRange , string code)
         {
             this.Id = Id;

@@ -26,17 +26,6 @@ namespace PLWPF
         public MainWindow()
         {
             InitializeComponent();
-            /*
-              var ans = MessageBox.Show("תבחר מבין שתי רקעים שונים על ידי כן ולא","תמונות",MessageBoxButton.YesNo);
-            if (ans==MessageBoxResult.Yes)
-            {
-                this.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this),"Pictures/cars.jpg")));
-            }
-            else
-            {
-                this.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this),"Pictures/fire-and-water-wallpaper.jpg")));
-            }
-            */
             Closing += Close_click;
         }
 
@@ -44,6 +33,11 @@ namespace PLWPF
         {
             MessageBoxResult ans = MessageBoxResult.None;
             ans = MessageBox.Show("?אתה בטוח", "אזהרה", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (ans == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
+            ans = MessageBox.Show("?אתה בטוח בטוח", "אזהרה", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (ans == MessageBoxResult.No)
             {
                 e.Cancel = true;
