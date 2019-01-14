@@ -49,12 +49,5 @@ namespace PLWPF
             var AddTesterWin = new AddTester();
             AddTesterWin.ShowDialog();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Trainees trainees = new Trainees();
-            Close();
-            trainees.Show();
-        }
     }
 }
