@@ -68,7 +68,7 @@
             <TextBox x:Name="familyNameTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding FamilyName, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":תעודת זהות" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="2" VerticalAlignment="Center" />
-            <TextBox x:Name="idTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Id, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="idTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Id, Mode=OneWayToSource }" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":תאריך לידה" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
             <DatePicker x:Name="dOBDatePicker" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" SelectedDate="{Binding DOB, Mode=TwoWay}" VerticalAlignment="Center"/>
@@ -97,15 +97,15 @@
             <ComboBox x:Name="typeOfCarComboBox" Text=":סוג רכב" Grid.Column="0" SelectedItem="{Binding TypeOfCar, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto"  Margin="3" Grid.Row="11" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":בחר סיסמה" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="12" VerticalAlignment="Center"/>
-            <PasswordBox x:Name="code" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="12" VerticalAlignment="Center" Password ="{Binding Code, Mode=TwoWay}"  Width="120"/>
+            <PasswordBox x:Name="code" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="12" VerticalAlignment="Center"   Width="120"/>
 
             <Grid Grid.Row="13" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label x:Name="WaningBox" Content="" Width="Auto" Height="15" HorizontalAlignment="Center"  FontSize="9" Foreground="Red" Padding="0" />
-                <Button Name="sign" Content="התחבר" Grid.Row="1" Height="30"/>
+                <Label x:Name="WarningBox" Content="" Width="Auto" Height="15" HorizontalAlignment="Center"  FontSize="9" Foreground="Red" Padding="0" />
+                <Button Name="sign" Content="התחבר" Grid.Row="1" Height="30" Click="Sign_Click"/>
             </Grid>
 
 

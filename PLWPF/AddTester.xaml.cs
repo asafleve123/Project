@@ -24,14 +24,27 @@ namespace PLWPF
         IBL bl;
         public AddTester()
         {
+            InitializeComponent();
             bl = BL.FactoryBL.getBl();
             tester = new Tester("not to add");
             this.DataContext = tester;
-            InitializeComponent();
             this.genderComboBox.ItemsSource = Enum.GetValues(typeof(BE.Gender));
             this.typeOfCarComboBox.ItemsSource = Enum.GetValues(typeof(BE.Car));
         }
 
-       
+        private void Sign_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                bl.AddTester(tester);
+            }
+            catch (Exception ex)
+            {
+                this.WarningBox.Content = ex.Message;
+            }
+            tester = new Tester("not to add");
+            this.Close();
+        }
     }
 }
