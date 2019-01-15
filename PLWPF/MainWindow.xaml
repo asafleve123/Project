@@ -15,7 +15,7 @@
             <Setter Property="Height" Value="auto"/>
         </Style>
     </Window.Resources>
-    <Grid Margin="0" Background="#FF29ABAB">
+        <Grid Margin="0" Background="#FF29ABAB">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
@@ -81,4 +81,5 @@
         </Grid>
 
     </Grid>
+
 </Window>
