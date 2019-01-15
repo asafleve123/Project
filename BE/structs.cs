@@ -10,7 +10,13 @@ namespace BE
     {
        public string City;
        public string Street;
-       public int NumOfHome;
+       public string NumOfHome;
+        public Address(string City,string Street,string NumOfHome)
+        {
+            this.City = City;
+            this.Street = Street;
+            this.NumOfHome = NumOfHome;
+        }
     }
     public struct Criterion
     {

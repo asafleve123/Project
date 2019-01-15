@@ -34,11 +34,11 @@ namespace PLWPF
 
         private void Sign_Click(object sender, RoutedEventArgs e)
         {
-
-            
                 try
                 {
-
+                    string Code = this.code.Password;
+                    tester.Code = Code;
+                    tester.Address = new Address(this.City.Text, this.Street.Text, this.NumOfHome.Text);
                     bl.AddTester(tester);
                     tester = new Tester("not to add");
                     this.Close();

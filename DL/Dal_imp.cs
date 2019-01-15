@@ -167,6 +167,8 @@ namespace DAL
             if (!trainee.Address.Street.All(char.IsLetter))
                 throw new Exception("שם הרחוב אינו תקין");
 
+            if (!trainee.Address.NumOfHome.All(char.IsDigit))
+                throw new Exception("מספר הבית אינו תקין");
 
         }
         public static void CheckTester(Tester tester)
@@ -195,7 +197,8 @@ namespace DAL
 
             if (!tester.Address.Street.All(char.IsLetter))
                 throw new Exception("שם הרחוב אינו תקין");
-
+            if (!tester.Address.NumOfHome.All(char.IsDigit))
+                throw new Exception("מספר הבית אינו תקין");
 
         }
         public static void CheckTest(Test test)

@@ -12,6 +12,7 @@ namespace BE
     public class Tester : IComparable
     {
         private bool[,] worktable;
+        private Address address;
         //properties
         public string Id { get; set; }
         public string FamilyName { get; set; }
@@ -19,7 +20,7 @@ namespace BE
         public DateTime DOB { get; set; }
         public Gender Gender { get; set; }
         public string Phone { get; set; }
-        public Address Address { get; set; }
+        public Address Address { get=>address; set=>address=value; }
         public int Years { get { return DateTime.Now.Year - RegisterDate.Year; } }
         public int MaxTests { get; set; }
         public Car TypeOfCar { get;  set; }
