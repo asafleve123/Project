@@ -8,6 +8,7 @@ namespace BE
 {
     public class Test : IComparable
     {
+        private Address address;
         private List<Criterion> criterions = new List<Criterion>();
         //property
         public string NumTest { get; set; }
@@ -15,7 +16,7 @@ namespace BE
         public string IdTrainee { get; set; }
         public string TestTime { get; set; }
         public DateTime TestDay { get; set; }
-        public Address TestAddress { get; set; }
+        public Address TestAddress { get => address; set => address = value; }
         public Grade? Grade { get; set; }
         public string Comments { get; set; }
         public Car TypeOfCar { get; set; }
@@ -61,7 +62,9 @@ namespace BE
         public Test(Test test)
         {
             TestDay = test.TestDay;
-            TestAddress = test.TestAddress;
+            address.City = string.Copy(test.TestAddress.City);
+            address.Street = string.Copy(test.TestAddress.Street);
+            address.NumOfHome = string.Copy(test.TestAddress.NumOfHome);
             Grade = test.Grade;
             if (test.NumTest != null)
             NumTest = string.Copy(test.NumTest);
@@ -75,7 +78,7 @@ namespace BE
             Comments = string.Copy(test.Comments);
             foreach (Criterion item in test.criterions)
             {
-                criterions.Add(item);
+                criterions.Add(new Criterion(string.Copy(item.name),item.grade));
             }
             TypeOfCar = test.TypeOfCar;
             ChosenTester = test.ChosenTester;

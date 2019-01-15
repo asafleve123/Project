@@ -23,5 +23,10 @@ namespace BE
         
        public string name;
        public Grade grade;
+        public Criterion(string Name,Grade grade)
+        {
+            name = Name;
+            this.grade = grade;
+        }
     }
 }
