@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="MainWindow">
-    <Window.Resources>
+    <Window.Resources>
+
         <Style x:Key="MyTabItem" TargetType="TabItem">
             <Setter Property="FontSize" Value="30" />
             <Setter Property="FontFamily" Value="Consolas" />
@@ -14,7 +15,8 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Height" Value="auto"/>
         </Style>
-    </Window.Resources>
+    </Window.Resources>
+
     <Grid Margin="0" Background="#FF29ABAB" x:Name="grid">
 
         <Grid.RowDefinitions>
