@@ -27,7 +27,7 @@ namespace PLWPF
         {
             InitializeComponent();
             Button_Click(this,new RoutedEventArgs());
-            //Closing += Close_click;
+            Closing += Close_click;
         }
 
         private void Close_click(object sender, System.ComponentModel.CancelEventArgs e)
@@ -43,12 +43,37 @@ namespace PLWPF
             {
                 e.Cancel = true;
             }
-        }
+                //MessageBoxResult ans = MessageBoxResult.None;
+                //ans = MessageBox.Show("?האם אתה נותן לנו 100","?אזהרה",MessageBoxButton.YesNo,MessageBoxImage.Question);
+                //if (ans==MessageBoxResult.No)
+                //{
+                //    e.Cancel = true;
+                //}
+            }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+            private void Button_Click(object sender, RoutedEventArgs e)
         {
             var AddTesterWin = new AddTester();
             AddTesterWin.ShowDialog();
+        }
+
+        private void Add_Dialog(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.ColorDialog color = new System.Windows.Forms.ColorDialog();
+            if (color.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+            {
+                SolidColorBrush Chosen = new SolidColorBrush(Color.FromArgb(color.Color.A, color.Color.R, color.Color.G, color.Color.B));
+                B1.Background = Chosen;
+                Grid.Background = Chosen;
+                if (color.Color.GetBrightness()>0.5)
+                {
+                    B1.Foreground = Brushes.Black;
+                }
+                else
+                {
+                    B1.Foreground = Brushes.White;
+                }
+            }
         }
     }
 }
