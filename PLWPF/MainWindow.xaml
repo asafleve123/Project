@@ -55,26 +55,24 @@
                     <Grid>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20*"/>
-                            <RowDefinition Height="20*"/>
-                            <RowDefinition Height="20*"/>
-                            <RowDefinition Height="20*"/>
-                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="20*" x:Name="Grid10"/>
+                            <RowDefinition Height="20*" x:Name="Grid11"/>
+                            <RowDefinition Height="20*" x:Name="Grid12"/>
+                            <RowDefinition Height="20*" x:Name="Grid13"/>
+                            <RowDefinition Height="20*" x:Name="Grid14"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Background="#FFDAD8D8" TextAlignment="Right" Text=":תעודת זהות" HorizontalAlignment="Right" Height="50" Width="500" />
-                        <TextBox Grid.Row="1" Height="50"/>
-                        <TextBlock Grid.Row="2" Background="#FFDAD8D8" Text=":סיסמה" TextAlignment="Right" HorizontalAlignment="Right" Height="50" Width="500" />
-                        <PasswordBox Grid.Row="3" Height="50"/>
-                        <StackPanel Orientation="Horizontal" Grid.Row="4">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80*"/>
-                                    <ColumnDefinition Width="20*"/>
-                                </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Content="נבחן חדש? - לחץ כאן" FontSize="30"  Height="Auto" Width="Auto"/>
-                                <Button Grid.Column="1" Content="התחבר" Height="50" Width="171"/>
-                            </Grid>
-                        </StackPanel>
+                        <TextBlock Grid.Row="0" Background="#FFDAD8D8" TextAlignment="Right" Text=":תעודת זהות" HorizontalAlignment="Right" Width="{Binding ActualWidth,ElementName=Grid0}" Height="{Binding ActualHeight,ElementName=Grid00}"/>
+                        <TextBox Grid.Row="1" Width="{Binding ActualWidth,ElementName=Grid0}" Height="{Binding ActualHeight,ElementName=Grid01}"/>
+                        <TextBlock  Grid.Row="2" Background="#FFDAD8D8" Text=":סיסמה" TextAlignment="Right" HorizontalAlignment="Right" Width="{Binding ActualWidth,ElementName=Grid0}" Height="{Binding ActualHeight,ElementName=Grid02}"/>
+                        <PasswordBox Grid.Row="3" Width="{Binding ActualWidth,ElementName=Grid0}" Height="{Binding ActualHeight,ElementName=Grid03}"/>
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80*" x:Name="Grid140"/>
+                                <ColumnDefinition Width="20*" x:Name="Grid141"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="נבחן חדש? - לחץ כאן" Height="{Binding ActualHeight,ElementName=Grid04}" Click="Button_Click"/>
+                            <Button Content="התחבר" Grid.Column="1" Height="{Binding ActualHeight,ElementName=Grid04}" Width="{Binding ActualWidth , ElementName=Grid041}" />
+                        </Grid>
                     </Grid>
                 </TabItem>
             </TabControl>
