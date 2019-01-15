@@ -80,13 +80,13 @@
             <TextBox x:Name="phoneTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="5" Text="{Binding Phone, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":עיר" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="6" VerticalAlignment="Center"/>
-            <TextBox x:Name="City" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="6" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="City" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="6" VerticalAlignment="Center" Width="120" Text="{Binding Adress.City , Mode=TwoWay}"/>
 
             <Label Content=":רחוב" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="7" VerticalAlignment="Center"/>
-            <TextBox x:Name="Street" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="7" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="Street" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="7" VerticalAlignment="Center" Width="120" Text="{Binding Adress.Steet , Mode=TwoWay}"/>
 
             <Label Content=":מספר בית" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="8" VerticalAlignment="Center"/>
-            <TextBox x:Name="NumOfHome" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="8" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="NumOfHome" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="8" VerticalAlignment="Center" Width="120" Text="{Binding Adress.NumOfHouse , Mode=TwoWay}"/>
 
             <Label Content=":שעות עבודה" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="9" VerticalAlignment="Center"/>
 

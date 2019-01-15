@@ -9,7 +9,7 @@ namespace BE
     public class Trainee : IComparable
     {
         //property
-        public string Id { get; private set; }
+        public string Id { get; set; }
         public string PrivateName { get; set; }
         public string FamilyName { get; set; }
         public Gender Gender { get; set; }

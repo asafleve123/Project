@@ -34,17 +34,20 @@ namespace PLWPF
 
         private void Sign_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
 
-                bl.AddTester(tester);
-            }
-            catch (Exception ex)
-            {
-                this.WarningBox.Content = ex.Message;
-            }
-            tester = new Tester("not to add");
-            this.Close();
+            
+                try
+                {
+
+                    bl.AddTester(tester);
+                    tester = new Tester("not to add");
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    this.WarningBox.Content = ex.Message;
+                }
+            
         }
     }
 }

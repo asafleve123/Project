@@ -26,7 +26,8 @@ namespace PLWPF
         public MainWindow()
         {
             InitializeComponent();
-            Closing += Close_click;
+            Button_Click(this,new RoutedEventArgs());
+            //Closing += Close_click;
         }
 
         private void Close_click(object sender, System.ComponentModel.CancelEventArgs e)
@@ -46,7 +47,6 @@ namespace PLWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
             var AddTesterWin = new AddTester();
             AddTesterWin.ShowDialog();
         }

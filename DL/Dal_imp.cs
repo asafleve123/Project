@@ -139,60 +139,64 @@ namespace DAL
 
         public static void CheckTrainee(Trainee trainee)
         {
-            if (!IdCheck(trainee.Id))
-                throw new Exception(trainee + ":the ID of the trainee isn't good");
 
             if (!trainee.PrivateName.All(Char.IsLetter))
-                throw new Exception(trainee + ":the Private Name of the trainee isn't good");
+                throw new Exception("שם פרטי אינו תקין");
 
             if (!trainee.FamilyName.All(Char.IsLetter))
-                throw new Exception(trainee + ":the Family Name of the trainee isn't good");
+                throw new Exception("שם משפחה אינו תקין");
+
+            if (!IdCheck(trainee.Id))
+                throw new Exception("מספר תעודת זהות אינו תקין");
 
             if (!trainee.DrivingSchool.All(Char.IsLetter))
-                throw new Exception(trainee + ":the Driving School Name have to be only letters!");
+                throw new Exception("שם בית הספר אינו תקין");
 
             if (!trainee.DrivingTeacher.All(Char.IsLetter))
-                throw new Exception(trainee + ":the Driving Teacher Name have to be only letters!");
+                throw new Exception("שם המורה אינו תקין");
 
             if (trainee.Phone.Length != 10 || !trainee.Phone.All(Char.IsDigit))
-                throw new Exception(trainee + ":the Phone Number of the trainee isn't good");
+                throw new Exception("מספר הפלאפון אינו תקין");
 
             if (trainee.DLessonPast < 0)
-                throw new Exception(trainee + ":the number of lesson cant be a negative number");
-            if (!trainee.Address.Street.All(char.IsLetter))
-                throw new Exception(trainee + ":Wrong  street name!");
+                throw new Exception("מספר השיעורים שעברת אינו תקין");
 
             if (!trainee.Address.City.All(char.IsLetter))
-                throw new Exception(trainee + ":Wrong city name!");
+                throw new Exception("שם העיר אינו תקין");
+
+            if (!trainee.Address.Street.All(char.IsLetter))
+                throw new Exception("שם הרחוב אינו תקין");
+
+
         }
         public static void CheckTester(Tester tester)
         {
-            if (!IdCheck(tester.Id))
-                throw new Exception(tester + ":the ID of the trainee isn't good");
 
             if (!tester.PrivateName.All(Char.IsLetter))
-                throw new Exception(tester + ":the Private Name of the tester isn't good");
+                throw new Exception("שם פרטי אינו תקין");
 
             if (!tester.FamilyName.All(Char.IsLetter))
-                throw new Exception(tester + ":the Family Name of the tester isn't good");
+                throw new Exception("שם המשפחה אינו תקין");
+
+            if (!IdCheck(tester.Id))
+                throw new Exception("מספר תעודת זהות אינו תקין");
 
             if (tester.Phone.Length != 10 || !tester.Phone.All(Char.IsDigit))
-                throw new Exception(tester + ":the Phone Number of the tester isn't good");
+                throw new Exception("מספר הפלאפון אינו תקין");
 
             if (tester.MaxTests < 0)
-                throw new Exception(tester + ":the maximum of tests in a week cant be negative number");
+                throw new Exception("מספר המבחנים המקסימאלי אינו תקין");
 
             if (tester.MaxRange < 0)
                 throw new Exception(tester + ":the Max Range cant be  a negative number");
 
-            if (tester.Years < 0)
-                throw new Exception(tester + ":the Years of experience cant be  a negative number");
+            if (!tester.Address.City.All(char.IsLetter))
+                throw new Exception("שם העיר אינו תקין");
 
             if (!tester.Address.Street.All(char.IsLetter))
-                throw new Exception(tester + ":Wrong  street name!");
+                throw new Exception("שם הרחוב אינו תקין");
 
-            if (!tester.Address.City.All(char.IsLetter))
-                throw new Exception(tester + ":Wrong city name!");
+
         }
         public static void CheckTest(Test test)
         {
