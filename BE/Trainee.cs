@@ -8,13 +8,14 @@ namespace BE
 {
     public class Trainee : IComparable
     {
+        private Address address;
         //property
         public string Id { get; set; }
         public string PrivateName { get; set; }
         public string FamilyName { get; set; }
         public Gender Gender { get; set; }
         public string Phone { get; set; }
-        public Address Address { get; set; }
+        public Address Address { get => address; set => address = value; }
         public DateTime DOB { get; set; }
         public Car TypeOfCar { get; set; }
         public Gearbox TypeGearBox { get; set; }
@@ -80,7 +81,9 @@ namespace BE
                 DrivingTeacher = string.Copy(trainee.DrivingTeacher);
             DLessonPast = trainee.DLessonPast;
             Gender = trainee.Gender;
-            Address = trainee.Address;
+            address.City = string.Copy(trainee.Address.City);
+            address.Street = string.Copy(trainee.Address.Street);
+            address.NumOfHome = string.Copy(trainee.Address.NumOfHome);
             DOB = trainee.DOB;
             TypeOfCar = trainee.TypeOfCar;
             TypeGearBox = trainee.TypeGearBox;

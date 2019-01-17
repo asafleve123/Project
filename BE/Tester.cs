@@ -73,7 +73,9 @@ namespace BE
             Gender = tester.Gender;
             if(tester.Phone!=null)
             Phone = string.Copy(tester.Phone);
-            Address = tester.Address;
+            address.City = string.Copy(tester.Address.City);
+            address.Street = string.Copy(tester.Address.Street);
+            address.NumOfHome = string.Copy(tester.Address.NumOfHome);
             RegisterDate = tester.RegisterDate;
             MaxTests = tester.MaxTests;
             TypeOfCar = tester.TypeOfCar;
