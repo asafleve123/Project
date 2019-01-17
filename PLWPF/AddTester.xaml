@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PLWPF"
         xmlns:BE="clr-namespace:BE;assembly=BE" x:Class="PLWPF.AddTester"
         mc:Ignorable="d"
-        Title="AddTester" Height="600" Width="300" ResizeMode="NoResize">
+        Title="AddTester" Height="565" Width="300" ResizeMode="NoResize">
 
     <Window.Resources>
         <Style TargetType="Label">
@@ -62,22 +62,22 @@
             </Grid.RowDefinitions>
             
             <Label Content=":שם פרטי" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-            <TextBox x:Name="privateNameTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding PrivateName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="privateNameTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding PrivateName, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":שם משפחה" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-            <TextBox x:Name="familyNameTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding FamilyName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="familyNameTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding FamilyName, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":תעודת זהות" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="2" VerticalAlignment="Center" />
-            <TextBox x:Name="idTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Id, Mode=OneWay}" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="idTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Id, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":תאריך לידה" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
-            <DatePicker x:Name="dOBDatePicker" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" SelectedDate="{Binding DOB, Mode=OneWay}" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dOBDatePicker" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" SelectedDate="{Binding DOB, Mode=TwoWay}" VerticalAlignment="Center"/>
 
             <Label Content=":מין" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
             <ComboBox x:Name="genderComboBox" Text="זכר/נקבה" Grid.Column="0" SelectedItem="{Binding Gender}" HorizontalAlignment="Left" Height="Auto"  Margin="3" Grid.Row="4" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":מספר פלאפון" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
-            <TextBox x:Name="phoneTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="5" Text="{Binding Phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="phoneTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="5" Text="{Binding Phone, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":עיר" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="6" VerticalAlignment="Center"/>
             <TextBox x:Name="City" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="6" VerticalAlignment="Center" Width="120"/>
@@ -88,13 +88,13 @@
             <Label Content=":מספר בית" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="8" VerticalAlignment="Center"/>
             <TextBox x:Name="NumOfHome" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="8" VerticalAlignment="Center" Width="120"/>
 
-            <Label Content=":שעות עבודה" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="9" VerticalAlignment="Center"/>
+            <Button Name="WorkTableButton" Content="לקביעת שעות עבודה - לחץ כאן" FontWeight="Bold" Grid.Row="9" Height="28" Margin="3" Grid.ColumnSpan="2" Click="WorkTableButton_Click"/>
 
             <Label Content=":מרחק מקסימום" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="10" VerticalAlignment="Center"/>
-            <TextBox x:Name="maxRangeTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="10" Text="{Binding MaxRange, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="maxRangeTextBox" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="10" Text="{Binding MaxRange, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
             
             <Label Content=":התמכות על" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="11" VerticalAlignment="Center"/>
-            <ComboBox x:Name="typeOfCarComboBox" Text=":סוג רכב" Grid.Column="0" SelectedItem="{Binding TypeOfCar}" HorizontalAlignment="Left" Height="Auto"  Margin="3" Grid.Row="11" VerticalAlignment="Center" Width="120"/>
+            <ComboBox x:Name="typeOfCarComboBox" Text=":סוג רכב" Grid.Column="0" SelectedItem="{Binding TypeOfCar,Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto"  Margin="3" Grid.Row="11" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":בחר סיסמה" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="12" VerticalAlignment="Center"/>
             <PasswordBox x:Name="code" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="12" VerticalAlignment="Center"  Width="120"/>
@@ -104,11 +104,9 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label x:Name="WaningBox" Content="" Width="Auto" Height="15" HorizontalAlignment="Center"  FontSize="9" Foreground="Red" Padding="0" />
-                <Button Name="sign" Content="התחבר" Grid.Row="1" Height="30"/>
+                <Label x:Name="WarningBox" Content="" Width="Auto" Height="15" HorizontalAlignment="Center"  FontSize="9" Foreground="Red" Padding="0" />
+                <Button Name="sign" FontWeight="Bold" Content="הרשם" Grid.Row="1" Height="30" Click="Sign_Click"/>
             </Grid>
-
-
         </Grid>
     </Grid>
 </Window>

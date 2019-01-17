@@ -26,8 +26,8 @@ namespace PLWPF
         public MainWindow()
         {
             InitializeComponent();
-            Button_Click(this,new RoutedEventArgs());
-            Closing += Close_click;
+            //Button_Click(this,new RoutedEventArgs());
+            //Closing += Close_click;
         }
 
         private void Close_click(object sender, System.ComponentModel.CancelEventArgs e)
@@ -51,7 +51,7 @@ namespace PLWPF
                 //}
             }
 
-            private void Button_Click(object sender, RoutedEventArgs e)
+        private void New_Tester(object sender, RoutedEventArgs e)
         {
             var AddTesterWin = new AddTester();
             AddTesterWin.ShowDialog();
@@ -74,6 +74,11 @@ namespace PLWPF
                     B1.Foreground = Brushes.White;
                 }
             }
+        }
+        private void New_Trainee(object sender, RoutedEventArgs e)
+        {
+            var AddTrainneWin = new AddTrainee();
+            AddTrainneWin.ShowDialog();
         }
     }
 }

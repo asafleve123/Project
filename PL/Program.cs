@@ -15,15 +15,15 @@ namespace PL
         static void Main(string[] args)
         {
 
-            //    bool[,] worktable = new bool[6, 5]
-            //    {
+            //bool[,] worktable = new bool[6, 5]
+            //{
             //        { true, true, true, true, true},
             //        { true, true, true, true, true},
             //        { true, true, true, true, true},
             //        { true, true, true, true, true},
             //        { true, true, true, true, true},
             //        { true, true, true, true, true},
-            //      };
+            //  };
             //    try
             //    {
             //        Tester tester1 = new Tester("212384507", "Levi", "Asaf", new DateTime(1950, 2, 2), Gender.זכר, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = 11 }, 19, 20, Car.רכב_פרטי, worktable, 10),

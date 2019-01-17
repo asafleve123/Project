@@ -20,16 +20,26 @@ namespace PLWPF
     /// </summary>
     public partial class AddTester : Window
     {
-        Tester tester;
+        public Tester tester;
         IBL bl;
         public AddTester()
         {
-            InitializeComponent();
+            tester = new Tester("");
             bl = BL.FactoryBL.getBl();
-            tester = new Tester("not to add");
+            InitializeComponent();
             this.DataContext = tester;
             this.genderComboBox.ItemsSource = Enum.GetValues(typeof(BE.Gender));
             this.typeOfCarComboBox.ItemsSource = Enum.GetValues(typeof(BE.Car));
+            tester.WorkTable = new bool[6, 5]
+            {
+                    { false, false, false, false, false},
+                    { false, false, false, false, false},
+                    { false, false, false, false, false},
+                    { false, false, false, false, false},
+                    { false, false, false, false, false},
+                    { false, false, false, false, false},
+              };
+
         }
 
         private void Sign_Click(object sender, RoutedEventArgs e)
@@ -40,7 +50,8 @@ namespace PLWPF
                     tester.Code = Code;
                     tester.Address = new Address(this.City.Text, this.Street.Text, this.NumOfHome.Text);
                     bl.AddTester(tester);
-                    tester = new Tester("not to add");
+                    //tester = new Tester("");
+                    //this.DataContext = tester;s
                     this.Close();
                 }
                 catch (Exception ex)
@@ -48,6 +59,15 @@ namespace PLWPF
                     this.WarningBox.Content = ex.Message;
                 }
             
+        }
+
+        private void WorkTableButton_Click(object sender, RoutedEventArgs e)
+        {
+            WorkTable workTableWin = new WorkTable(tester.WorkTable);
+            workTableWin.ShowDialog();
+            tester.WorkTable= workTableWin.workTable;
+            Button b1 = sender as Button;
+            b1.Content = "!סיימת";
         }
     }
 }
