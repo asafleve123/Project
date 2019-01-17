@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Window.Resources>
-
         <Style x:Key="MyTabItem" TargetType="TabItem">
             <Setter Property="FontSize" Value="30" />
             <Setter Property="FontFamily" Value="Consolas" />
@@ -16,69 +15,71 @@
             <Setter Property="Height" Value="auto"/>
         </Style>
     </Window.Resources>
-
-    <Grid Margin="0" Background="#FF29ABAB" x:Name="grid">
-
+    <Grid Margin="0" Background="LightGreen" x:Name="Grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="80*" x:Name="grid1"/>
         </Grid.RowDefinitions>
-
-        <Grid  Grid.Row="0">
-            <TextBlock Background="#FF29ABAB" HorizontalAlignment="Center" VerticalAlignment="Center" Text="משרד הרישוי מערכת מבחני נהיגה" TextAlignment="Center" FontWeight="Bold" FontFamily="David" Margin="10" FontSize="50"/>
+        <Grid Grid.Row="0">
+            <Viewbox>                <!--<TextBlock Background="LightGreen" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"  Margin="10" FontSize="40" Padding="0"/>-->
+                <Button x:Name="B1" Background="LightGreen" Content="משרד הרישוי מערכת מבחני נהיגה" FontFamily="David" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40" Padding="0" FontWeight="Thin" Click="Add_Dialog"/>
+            </Viewbox>
         </Grid>
-        <Grid  Grid.Row="1">
-            <TabControl  HorizontalAlignment="Center"  VerticalAlignment="Center" TabStripPlacement="Top" HorizontalContentAlignment="Right"  BorderBrush="Black" Margin="10" Height="{Binding ActualHeight,ElementName=grid1}" Width="{Binding ActualWidth,ElementName=grid}">
-                <TabItem Header="בוחן" Style="{StaticResource MyTabItem}">
-                    <Grid x:Name="Grid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="20*" x:Name="Grid0"/>
-                            <RowDefinition Height="20*" x:Name="Grid1"/>
-                            <RowDefinition Height="20*" x:Name="Grid2"/>
-                            <RowDefinition Height="20*" x:Name="Grid3"/>
-                            <RowDefinition Height="20*" x:Name="Grid4"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Background="#FFDAD8D8" TextAlignment="Right" Text=":תעודת זהות" HorizontalAlignment="Right" Width="{Binding ActualWidth,ElementName=Grid}" Height="{Binding ActualHeight,ElementName=Grid0}"/>
-                        <TextBox Grid.Row="1" Height="{Binding ActualHeight,ElementName=Grid1}" Width="{Binding ActualWidth,ElementName=Grid}"/>
-                        <TextBlock  Grid.Row="2" Background="#FFDAD8D8" Text=":סיסמה" TextAlignment="Right" Height="{Binding ActualHeight,ElementName=Grid2}" HorizontalAlignment="Right" Width="{Binding ActualWidth,ElementName=Grid}"/>
-                        <PasswordBox Grid.Row="3" Height="{Binding ActualHeight,ElementName=Grid3}" Width="{Binding ActualWidth,ElementName=Grid}"/>
-                        <Grid Grid.Row="4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80*" x:Name="Grid40"/>
-                                <ColumnDefinition Width="20*" x:Name="Grid41"/>
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="בוחן חדש? - לחץ כאן" Height="{Binding ActualHeight,ElementName=Grid4}" Width="{Binding ActualWidth,ElementName=Grid40}" Click="Button_Click"/>
-                            <Button Grid.Column="1" Content="התחבר" Height="{Binding ActualHeight,ElementName=Grid4}"  Width="{Binding ActualWidth,ElementName=Grid41}"/>
-                        </Grid>
-                    </Grid>
-                </TabItem>
+        <Grid Grid.Row="1">
+            <Viewbox>
 
-                <TabItem Header="נבחן"  Style="{StaticResource MyTabItem}" >
-                    <Grid>
+                <TabControl HorizontalAlignment="Center"  VerticalAlignment="Center" TabStripPlacement="Top"  BorderBrush="Black" Margin="10,10,10,10" Height="396" Width="662">
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="20*" x:Name="Grid10"/>
-                            <RowDefinition Height="20*" x:Name="Grid11"/>
-                            <RowDefinition Height="20*" x:Name="Grid12"/>
-                            <RowDefinition Height="20*" x:Name="Grid13"/>
-                            <RowDefinition Height="20*" x:Name="Grid14"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Background="#FFDAD8D8" TextAlignment="Right" Text=":תעודת זהות" HorizontalAlignment="Right" Width="{Binding ActualWidth,ElementName=Grid0}" Height="{Binding ActualHeight,ElementName=Grid00}"/>
-                        <TextBox Grid.Row="1" Width="{Binding ActualWidth,ElementName=Grid0}" Height="{Binding ActualHeight,ElementName=Grid01}"/>
-                        <TextBlock  Grid.Row="2" Background="#FFDAD8D8" Text=":סיסמה" TextAlignment="Right" HorizontalAlignment="Right" Width="{Binding ActualWidth,ElementName=Grid0}" Height="{Binding ActualHeight,ElementName=Grid02}"/>
-                        <PasswordBox Grid.Row="3" Width="{Binding ActualWidth,ElementName=Grid0}" Height="{Binding ActualHeight,ElementName=Grid03}"/>
-                        <Grid Grid.Row="4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80*" x:Name="Grid140"/>
-                                <ColumnDefinition Width="20*" x:Name="Grid141"/>
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="נבחן חדש? - לחץ כאן" Height="{Binding ActualHeight,ElementName=Grid04}" Click="Button_Click"/>
-                            <Button Content="התחבר" Grid.Column="1" Height="{Binding ActualHeight,ElementName=Grid04}" Width="{Binding ActualWidth , ElementName=Grid041}" />
+                    <TabItem Header="בוחן" Style="{StaticResource MyTabItem}" BorderBrush="Black" VerticalAlignment="Top" Margin="0,0,-330,0">
+                        <Grid x:Name="Grid0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20*" x:Name="Grid00"/>
+                                <RowDefinition Height="20*" x:Name="Grid01"/>
+                                <RowDefinition Height="20*" x:Name="Grid02"/>
+                                <RowDefinition Height="20*" x:Name="Grid03"/>
+                                <RowDefinition Height="20*" x:Name="Grid04"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Background="#FFDAD8D8" TextAlignment="Right" Text=":תעודת זהות" HorizontalAlignment="Right" Width="656"    />
+                            <TextBox Grid.Row="1"   Height="{Binding ActualHeight,ElementName=Grid01}"/>
+                            <TextBlock  Grid.Row="2" Background="#FFDAD8D8" Text=":סיסמה" TextAlignment="Right" HorizontalAlignment="Right"   Height="{Binding ActualHeight,ElementName=Grid02}" Width="656"/>
+                            <PasswordBox Grid.Row="3"/>
+                            <Grid Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80*" x:Name="Grid040"/>
+                                    <ColumnDefinition Width="20*" x:Name="Grid041"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Content="בוחן חדש? - לחץ כאן" Height="{Binding ActualHeight,ElementName=Grid04}" Click="Button_Click"/>
+                                <Button Content="התחבר" Grid.Column="1"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </TabItem>
-            </TabControl>
+                    </TabItem>
+
+                    <TabItem Header="נבחן"  Style="{StaticResource MyTabItem}"  VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="190,0,-190,0" >
+                        <Grid x:Name="Grid1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20*" x:Name="Grid10"/>
+                                <RowDefinition Height="20*" x:Name="Grid11"/>
+                                <RowDefinition Height="20*" x:Name="Grid12"/>
+                                <RowDefinition Height="20*" x:Name="Grid13"/>
+                                <RowDefinition Height="20*" x:Name="Grid14"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Background="#FFDAD8D8" TextAlignment="Right" Text=":תעודת זהות" HorizontalAlignment="Right" Width="656" Height="70" VerticalAlignment="Bottom"    />
+                            <TextBox Grid.Row="1"   Height="{Binding ActualHeight,ElementName=Grid01}"/>
+                            <TextBlock  Grid.Row="2" Background="#FFDAD8D8" Text=":סיסמה" TextAlignment="Right" HorizontalAlignment="Right"   Height="{Binding ActualHeight,ElementName=Grid02}" Width="656"/>
+                            <PasswordBox Grid.Row="3"   Height="{Binding ActualHeight,ElementName=Grid03}"/>
+                            <Grid Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80*" x:Name="Grid140"/>
+                                    <ColumnDefinition Width="20*" x:Name="Grid141"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Content="נבחן חדש? - לחץ כאן" Height="{Binding ActualHeight,ElementName=Grid04}" Click="Button_Click"/>
+                                <Button Content="התחבר" Grid.Column="1" />
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Viewbox>
         </Grid>
-
     </Grid>
+
 </Window>

@@ -12,21 +12,23 @@ namespace BE
     public class Tester : IComparable
     {
         private bool[,] worktable;
+        private Address address;
         //properties
-        public string Id { get; private set; }
+        public string Id { get; set; }
         public string FamilyName { get; set; }
         public string PrivateName { get; set; }
-        public DateTime DOB { get; private set; }
+        public DateTime DOB { get; set; }
         public Gender Gender { get; set; }
         public string Phone { get; set; }
-        public Address Address { get; set; }
-        public int Years { get; set; }
+        public Address Address { get=>address; set=>address=value; }
+        public int Years { get { return DateTime.Now.Year - RegisterDate.Year; } }
         public int MaxTests { get; set; }
-        public Car TypeOfCar { get; private set; }
+        public Car TypeOfCar { get;  set; }
         public bool[,] WorkTable { get => worktable; set => worktable = value; }
         public int MaxRange { get; set; }
         public int Age { get { return DateTime.Now.Year - DOB.Year; } }
         public string Code { get; set; }
+        public DateTime RegisterDate { get; set; }
         
         //...
         //functions
@@ -39,7 +41,7 @@ namespace BE
             return Id.CompareTo(((Tester)obj).Id);
         }
         
-        public Tester(string Id, string FamilyName, string PrivateName, DateTime DOB, Gender Gender, string Phone, Address Address, int Years, int MaxTests, Car TypeOfCar, bool[,] WorkTable, int MaxRange , string code)
+        public Tester(string Id, string FamilyName, string PrivateName, DateTime DOB, Gender Gender, string Phone, Address Address, DateTime RegisterDate, int MaxTests, Car TypeOfCar, bool[,] WorkTable, int MaxRange , string code)
         {
             this.Id = Id;
             this.FamilyName = FamilyName;
@@ -47,7 +49,7 @@ namespace BE
             this.DOB = DOB;
             this.Phone = Phone;
             this.Address = Address;
-            this.Years = Years;
+            this.RegisterDate = RegisterDate;
             this.MaxTests = MaxTests;
             this.TypeOfCar = TypeOfCar;
             this.WorkTable = WorkTable;
@@ -72,7 +74,7 @@ namespace BE
             if(tester.Phone!=null)
             Phone = string.Copy(tester.Phone);
             Address = tester.Address;
-            Years = tester.Years;
+            RegisterDate = tester.RegisterDate;
             MaxTests = tester.MaxTests;
             TypeOfCar = tester.TypeOfCar;
             MaxRange = tester.MaxRange;

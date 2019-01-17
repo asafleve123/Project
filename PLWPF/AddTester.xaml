@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PLWPF"
         xmlns:BE="clr-namespace:BE;assembly=BE" x:Class="PLWPF.AddTester"
         mc:Ignorable="d"
-        Title="AddTester" Height="550" Width="300" ResizeMode="NoResize">
+        Title="AddTester" Height="600" Width="300" ResizeMode="NoResize">
 
     <Window.Resources>
         <Style TargetType="Label">
@@ -83,7 +83,7 @@
             <TextBox x:Name="City" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="6" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":רחוב" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="7" VerticalAlignment="Center"/>
-            <TextBox x:Name="Street" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="7" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="Street" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="7" VerticalAlignment="Center" Width="120" />
 
             <Label Content=":מספר בית" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="8" VerticalAlignment="Center"/>
             <TextBox x:Name="NumOfHome" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="8" VerticalAlignment="Center" Width="120"/>
@@ -97,8 +97,7 @@
             <ComboBox x:Name="typeOfCarComboBox" Text=":סוג רכב" Grid.Column="0" SelectedItem="{Binding TypeOfCar}" HorizontalAlignment="Left" Height="Auto"  Margin="3" Grid.Row="11" VerticalAlignment="Center" Width="120"/>
 
             <Label Content=":בחר סיסמה" Grid.Column="1" HorizontalAlignment="Center" Margin="3" Grid.Row="12" VerticalAlignment="Center"/>
-            <PasswordBox x:Name="code" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="12" VerticalAlignment="Center" Width="120"/>
-
+            <PasswordBox x:Name="code" Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="12" VerticalAlignment="Center"  Width="120"/>
 
             <Grid Grid.Row="13" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
