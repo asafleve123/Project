@@ -80,5 +80,11 @@ namespace PLWPF
             var AddTrainneWin = new AddTrainee();
             AddTrainneWin.ShowDialog();
         }
+
+        private void Connect(object sender, RoutedEventArgs e)
+        {
+            loading l = new loading();
+            this.Content = l;
+        }
     }
 }

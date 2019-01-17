@@ -60,6 +60,9 @@
     <Compile Include="AddTester.xaml.cs">
       <DependentUpon>AddTester.xaml</DependentUpon>
     </Compile>
+    <Compile Include="loading.xaml.cs">
+      <DependentUpon>loading.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WorkTable.xaml.cs">
       <DependentUpon>WorkTable.xaml</DependentUpon>
     </Compile>
@@ -68,6 +71,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddTrainee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="loading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -141,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\works.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Rishoi.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

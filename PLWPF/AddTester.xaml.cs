@@ -50,8 +50,6 @@ namespace PLWPF
                     tester.Code = Code;
                     tester.Address = new Address(this.City.Text, this.Street.Text, this.NumOfHome.Text);
                     bl.AddTester(tester);
-                    //tester = new Tester("");
-                    //this.DataContext = tester;s
                     this.Close();
                 }
                 catch (Exception ex)

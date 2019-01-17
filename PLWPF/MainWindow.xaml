@@ -53,12 +53,14 @@
                                     <ColumnDefinition Width="20*" x:Name="Grid041"/>
                                 </Grid.ColumnDefinitions>
                                 <Button Grid.Column="0" Content="בוחן חדש? - לחץ כאן" Height="70" Click="New_Tester"/>
-                                <Button Content="התחבר" Grid.Column="1"/>
+                                <Button Content="התחבר" Grid.Column="1" Click="Connect"/>
+                                <ProgressBar HorizontalAlignment="Left" Height="10" VerticalAlignment="Top" Width="100"/>
+                                <ProgressBar HorizontalAlignment="Left" Height="10" VerticalAlignment="Top" Width="100"/>
                             </Grid>
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="נבחן" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="133,-1,-133,0" >
+                    <TabItem Header="נבחן" VerticalAlignment="Top"  Margin="0,1,-116,-0.667"  Width="104">
                         <Grid x:Name="Grid1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="20*" x:Name="Grid10"/>
