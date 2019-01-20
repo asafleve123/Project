@@ -27,7 +27,7 @@ namespace PLWPF
         {
             InitializeComponent();
             //Button_Click(this,new RoutedEventArgs());
-            //Closing += Close_click;
+            Closing += Close_click;
         }
 
         private void Close_click(object sender, System.ComponentModel.CancelEventArgs e)
