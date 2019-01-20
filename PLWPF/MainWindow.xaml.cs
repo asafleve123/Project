@@ -81,10 +81,17 @@ namespace PLWPF
             AddTrainneWin.ShowDialog();
         }
 
-        private void Connect(object sender, RoutedEventArgs e)
+        private void ConnectTester(object sender, RoutedEventArgs e)
         {
-            loading l = new loading();
-            this.Content = l;
+            if (password.Password==MyBl.GetTesterPassword(tz.Text))
+            {
+             loading l = new loading();
+             this.Content = l;
+            }
+            else
+            { 
+                    
+            }
         }
     }
 }

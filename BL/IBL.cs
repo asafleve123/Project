@@ -77,6 +77,8 @@ namespace BL
         int NumOfTraineesTests(Trainee trainee);
         bool IsAllowed(Trainee trainee);
         List<Test> ListByDay();
+        string GetTesterPassword(string id);
+        string GetTraineePassword(string id);
 
         IEnumerable<IGrouping<Car, Tester>> ListOfTestersByCar(bool order);
         IEnumerable<IGrouping<string, Trainee>> ListOfTraineesBySchool(bool order);

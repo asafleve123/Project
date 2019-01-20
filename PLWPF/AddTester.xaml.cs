@@ -54,8 +54,8 @@ namespace PLWPF
                 }
                 catch (Exception ex)
                 {
-                    this.WarningBox.Content = ex.Message;
-                }
+                        this.WarningBox.Content = ex.Message;
+            }
             
         }
 
