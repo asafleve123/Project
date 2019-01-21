@@ -29,6 +29,9 @@ namespace PLWPF
             bl = BL.FactoryBL.getBl();
             InitializeComponent();
             this.typeOfCarComboBox.ItemsSource = Enum.GetValues(typeof(BE.Car));
+            this.gradecheckbox.ItemsSource = Enum.GetValues(typeof(BE.Grade));
+            this.gradecheckbox.FontWeight = FontWeights.DemiBold;
+            this.gradecheckbox.FontSize = 20;
             this.tester = tester;
             this.DataContext = tester;
             Address address = tester.Address;
@@ -97,6 +100,13 @@ namespace PLWPF
         {
             this.Close();
         }
-        
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource criterionViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("criterionViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // criterionViewSource.Source = [generic data source]
+        }
     }
 }
