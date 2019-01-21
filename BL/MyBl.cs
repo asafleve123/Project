@@ -37,7 +37,7 @@ namespace BL
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("there is'nt last test");
+                throw new Exception("לא קיים מבחן אחרון");
             }
             foreach (Test item in tests)
                 if (temp.TestDay < item.TestDay)
@@ -68,13 +68,13 @@ namespace BL
         private Trainee GetTrainee(Test test)
         {
             if (!TraineesCollection().Exists(T => T.Id == test.IdTrainee))
-                throw new Exception("this trainee doesnt exist");
+                throw new Exception("הנבחו אינו קיים");
             return (from item in TraineesCollection() where (item.Id == test.IdTrainee) select item).First();
         }
         private Tester GetTester(Test test)
         {
             if (!TestersCollection().Exists(T => T.Id == test.IdTester))
-                throw new Exception("this tester doesnt exist");
+                throw new Exception("הבוחן אינו קיים");
             return (from item in TestersCollection() where (item.Id == test.IdTrainee) select item).First();
         }
         private void FindNewTester(Test test)
@@ -87,7 +87,7 @@ namespace BL
                 test.Grade = Grade.נכשל;
                 test.IdTester = null;
                 Update(test);
-                throw new Exception(test + ":there isnt tester free in that date");
+                throw new Exception(test + ":לא קיים בוחן פנוי בתאריך זה");
             }
             test.IdTester = testersList.First().Id;
         }
@@ -100,7 +100,7 @@ namespace BL
             CheckTest(test);
             if (test.TestDay <= DateTime.Now)
             {
-                throw new Exception("Wrong date!");
+                throw new Exception("תאריך לא מתאים");
             }
             IEnumerable<Tester> testers = TestersCollection();
             IEnumerable<Test> tests = TestsCollection();
@@ -117,24 +117,24 @@ namespace BL
                 throw e;
             }
             if (IsAllowed(trainee))
-                throw new Exception("the trainee is already past the test on this type of car");
+                throw new Exception("התלמיד כבר עבר את המבחן על סוג הרכב הזה");
             if (test.TypeOfCar != trainee.TypeOfCar)
             {
-                throw new Exception("the trainee is'nt learn on this type car!");
+                throw new Exception("!התלמיד לא למד על סוג הרכב הזה");
             }
             Test PreTest;
             try
             {
                 PreTest = LastTest(trainee);
                 if ((test.TestDay - PreTest.TestDay).Days < Configuration.RANGE_BETWEEN_TESTS)
-                    throw new Exception("it's too early to take a new test");
+                    throw new Exception("מוקדם מידי בשביל עוד מבחן");
             }
             catch (Exception)
             {
 
             }
             if (trainee.DLessonPast < Configuration.MIN_NUMBER_OF_LESSONS)
-                throw new Exception("You need to do " + (Configuration.MIN_NUMBER_OF_LESSONS - trainee.DLessonPast) + " lessons");
+                throw new Exception("שיעורים " + (Configuration.MIN_NUMBER_OF_LESSONS - trainee.DLessonPast) + " אתה צריך עוד");
 
             //Leaving only the testers who work on that date
             List<Tester> testersList = new List<Tester>(IsFree(test.TestDay));
@@ -142,7 +142,7 @@ namespace BL
             testersList.RemoveAll(T => T.TypeOfCar != test.TypeOfCar);
             if (testersList.Count() == 0)
             {
-                throw new Exception("there isn't any tester on this date");
+                throw new Exception("לא קיים בוחן פנוי בתאריך זה");
             }
             test.IdTester = testersList.First().Id;
             test.ChosenTester = true;
@@ -152,10 +152,10 @@ namespace BL
         {
             CheckTester(tester);
             if ((TestersCollection()).Exists(T => T.Id == tester.Id))
-                throw new Exception("this tester exist");
+                throw new Exception("הבוחן קיים כבר");
             if (tester.Age < Configuration.MIN_AGE_TESTER)
             {
-                throw new Exception("You are too younger");
+                throw new Exception("אתה צעיר מידי");
             }
 
             MyDal.AddTester(tester);
@@ -165,10 +165,10 @@ namespace BL
         {
             CheckTrainee(trainee);
             if ((TraineesCollection()).Exists(T => T.Id == trainee.Id))
-                throw new Exception("this trainee exist");
+                throw new Exception("התלמיד קיים כבר");
             if (trainee.Age < Configuration.MIN_AGE_TRAINEE)
             {
-                throw new Exception("You are too younger");
+                throw new Exception("אתה צעיר מידי");
             }
             MyDal.AddTrainee(trainee);
         }
@@ -177,7 +177,7 @@ namespace BL
         {
             if (!TestersCollection().Exists(T => tester.Id == T.Id))
             {
-                throw new Exception("there isn't such tester");
+                throw new Exception("הבוחן לא קיים");
             }
 
             MyDal.DeleteTester(tester);
@@ -191,12 +191,12 @@ namespace BL
         {
             if (!TraineesCollection().Exists(T => trainee.Id == T.Id))
             {
-                throw new Exception("there isn't such trainee");
+                throw new Exception("התלמיד לא קיים");
             }
 
             if (TestsCollection().Exists(T => T.ChosenTester && DateTime.Now < T.TestDay && trainee.Id == T.IdTrainee))
             {
-                throw new Exception("Can't earse trainee if you have a test");
+                throw new Exception("אתה לא יכול להימחק כשיש לך עוד מבחנים לעשות");
             }
             MyDal.DeleteTrainee(trainee);
         }
@@ -219,7 +219,7 @@ namespace BL
             CheckTest(test);
             if (test.Grade == null)
             {
-                throw new Exception("you forget to fill the grade");
+                throw new Exception("שכחת למלא את הציון");
             }
             if (test.Grade == Grade.עבר && FailedCriterion(test))
             {
@@ -232,7 +232,7 @@ namespace BL
             CheckTester(tester);
             if (!TestersCollection().Exists(T => tester.Id == T.Id))
             {
-                throw new Exception("there isn't such tester");
+                throw new Exception("הבוחן לא קיים");
             }
             MyDal.UpdateTester(tester);
         }
@@ -241,7 +241,7 @@ namespace BL
             CheckTrainee(trainee);
             if (!TraineesCollection().Exists(T => trainee.Id == T.Id))
             {
-                throw new Exception("there isn't such tester");
+                throw new Exception("הנבחן לא קיים");
             }
             MyDal.UpdateTrainee(trainee);
         }
@@ -430,23 +430,23 @@ namespace BL
         public static void CheckTest(Test test)
         {
             if (test.TestTime.All(char.IsLetter))
-                throw new Exception(test+":wrong test time");
+                throw new Exception(test+":תאריל לא נכון");
             if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
-                 throw new Exception(test + ":the dates arent same");
+                 throw new Exception(test + ":התאריכים לא זהים");
             if ((test.IdTester != null)&&!IdCheck(test.IdTester))
-                 throw new Exception(test + ":Wrong id tester!");
+                 throw new Exception(test + ":ת'ז בוחן שגוי");
             if (!IdCheck(test.IdTrainee))
-                 throw new Exception(test + ":Wrong id trainee!");
+                 throw new Exception(test + ":ת'ז נבחן שגוי");
             if (!test.TestAddress.Street.All(char.IsLetter))
-                throw new Exception(test + ":Wrong street name!");
+                throw new Exception(test + ":שם רחוב שגוי");
             
             if (!test.TestAddress.City.All(char.IsLetter))
-                 throw new Exception(test + ":Wrong city name!");
+                 throw new Exception(test + ":שם עיר שגוי");
             foreach (Criterion item in test.Criterions)
             {
                 if (!item.name.All(char.IsLetter))
                 {
-                    throw new Exception(test + ":wrong Criterion " + item.name + "!");
+                    throw new Exception("!שגוי"+test + "-ב"+item.name+":שמו של הקריטריון");
                 }
             }
         }
@@ -457,6 +457,14 @@ namespace BL
         public IEnumerable<object> TestsNow()
         {
             return TestsByDay(DateTime.Now);
+        }
+        public IEnumerable<Test> AllTestsBy(Predicate<Test> func,Tester tester)
+        {
+            return from item in TestsCollection() where (func(item)&&item.IdTester==tester.Id) select item;
+        }
+        public IEnumerable<Test> AllTestsBy(Predicate<Test> func, Trainee trainee)
+        {
+            return from item in TestsCollection() where (func(item) && item.IdTrainee == trainee.Id) select item;
         }
     } 
 }
