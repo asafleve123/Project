@@ -70,7 +70,7 @@
 
                         </Grid>
 
-                        <TextBlock Text="" Grid.Row="3" Foreground="Red" Name="AddTestWarningBox"  FontSize="20" TextAlignment="Justify"  HorizontalAlignment="Center"  VerticalAlignment="Top" Height="20" Margin="310,0,308,0" Width="118" Grid.ColumnSpan="2" />
+                        <TextBlock Text="" Grid.Row="2" Foreground="Red" Name="AddTestWarningBox"  FontSize="20" TextAlignment="Justify"  HorizontalAlignment="Center"  VerticalAlignment="Top" Height="24" Margin="313,43,312.667,0" Width="Auto" Grid.ColumnSpan="2" Grid.RowSpan="2" />
                     </Grid>
                     <Rectangle Grid.Row="1" Fill="White" Stroke="Black" StrokeThickness="15"/>
                     <Grid Grid.Row="1">
