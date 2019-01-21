@@ -138,6 +138,7 @@ namespace BL
 
             //Leaving only the testers who work on that date
             List<Tester> testersList = new List<Tester>(IsFree(test.TestDay));
+            //לא לשכוח לעשות חיתוך על מרחק
             testersList.RemoveAll(T => T.TypeOfCar != test.TypeOfCar);
             if (testersList.Count() == 0)
             {
@@ -313,13 +314,28 @@ namespace BL
             }
             return from item in TraineesCollection() group item by item.DLessonPast;
         }
-        public string GetTesterPassword(string id)
+        public Tester GetTester(string id)
         {
-            return TestersCollection().Find(T => T.Id == id).Code;
+            if (id == null)
+                throw new Exception("לא קיים ערך תז");
+            if (!IdCheck(id))
+                throw new Exception("ערך תז לא תקין");
+            Tester temp= TestersCollection().Find(T => T.Id == id);
+            if (temp == null)
+                throw new Exception("לא קיים בוחן-חדש?לחץ על בוחן חדש");
+            return temp;
         }
-        public string GetTraineePassword(string id)
+        public Trainee GetTrainee(string id)
         {
-            return TraineesCollection().Find(T => T.Id == id).Code;
+
+            if (id == null)
+                throw new Exception("לא קיים ערך תז");
+            if (!IdCheck(id))
+                throw new Exception("ערך תז לא תקין");
+            Trainee temp = TraineesCollection().Find(T => T.Id == id);
+            if (temp == null)
+                throw new Exception("לא קיים נבחן-חדש?לחץ על נבחן חדש");
+            return temp;
         }
         //...
         public static bool IdCheck(string id)

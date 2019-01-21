@@ -23,11 +23,28 @@ namespace PLWPF
     public partial class MainWindow : Window
     {
         IBL MyBl = FactoryBL.getBl();
+        bool[,] worktable = new bool[6, 5]
+{
+                    { true, true, true, true, true},
+                    { true, true, true, true, true},
+                    { true, true, true, true, true},
+                    { true, true, true, true, true},
+                    { true, true, true, true, true},
+                    { true, true, true, true, true},
+  };
         public MainWindow()
         {
             InitializeComponent();
             //Button_Click(this,new RoutedEventArgs());
             Closing += Close_click;
+            Tester a = new Tester("212384507", "Levi", "Asaf", new DateTime(1950, 2, 2), Gender.זכר, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = "11" }, DateTime.Now, 20, Car.רכב_פרטי, worktable, 10, "1");
+            MyBl.AddTester(a);
+            this.tz.Text = a.Id;
+            this.passwordTester.Password = a.Code;
+            Trainee q = new Trainee("322263310", "Yossef", "Katri", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = "22" }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "Shimi", 20, false,"2");
+            MyBl.AddTrainee(q);
+            this.tz1.Text = q.Id;
+            this.passwordTrainne.Password = q.Code;
         }
 
         private void Close_click(object sender, System.ComponentModel.CancelEventArgs e)
@@ -83,14 +100,44 @@ namespace PLWPF
 
         private void ConnectTester(object sender, RoutedEventArgs e)
         {
-            if (password.Password==MyBl.GetTesterPassword(tz.Text))
+            try
             {
-             loading l = new loading();
-             this.Content = l;
+                if (passwordTester.Password == MyBl.GetTester(tz.Text).Code)
+                {
+                    TesterWindow testerWindow = new TesterWindow(MyBl.GetTester(tz.Text));
+                    testerWindow.ShowDialog();
+                }
+                else
+                {
+                    throw new Exception("הסיסמא או התז אינם נכונים");
+                }
             }
-            else
-            { 
-                    
+            catch (Exception ex)
+            {
+                WarnningTester.Visibility = Visibility.Visible;
+                WarnningTester.Text = ex.Message;
+            }
+        }
+
+        private void ConnectTrainee(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                if (passwordTrainne.Password == MyBl.GetTrainee(tz1.Text).Code)
+                {
+                    TraineeWindow testerWindow = new TraineeWindow(MyBl.GetTrainee(tz1.Text));
+                    testerWindow.ShowDialog();
+                }
+                else
+                {
+                    throw new Exception("הסיסמא או התז אינם נכונים");
+                }
+            }
+            catch (Exception ex)
+            {
+                WarnningTrainee.Visibility = Visibility.Visible;
+                WarnningTrainee.Text = ex.Message;
             }
         }
     }

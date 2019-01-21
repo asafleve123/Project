@@ -21,6 +21,7 @@ namespace PLWPF
     /// </summary>
     public partial class loading : Page
     {
+        public MainWindow main;
         public int value = 0;
         DispatcherTimer timer;
         List<string> files;
@@ -41,6 +42,8 @@ namespace PLWPF
             files.Add("PLWPF.exe");
             files.Add("PLWPF.exe.config");
             files.Add("PLWPF.pdb");
+            
+
         }
 
         private void startClock()
