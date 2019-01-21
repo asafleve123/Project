@@ -74,6 +74,8 @@ namespace BL
         IEnumerable<Tester> DistanseFromAdress(Address adress);
         IEnumerable<Tester> IsFree(DateTime time);
         IEnumerable<Test> AllTestsBy(Predicate<Test> func);
+        IEnumerable<Test> AllTestsBy(Predicate<Test> func, Tester tester);
+        IEnumerable<Test> AllTestsBy(Predicate<Test> func, Trainee trainee);
         int NumOfTraineesTests(Trainee trainee);
         bool IsAllowed(Trainee trainee);
         List<Test> ListByDay();
