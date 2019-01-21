@@ -80,6 +80,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
@@ -89,9 +90,12 @@
                             <Label Grid.Column="1" Grid.Row="0" Content=":ציון" FontWeight="DemiBold" HorizontalAlignment="Center"/>
                             <ComboBox  ItemsSource="{Binding Grade}" x:Name="gradecheckbox"/>
                         </Grid>
-                        <StackPanel Orientation="Vertical" Grid.Row="1">
-                            <Button Content="הוסף קריטריון"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="1" x:Name="panel">
+                            <Button Content="הוסף קריטריון" Click="Criterion_Click"/>
                         </StackPanel>
+                        <Grid Grid.Row="2">
+                            <Button Content="אישור" Click="Enter_Click" />
+                        </Grid>
                     </Grid>
                 </Grid>
             </TabItem>

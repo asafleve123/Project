@@ -22,6 +22,7 @@ namespace PLWPF
     public partial class TesterWindow : Window
     {
         IBL bl;
+        int index = 0;
         public Tester tester { get; set; }
         public List<Test> tests { get; set; }
         public TesterWindow(Tester tester)
@@ -101,12 +102,40 @@ namespace PLWPF
             this.Close();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Criterion_Click(object sender, RoutedEventArgs e)
         {
-
-            System.Windows.Data.CollectionViewSource criterionViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("criterionViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // criterionViewSource.Source = [generic data source]
+            Label name = new Label();
+            name.Content = ":שם";
+            name.FontWeight = FontWeights.DemiBold;
+            TextBox name1 = new TextBox();
+            Label grade = new Label();
+            grade.Content = ":ציון";
+            grade.FontWeight =FontWeights.DemiBold;
+            ComboBox grade1 = new ComboBox();
+            grade1.ItemsSource = Enum.GetValues(typeof(BE.Grade));
+            grade1.FontWeight = FontWeights.DemiBold;
+            Grid grid = new Grid();
+            grid.RowDefinitions.Add(new RowDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            Grid.SetColumn(name,1);
+            Grid.SetRow(name, 0);
+            Grid.SetColumn(name1, 0);
+            Grid.SetRow(name1, 0);
+            Grid.SetColumn(grade, 1);
+            Grid.SetRow(grade, 1);
+            Grid.SetColumn(grade1, 0);
+            Grid.SetRow(grade1, 1);
+            grid.Children.Add(name);
+            grid.Children.Add(name1);
+            grid.Children.Add(grade);
+            grid.Children.Add(grade1);
+            panel.Children.Add(grid);
+        }
+        private void Enter_Click(object sender, EventArgs e)
+        {
+            //להכניס את הנתונים לתוך המבחן הנבחר
         }
     }
 }
