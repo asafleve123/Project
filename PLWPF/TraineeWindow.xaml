@@ -35,15 +35,34 @@
             <TabItem Header="מבחנים"  Margin="0">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.30*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="0.25*"/>
-                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2.25*"/>
                     </Grid.RowDefinitions>
-                    <Label Content=":הזמנת מבחן חדש" FontSize="35" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                    <Label Content="Label" HorizontalAlignment="Left" Margin="341,14,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+                    <Rectangle Fill="White" Stroke="Black" StrokeThickness="15"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.30*"/>
+                            <RowDefinition Height="0.25*"/>
+                            <RowDefinition Height="0.5*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content=":הזמנת מבחן חדש" FontSize="35" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                        <Button Content="קביעת תאריך" VerticalContentAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Bottom" Width="194" Height="45" Margin="272,0,270,15" />
+                        <Label Content=":הכנס תאריך מבוקש" VerticalContentAlignment="Top" HorizontalAlignment="Center" Grid.Column="1"  Grid.Row="1" VerticalAlignment="Center" Margin="32,0,94,0" Height="46"/>
+                        <DatePicker HorizontalAlignment="Center"  Grid.Row="1" VerticalAlignment="Center" Width="186" Margin="172,1,10,4"/>
+                        <Label Foreground="Red" Content="Label" FontSize="20" VerticalContentAlignment="Top"  HorizontalAlignment="Center"  Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top" Height="31" Margin="340,0,336,0" />
+                    </Grid>
 
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.25*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
 
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="פרטי חשבון" Margin="0" >
@@ -78,7 +97,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="2*"/>
                                 <RowDefinition Height="*"/>
-                                
+
                             </Grid.RowDefinitions>
                             <Label Content="!מחיקת חשבון"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" />
                             <Label Content="!פעולה זו בלתי הפיכה" VerticalAlignment="Center" VerticalContentAlignment="Top" HorizontalAlignment="Center" FontSize="27.5" Grid.Row="1"/>
@@ -135,7 +154,7 @@
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
-                             
+
                             </Grid.RowDefinitions>
                             <Label Content=":שם פרטי" Grid.Column="1"  Grid.Row="0"/>
                             <TextBox x:Name="privateNameTextBox" Grid.Column="0" Grid.Row="0" Text="{Binding PrivateName, Mode=TwoWay}" />
