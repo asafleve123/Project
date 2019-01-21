@@ -24,7 +24,6 @@ namespace PLWPF
         public Trainee trainee { get; set; }
         public TraineeWindow(Trainee trainee)
         {
-
             bl = BL.FactoryBL.getBl();
             InitializeComponent();
             this.typeOfCarComboBox.ItemsSource = Enum.GetValues(typeof(BE.Car));
@@ -85,5 +84,25 @@ namespace PLWPF
         {
             this.Close();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Address address = new Address(this.TestCity.Text,this.TestStreet.Text,this.TestNumOfHouse.Text);
+                if (this.TestDate.SelectedDate == null)
+                    throw new Exception("!הזן תאריך");
+                Test test = new Test(trainee, this.TestDate.SelectedDate.Value,address);
+                bl.AddTest(test);
+
+                DataGrid.ItemsSource = bl.AllTestsBy(T => T.IdTrainee==trainee.Id );
+            }
+            catch (Exception exp)
+            {
+                this.AddTestWarningBox.Text = exp.Message;
+            }
+        }
+
+        
     }
 }

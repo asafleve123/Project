@@ -14,7 +14,7 @@
         <Style TargetType="TabItem">
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="25"/>
-            <Setter Property="Width" Value="246"/>
+            <Setter Property="Width" Value="240"/>
 
         </Style>
     </Window.Resources>
@@ -43,26 +43,46 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.30*"/>
                             <RowDefinition Height="0.25*"/>
+                            <RowDefinition Height="0.35*"/>
                             <RowDefinition Height="0.5*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Content=":הזמנת מבחן חדש" FontSize="35" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-                        <Button Content="קביעת תאריך" VerticalContentAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Bottom" Width="194" Height="45" Margin="272,0,270,15" />
-                        <Label Content=":הכנס תאריך מבוקש" VerticalContentAlignment="Top" HorizontalAlignment="Center" Grid.Column="1"  Grid.Row="1" VerticalAlignment="Center" Margin="32,0,94,0" Height="46"/>
-                        <DatePicker HorizontalAlignment="Center"  Grid.Row="1" VerticalAlignment="Center" Width="186" Margin="172,1,10,4"/>
-                        <Label Foreground="Red" Content="Label" FontSize="20" VerticalContentAlignment="Top"  HorizontalAlignment="Center"  Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top" Height="31" Margin="340,0,336,0" />
-                    </Grid>
+                        <TextBlock Text=":הזמנת מבחן חדש" FontSize="27" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.ColumnSpan="2" Height="34" Margin="222,10,222,0"/>
+                        <Button Content="קביעת מבחן" FontSize="20" VerticalContentAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Bottom" Width="194" Height="31" Margin="259,0,283,18" Click="Button_Click_2" />
+                        <TextBlock Text=":הכנס תאריך מבוקש" TextAlignment="Justify" HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center" Margin="32,1,94,0" Height="36" Grid.Row="1"/>
 
+                        <DatePicker FontSize="22" VerticalContentAlignment="Top" Name="TestDate" HorizontalAlignment="Center"  Grid.Row="1" VerticalAlignment="Center" Width="186" Margin="172,1,10,0" Height="32"/>
+                        <Grid Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
+                            <Label Content=":כתובת יציאה" HorizontalAlignment="Left" FontSize="22" Margin="579,5,0,0" VerticalAlignment="Top" Height="33"/>
+
+                            <Label Content=":עיר" HorizontalAlignment="Left" FontSize="20" Margin="533,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.042,0.419"/>
+                            <TextBox Name="TestCity" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="413,11,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+
+                            <Label Content=":רחוב" HorizontalAlignment="Left" FontSize="20" Margin="347,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.868,0.458" Height="33"/>
+                            <TextBox Name="TestStreet" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="222,11,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+
+                            <Label Content=":מספר בית" HorizontalAlignment="Left" FontSize="20" Margin="107,7,0,0" VerticalAlignment="Top" Width="110" Height="33"/>
+                            <TextBox Name="TestNumOfHouse" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="52,11,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.1,0.463"/>
+
+                        </Grid>
+
+                        <TextBlock Text="" Grid.Row="3" Foreground="Red" Name="AddTestWarningBox"  FontSize="20" TextAlignment="Justify"  HorizontalAlignment="Center"  VerticalAlignment="Top" Height="20" Margin="310,0,308,0" Width="118" Grid.ColumnSpan="2" />
+                    </Grid>
+                    <Rectangle Grid.Row="1" Fill="White" Stroke="Black" StrokeThickness="15"/>
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.25*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
+                        <Label Content=":המבחנים שלך" VerticalContentAlignment="Bottom" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="280,0,272,0" Height="48" Width="184" />
 
                     </Grid>
+                    <DataGrid HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Margin="38,55,38,25" Name="DataGrid"/>
+
                 </Grid>
             </TabItem>
             <TabItem Header="פרטי חשבון" Margin="0" >
