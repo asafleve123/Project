@@ -92,7 +92,10 @@ namespace PLWPF
                 Address address = new Address(this.TestCity.Text,this.TestStreet.Text,this.TestNumOfHouse.Text);
                 if (this.TestDate.SelectedDate == null)
                     throw new Exception("!הזן תאריך");
-                Test test = new Test(trainee, this.TestDate.SelectedDate.Value,address);
+                DateTime dateTime = this.TestDate.SelectedDate.Value;
+                dateTime = dateTime.AddHours(13);
+                
+                Test test = new Test(trainee,dateTime,address);
                 bl.AddTest(test);
 
                 DataGrid.ItemsSource = bl.AllTestsBy(T => T.IdTrainee==trainee.Id );
