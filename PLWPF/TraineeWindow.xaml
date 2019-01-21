@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
-        Title="TraineeWindow" Height="750" Width="750">
+        Title="TraineeWindow" Height="750" Width="750" ResizeMode="NoResize">
     <Window.Resources>
         <Style TargetType="Grid">
             <Setter Property="VerticalAlignment" Value="Stretch"/>
