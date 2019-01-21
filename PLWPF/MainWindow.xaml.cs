@@ -32,6 +32,10 @@ namespace PLWPF
                     { true, true, true, true, true},
                     { true, true, true, true, true},
   };
+        string idTr=null;
+        string idTe=null;
+        string passwordTr=null;
+        string passwordTe = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -54,8 +58,9 @@ namespace PLWPF
             if (ans == MessageBoxResult.No)
             {
                 e.Cancel = true;
+                return;
             }
-            ans = MessageBox.Show("?אתה בטוח בטוח", "אזהרה", MessageBoxButton.YesNo, MessageBoxImage.Question);
+             ans = MessageBox.Show("?אתה בטוח בטוח", "אזהרה", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (ans == MessageBoxResult.No)
             {
                 e.Cancel = true;
@@ -104,6 +109,13 @@ namespace PLWPF
             {
                 if (passwordTester.Password == MyBl.GetTester(tz.Text).Code)
                 {
+                    if (RemmberTe.IsChecked==true)
+                    {
+                        idTe = tz.Text;
+                        passwordTe = passwordTester.Password;
+                        tz.Background = Brushes.LightYellow;
+                        passwordTester.Background = Brushes.LightYellow;
+                    }
                     TesterWindow testerWindow = new TesterWindow(MyBl.GetTester(tz.Text));
                     testerWindow.ShowDialog();
                 }
@@ -114,6 +126,7 @@ namespace PLWPF
             }
             catch (Exception ex)
             {
+                RemmberTe.Visibility = Visibility.Hidden;
                 WarnningTester.Visibility = Visibility.Visible;
                 WarnningTester.Text = ex.Message;
             }
@@ -126,6 +139,13 @@ namespace PLWPF
             {
                 if (passwordTrainne.Password == MyBl.GetTrainee(tz1.Text).Code)
                 {
+                    if (RemmberTr.IsChecked == true)
+                    {
+                        idTr = tz1.Text;
+                        passwordTr = passwordTrainne.Password;
+                        tz1.Background = Brushes.LightYellow;
+                        passwordTrainne.Background = Brushes.LightYellow;
+                    }
                     TraineeWindow testerWindow = new TraineeWindow(MyBl.GetTrainee(tz1.Text));
                     testerWindow.ShowDialog();
                 }
@@ -136,6 +156,7 @@ namespace PLWPF
             }
             catch (Exception ex)
             {
+                RemmberTr.Visibility = Visibility.Hidden;
                 WarnningTrainee.Visibility = Visibility.Visible;
                 WarnningTrainee.Text = ex.Message;
             }
