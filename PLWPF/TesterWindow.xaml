@@ -14,8 +14,7 @@
         <Style TargetType="TabItem">
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="25"/>
-            <Setter Property="Width" Value="246"/>
-
+            <Setter Property="Width" Value="280"/>
         </Style>
     </Window.Resources>
     <Grid >
@@ -31,10 +30,10 @@
             <Button Grid.Column="0" Content=" התנתק " HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" FontWeight="Bold" FontSize="20" Click="Button_Click_1"/>
             <Label Grid.Column="1" FontSize="30" HorizontalContentAlignment="Center" FontWeight="Bold" Content="!בוחן יקר ברוכים הבאים למערכת"  HorizontalAlignment="Stretch"   VerticalAlignment="Center"/>
         </Grid>
-        <TabControl HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Background="#FFE5E5E5" >
+        <TabControl HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Background="#FFE5E5E5"  >
             <TabItem Header="צפייה במבחנים"  Margin="0">
-                <Grid>
-                </Grid>
+                <DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="DataGridTester" ItemsSource="{Binding }"/>
+                
             </TabItem>
             <TabItem Header="פרטי חשבון" Margin="0" >
                 <Grid>

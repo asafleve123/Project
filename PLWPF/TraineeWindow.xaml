@@ -32,7 +32,20 @@
             <Label Grid.Column="1" FontSize="30" HorizontalContentAlignment="Center" FontWeight="Bold" Content="!נבחן יקר ברוך הבא למערכת"  HorizontalAlignment="Stretch"   VerticalAlignment="Center"/>
         </Grid>
         <TabControl HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Background="#FFE5E5E5"  >
-            <TabItem Header="מבחנים"  Margin="0"/>
+            <TabItem Header="מבחנים"  Margin="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.30*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.25*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content=":הזמנת מבחן חדש" FontSize="35" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                    <Label Content="Label" HorizontalAlignment="Left" Margin="341,14,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+
+
+                </Grid>
+            </TabItem>
             <TabItem Header="פרטי חשבון" Margin="0" >
                 <Grid>
                     <Grid.RowDefinitions>
@@ -170,7 +183,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            
+
         </TabControl>
 
     </Grid>
