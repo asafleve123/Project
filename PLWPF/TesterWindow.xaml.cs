@@ -63,8 +63,13 @@ namespace PLWPF
         {
             try
             {
+                warnningBox delete = new warnningBox(tester);
+                delete.ShowDialog();
+                if (delete.IsDelete)
+                {
                 bl.DeleteTester(tester);
                 this.Close();
+                }
             }
             catch (Exception exp)
             {
@@ -90,5 +95,6 @@ namespace PLWPF
         {
             this.Close();
         }
+        
     }
 }

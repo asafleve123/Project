@@ -67,8 +67,13 @@ namespace PLWPF
         {
             try
             {
+                warnningBox delete = new warnningBox(trainee);
+                delete.ShowDialog();
+                if (delete.IsDelete)
+                {
                 bl.DeleteTrainee(trainee);
                 this.Close();
+                }
             }
             catch (Exception exp)
             {

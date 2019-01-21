@@ -69,6 +69,9 @@
     <Compile Include="TraineeWindow.xaml.cs">
       <DependentUpon>TraineeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="warnningBox.xaml.cs">
+      <DependentUpon>warnningBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WorkTable.xaml.cs">
       <DependentUpon>WorkTable.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TraineeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="warnningBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
