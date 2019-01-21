@@ -23,6 +23,7 @@ namespace PLWPF
     {
         IBL bl;
         public Tester tester { get; set; }
+        public List<Test> tests { get; set; }
         public TesterWindow(Tester tester)
         {
             bl = BL.FactoryBL.getBl();
@@ -34,6 +35,7 @@ namespace PLWPF
             this.City.Text = address.City;
             this.Street.Text = address.Street;
             this.NumOfHome.Text = address.NumOfHome;
+            tests = new List<Test>(bl.AllTestsBy(T=>T.IdTester==tester.Id));
 
         }
 

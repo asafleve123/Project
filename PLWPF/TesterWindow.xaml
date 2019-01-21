@@ -16,6 +16,7 @@
             <Setter Property="FontSize" Value="25"/>
             <Setter Property="Width" Value="280"/>
         </Style>
+        
     </Window.Resources>
     <Grid >
         <Grid.RowDefinitions>
@@ -32,8 +33,44 @@
         </Grid>
         <TabControl HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Background="#FFE5E5E5"  >
             <TabItem Header="צפייה במבחנים"  Margin="0">
-                <DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="DataGridTester" ItemsSource="{Binding }"/>
-                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80*"/>
+                        <ColumnDefinition Width="20*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="DataGridTester" ItemsSource="{Binding tests}"/>
+                    <DockPanel Grid.Row="0" LastChildFill="True" Margin="5">
+                        <Expander Header="אפשרויות סינון" DockPanel.Dock="Top">
+                            <Expander.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFEAE0E0" Offset="0.004"/>
+                                    <GradientStop Color="#FFD3CCCC" Offset="1"/>
+                                    <GradientStop Color="#FFA69C9C" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Expander.Background>
+                            <StackPanel >
+                                <StackPanel Orientation="Vertical">
+                                   <RadioButton Content="הכל" IsChecked="True"/>
+                                   <RadioButton Content="אין להם ציון"/>
+                                    <RadioButton Content="יש להם ציון"/>
+                                    <RadioButton Content="עבר"/>
+                                    <RadioButton Content="נכשל"/>
+                                    <RadioButton Content="מבחנים עתידיים"/>
+                                </StackPanel>
+                                <DockPanel>
+                                    <Label DockPanel.Dock="Left"  Content="Select Course:" Margin="10"/>
+                                    <Button DockPanel.Dock="Right" x:Name="addCourseToStudentButton"  Margin="10"           Content="Add"  />
+                                    <ComboBox x:Name="coursesComboBox" MinWidth="30" Margin="10"/>
+                                </DockPanel>
+                            </StackPanel>
+                        </Expander>
+                    </DockPanel>
+                </Grid>
             </TabItem>
             <TabItem Header="פרטי חשבון" Margin="0" >
                 <Grid>
