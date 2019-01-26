@@ -71,7 +71,7 @@
 
                         <TextBlock Text="" Grid.Row="2" Foreground="Red" Name="AddTestWarningBox"  FontSize="20" TextAlignment="Center"  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Height="29"  Width="Auto" Margin="0,49.667,-0.333,0" Grid.RowSpan="2" />
                         <TextBlock FontSize="20" HorizontalAlignment="Left" Margin="167,42,0,0" TextWrapping="Wrap" Text=":שעה מבוקשת" VerticalAlignment="Top" Height="30" Grid.RowSpan="3"/>
-                        <ComboBox HorizontalAlignment="Left" Margin="56,1.333,0,0" VerticalAlignment="Top" Width="93" Height="25" Grid.Row="1"/>
+                        <ComboBox VerticalAlignment="Top" Name="TestHour" HorizontalAlignment="Left" Margin="56,34,0,0" Width="93" Height="35" VerticalContentAlignment="Top" FontSize="20" Grid.RowSpan="2"/>
                     </Grid>
                     <Rectangle Grid.Row="1" Fill="White" Stroke="Black" StrokeThickness="15"/>
                     <Grid Grid.Row="1">

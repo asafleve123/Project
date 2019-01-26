@@ -28,6 +28,12 @@ namespace PLWPF
             InitializeComponent();
             this.typeOfCarComboBox.ItemsSource = Enum.GetValues(typeof(BE.Car));
             this.typeGearBoxComboBox.ItemsSource = Enum.GetValues(typeof(BE.Gearbox));
+            for (int i = 9; i <= 15; i++)
+            {
+                ComboBoxItem comboBoxItem = new ComboBoxItem();
+                comboBoxItem.Content = i.ToString() + ":00";
+                TestHour.Items.Add(comboBoxItem);
+            }
             this.trainee = trainee;
             this.DataContext = trainee;
             Address address = trainee.Address;
@@ -89,12 +95,14 @@ namespace PLWPF
         {
             try
             {
+                this.AddTestWarningBox.Text = "";
                 Address address = new Address(this.TestCity.Text,this.TestStreet.Text,this.TestNumOfHouse.Text);
                 if (this.TestDate.SelectedDate == null)
                     throw new Exception("!הזן תאריך");
                 DateTime dateTime = this.TestDate.SelectedDate.Value;
-                dateTime = dateTime.AddHours(13);
-                
+                if (TestHour.SelectedIndex == -1)
+                    throw new Exception("!הכנס שעה");
+                dateTime = dateTime.AddHours(TestHour.SelectedIndex+9);
                 Test test = new Test(trainee,dateTime,address);
                 bl.AddTest(test);
 
