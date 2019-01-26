@@ -458,13 +458,13 @@ namespace BL
         {
             return TestsByDay(DateTime.Now);
         }
-        public IEnumerable<Test> AllTestsBy(Predicate<Test> func,Tester tester)
+        public IEnumerable<Test> AllTestsBy(Predicate<Test> func,string idtester)
         {
-            return from item in TestsCollection() where (func(item)&&item.IdTester==tester.Id) select item;
+            return from item in TestsCollection() where (func(item)&&item.IdTester==idtester) select item;
         }
-        public IEnumerable<Test> AllTestsBy(Predicate<Test> func, Trainee trainee)
+        public IEnumerable<Test> AllTestsByTR(Predicate<Test> func, string idtrainee)
         {
-            return from item in TestsCollection() where (func(item) && item.IdTrainee == trainee.Id) select item;
+            return from item in TestsCollection() where (func(item) && item.IdTrainee == idtrainee) select item;
         }
     } 
 }

@@ -22,7 +22,6 @@ namespace PLWPF
     public partial class TesterWindow : Window
     {
         IBL bl;
-        int index = 0;
         public Tester tester { get; set; }
         public List<Test> tests { get; set; }
         public TesterWindow(Tester tester)
@@ -107,13 +106,18 @@ namespace PLWPF
             Label name = new Label();
             name.Content = ":שם";
             name.FontWeight = FontWeights.DemiBold;
+            name.Background = Brushes.White;
             TextBox name1 = new TextBox();
+            name1.Background = Brushes.White;
             Label grade = new Label();
             grade.Content = ":ציון";
             grade.FontWeight =FontWeights.DemiBold;
+            grade.Background = Brushes.White;
             ComboBox grade1 = new ComboBox();
             grade1.ItemsSource = Enum.GetValues(typeof(BE.Grade));
+            grade1.FontSize = 20;
             grade1.FontWeight = FontWeights.DemiBold;
+            grade1.Background = Brushes.White;
             Grid grid = new Grid();
             grid.RowDefinitions.Add(new RowDefinition());
             grid.RowDefinitions.Add(new RowDefinition());
@@ -135,7 +139,31 @@ namespace PLWPF
         }
         private void Enter_Click(object sender, EventArgs e)
         {
-            //להכניס את הנתונים לתוך המבחן הנבחר
+            //לעדכן מבחן
+        }
+        private void Comment_Click(object sender, RoutedEventArgs e)
+        {
+            Comments comments = new Comments();
+            comments.ShowDialog();
+            comments.Content = "!סיימת";
+            //להכניס לתוך המבחן את ההערות
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (idStudent.Text != "")
+            {
+                DataGrid.ItemsSource = bl.AllTestsBy(T => T.IdTrainee == idStudent.Text, tester.Id);
+            }
+            else
+            {
+                switch (sinon.SelectedItem)
+                {
+                    default:
+                        MessageBox.Show(sinon.SelectedItem.ToString());
+                        break;
+                }
+            }
         }
     }
 }

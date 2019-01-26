@@ -45,41 +45,44 @@
                         <ColumnDefinition Width="80*"/>
                         <ColumnDefinition Width="20*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding tests}" />
-                    <Grid Grid.Row="0" Grid.Column="0">
+                    <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding tests}" />
+                    <Grid Grid.Row="0" Grid.Column="0" Background="Black">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <Label Content=":אפשרויות סינון" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
+                        <Label Content=":אפשרויות סינון" HorizontalAlignment="Center"  VerticalAlignment="Top" Foreground="White"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" FlowDirection="RightToLeft">
-                            <Label Content="סינון על פי" FontWeight="DemiBold" />
+                            <Label Content="סינון על פי" FontWeight="DemiBold" Foreground="White" />
                             <ComboBox x:Name="sinon" FontWeight="DemiBold">
                                 <ComboBoxItem  Content="הכל" IsSelected="True"/>
                                 <ComboBoxItem  Content="ללא ציון" />
                                 <ComboBoxItem  Content="עם ציון"/>
                                 <ComboBoxItem  Content="עבר" />
                                 <ComboBoxItem  Content="נכשל"/>
-                                <ComboBoxItem  Content="מבחנים עתידיים"/>
+                                <ComboBoxItem  Content="לא קרו"/>
                             </ComboBox>
                             <Label Width="100" Content="או" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
-                            <Label Content="ת'ז של תלמיד" FontWeight="DemiBold"/>
-                            <TextBox Width="200"/>
+                            <Label Content="ת'ז של תלמיד" FontWeight="DemiBold" Foreground="White"/>
+                            <TextBox Width="200" x:Name="idStudent"/>
                         </StackPanel>
                         <Grid Grid.Row="2" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80*"/>
                                 <ColumnDefinition Width="20*"/>
                             </Grid.ColumnDefinitions>
-                            <Button  Grid.Column="1" Content="אישור" FontWeight="DemiBold"/>
-                            <ProgressBar  FlowDirection="RightToLeft"/>
+                            <Button  Grid.Column="1" Content="אישור" FontWeight="DemiBold" Background="Black" Foreground="White" Click="Button_Click_2"/>
+                            <ProgressBar  FlowDirection="RightToLeft" Background="Black" Foreground="White"/>
                         </Grid>
                     </Grid>
                     <Grid Grid.Column="1" Grid.Row="1" DataContext="{StaticResource criterionViewSource}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
@@ -87,14 +90,18 @@
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="1" Grid.Row="0" Content=":ציון" FontWeight="DemiBold" HorizontalAlignment="Center"/>
-                            <ComboBox  ItemsSource="{Binding Grade}" x:Name="gradecheckbox"/>
+                            <Label Grid.Column="1" Grid.Row="0" Content=":ציון" FontWeight="DemiBold" HorizontalAlignment="Stretch" Background="White" />
+                            <ComboBox  ItemsSource="{Binding Grade}" x:Name="gradecheckbox" Background="White"/>
                         </Grid>
-                        <StackPanel Orientation="Vertical" Grid.Row="1" x:Name="panel">
-                            <Button Content="הוסף קריטריון" Click="Criterion_Click"/>
-                        </StackPanel>
-                        <Grid Grid.Row="2">
-                            <Button Content="אישור" Click="Enter_Click" />
+                                <Button Grid.Row="1" Content="הוסף קריטריון" Click="Criterion_Click" Background="White" />
+                        <ScrollViewer Grid.Row="2">
+                            <StackPanel Orientation="Vertical" Grid.Row="1" x:Name="panel" Background="White">
+                            </StackPanel>
+                        </ScrollViewer>
+                        <Button Grid.Row="3" Content="הערות" Click="Comment_Click"  Margin="0,0,0,10" Foreground="Black" Background="White"/>
+                        <Label x:Name="WBox" Grid.Row="4" Content="warning" Width="Auto" Height="20" HorizontalAlignment="Center"  FontSize="15" Foreground="Red" Padding="0" Visibility="Hidden" Background="White"/>
+                        <Grid Grid.Row="5">
+                            <Button Content="אישור" Click="Enter_Click" Background="White" />
                         </Grid>
                     </Grid>
                 </Grid>
