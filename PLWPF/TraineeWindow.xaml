@@ -53,7 +53,7 @@
 
 
                         <TextBlock Text=":הזמנת מבחן חדש" FontSize="27" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.ColumnSpan="2" Height="34" Margin="222,10,222,0"/>
-                        <Button Content="קביעת מבחן" FontSize="20" VerticalContentAlignment="Top" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Bottom" Width="199" Height="31" Margin="274,0,265.667,12.667" Click="Button_Click_2" />
+                        <Button Content="קביעת מבחן" FontSize="20" VerticalContentAlignment="Top" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Bottom" Width="199" Height="31" Margin="274,0,265.667,12.667" Click="sign_click" />
                         <TextBlock FontSize="20" Text=":הכנס תאריך מבוקש" TextAlignment="Justify" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="505,0.333,41.667,0.333" Height="28" RenderTransformOrigin="0.5,0.5" Width="192" Grid.Row="1"/>
 
 
@@ -86,7 +86,7 @@
                         <Label Content=":המבחנים שלך" VerticalContentAlignment="Bottom" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="280,0,272,0" Height="48" Width="184" />
 
                     </Grid>
-                    <DataGrid Name="DataGrid" HorizontalContentAlignment="Stretch" AutoGenerateColumns="False" IsReadOnly="False" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Margin="38,55,38,25">
+                    <DataGrid Name="DataGrid" HorizontalContentAlignment="Stretch" AutoGenerateColumns="False"  HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Margin="38,55,38,25" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="מספר מבחן"  Binding="{Binding NumTest}"/>
                             <DataGridTextColumn Header="ת.ז בוחן" Binding="{Binding IdTester}"/>

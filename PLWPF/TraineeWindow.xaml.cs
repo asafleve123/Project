@@ -101,11 +101,23 @@ namespace PLWPF
             this.Close();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void sign_click(object sender, RoutedEventArgs e)
         {
             try
             {
                 this.AddTestWarningBox.Text = "";
+                if (this.TestCity.Text=="")
+                {
+                    throw new Exception("הזן שם עיר");
+                }
+                if (this.TestStreet.Text=="")
+                {
+                    throw new Exception("הזן שם רחוב");
+                }
+                if (this.TestNumOfHouse.Text=="")
+                {
+                    throw new Exception("הזן מספר בית");
+                }
                 Address address = new Address(this.TestCity.Text,this.TestStreet.Text,this.TestNumOfHouse.Text);
                 if (this.TestDate.SelectedDate == null)
                     throw new Exception("!הזן תאריך");

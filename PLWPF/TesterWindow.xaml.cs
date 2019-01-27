@@ -179,7 +179,7 @@ namespace PLWPF
             string Text = text as string;
             if (Text != "")
             {
-                DataGrid.ItemsSource = bl.AllTestsBy(T => T.IdTrainee == idStudent.Text, tester.Id);
+               tests =new List<Test>( bl.AllTestsBy(T => T.IdTrainee == idStudent.Text, tester.Id));
             }
             else
             {
