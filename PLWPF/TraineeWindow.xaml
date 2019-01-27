@@ -88,6 +88,7 @@
                     </Grid>
                     <DataGrid Name="DataGrid" HorizontalContentAlignment="Stretch" AutoGenerateColumns="False" IsReadOnly="False" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Margin="38,55,38,25">
                         <DataGrid.Columns >
+                            <DataGridTextColumn Header="מצב" color=""/>
                             <DataGridTextColumn Header="מספר מבחן"  Binding="{Binding NumTest}"/>
                             <DataGridTextColumn Header="ת.ז בוחן" Binding="{Binding IdTester}"/>
                             <DataGridTextColumn Header="זמן המבחן" Binding="{Binding TestDay}"/>

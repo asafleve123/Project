@@ -117,7 +117,9 @@ namespace BL
                 throw e;
             }
             if (IsAllowed(trainee))
+            {
                 throw new Exception("התלמיד כבר עבר את המבחן על סוג הרכב הזה");
+            }
             if (test.TypeOfCar != trainee.TypeOfCar)
             {
                 throw new Exception("!התלמיד לא למד על סוג הרכב הזה");
