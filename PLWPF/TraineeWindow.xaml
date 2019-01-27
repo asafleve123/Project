@@ -15,7 +15,11 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="25"/>
             <Setter Property="Width" Value="240"/>
-
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="FontWeight" Value="semibold"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontFamily" Value="Sitka Banner"/>
         </Style>
     </Window.Resources>
     <Grid >
@@ -82,7 +86,15 @@
                         <Label Content=":המבחנים שלך" VerticalContentAlignment="Bottom" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="280,0,272,0" Height="48" Width="184" />
 
                     </Grid>
-                    <DataGrid HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Margin="38,55,38,25" Name="DataGrid"/>
+                    <DataGrid Name="DataGrid" HorizontalContentAlignment="Stretch" AutoGenerateColumns="False" IsReadOnly="False" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Margin="38,55,38,25">
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="מספר מבחן"  Binding="{Binding NumTest}"/>
+                            <DataGridTextColumn Header="ת.ז בוחן" Binding="{Binding IdTester}"/>
+                            <DataGridTextColumn Header="זמן המבחן" Binding="{Binding TestDay}"/>
+                            <DataGridTextColumn Header="כתובת" Binding="{Binding TestAdress}"/>
+                            <DataGridTextColumn Header="ציון" Binding="{Binding Grade}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
                 </Grid>
             </TabItem>

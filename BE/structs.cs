@@ -16,7 +16,13 @@ namespace BE
             this.City = City;
             this.Street = Street;
             this.NumOfHome = NumOfHome;
+            
         }
+        public override string ToString()
+        {
+            return NumOfHome + ", " + Street + ", " + City;
+        }
+        
     }
     public struct Criterion
     {
