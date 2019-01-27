@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,6 +41,15 @@ namespace PLWPF
             this.City.Text = address.City;
             this.Street.Text = address.Street;
             this.NumOfHome.Text = address.NumOfHome;
+            Thread thread = new Thread(load_Func);
+            thread.Start();
+        }
+
+        private void load_Func()
+        {
+           IEnumerable<Test> collection=bl.AllTestsBy(T => T.IdTrainee == trainee.Id);
+           Action action = () => DataGrid.ItemsSource = collection;
+           Dispatcher.BeginInvoke(action);
         }
 
         private void Sign_Click(object sender, RoutedEventArgs e)
@@ -114,6 +124,9 @@ namespace PLWPF
             }
         }
 
-        
+        private void Comments_Click(object sender, RoutedEventArgs e)
+        {
+            throw new Exception("   ");
+        }
     }
 }

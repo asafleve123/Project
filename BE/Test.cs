@@ -22,7 +22,6 @@ namespace BE
         public Car TypeOfCar { get; set; }
         public List<Criterion> Criterions { get=>criterions; set=>criterions=value; }
         public bool ChosenTester { get; set; }
-        public int Status { get; set; }
         //functions
         public override string ToString()
         {

@@ -87,13 +87,21 @@
 
                     </Grid>
                     <DataGrid Name="DataGrid" HorizontalContentAlignment="Stretch" AutoGenerateColumns="False" IsReadOnly="False" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Margin="38,55,38,25">
-                        <DataGrid.Columns >
-                            <DataGridTextColumn Header="מצב" color=""/>
+                        <DataGrid.Columns>
                             <DataGridTextColumn Header="מספר מבחן"  Binding="{Binding NumTest}"/>
                             <DataGridTextColumn Header="ת.ז בוחן" Binding="{Binding IdTester}"/>
                             <DataGridTextColumn Header="זמן המבחן" Binding="{Binding TestDay}"/>
                             <DataGridTextColumn Header="כתובת" Binding="{Binding TestAdress}"/>
                             <DataGridTextColumn Header="ציון" Binding="{Binding Grade}"/>
+                            <DataGridTemplateColumn Header="הערות">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="Comments_Click">הערות</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="סוג הרכב" Binding="{Binding TypeOfCar}"/>
+                            
                         </DataGrid.Columns>
                     </DataGrid>
 

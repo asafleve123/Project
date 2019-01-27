@@ -20,7 +20,7 @@ namespace BE
         }
         public override string ToString()
         {
-            return NumOfHome + ", " + Street + ", " + City;
+            return City+" "+Street+" "+NumOfHome;
         }
         
     }

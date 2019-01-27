@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BE;
 using BL;
+using System.Threading;
+
 namespace PLWPF
 {
     /// <summary>
@@ -23,7 +25,28 @@ namespace PLWPF
     {
         IBL bl;
         public Tester tester { get; set; }
-        public List<Test> tests { get; set; }
+        public List<Test> tests
+        {
+            get
+            {
+                return new List<Test>(DataGrid.ItemsSource as IEnumerable<Test>);
+            }
+            set
+            {
+                Action action = () => DataGrid.ItemsSource = value;
+                Dispatcher.BeginInvoke(action);
+            }
+        }
+        public string selection;
+        public double Value
+        {
+            set
+            {
+                Action action = () => progressbar.Value += value;
+                Dispatcher.BeginInvoke(action);
+                Thread.Sleep(2000);
+            }
+        }
         public TesterWindow(Tester tester)
         {
             bl = BL.FactoryBL.getBl();
@@ -38,8 +61,7 @@ namespace PLWPF
             this.City.Text = address.City;
             this.Street.Text = address.Street;
             this.NumOfHome.Text = address.NumOfHome;
-            tests = new List<Test>(bl.AllTestsBy(T=>T.IdTester==tester.Id));
-
+            selection = "הכל";
         }
 
         private void WorkTableButton_Click(object sender, RoutedEventArgs e)
@@ -53,12 +75,12 @@ namespace PLWPF
 
         private void Sign_Click(object sender, RoutedEventArgs e)
         {
-            tester.Address = new Address(this.City.Text,this.Street.Text,this.NumOfHome.Text);
+            tester.Address = new Address(this.City.Text, this.Street.Text, this.NumOfHome.Text);
             try
             {
                 bl.UpdateTester(tester);
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 this.WarningBox.Content = exp.Message;
             }
@@ -72,8 +94,8 @@ namespace PLWPF
                 delete.ShowDialog();
                 if (delete.IsDelete)
                 {
-                bl.DeleteTester(tester);
-                this.Close();
+                    bl.DeleteTester(tester);
+                    this.Close();
                 }
             }
             catch (Exception exp)
@@ -87,7 +109,7 @@ namespace PLWPF
 
             try
             {
-                tester.Code= this.Code.Password;
+                tester.Code = this.Code.Password;
                 bl.UpdateTester(tester);
             }
             catch (Exception exp)
@@ -107,12 +129,16 @@ namespace PLWPF
             name.Content = ":שם";
             name.FontWeight = FontWeights.DemiBold;
             name.Background = Brushes.White;
+            name.HorizontalContentAlignment = HorizontalAlignment.Center;
             TextBox name1 = new TextBox();
             name1.Background = Brushes.White;
+            name1.FontWeight = FontWeights.DemiBold;
+            name1.FontSize = 20;
             Label grade = new Label();
             grade.Content = ":ציון";
-            grade.FontWeight =FontWeights.DemiBold;
+            grade.FontWeight = FontWeights.DemiBold;
             grade.Background = Brushes.White;
+            grade.HorizontalContentAlignment = HorizontalAlignment.Center;
             ComboBox grade1 = new ComboBox();
             grade1.ItemsSource = Enum.GetValues(typeof(BE.Grade));
             grade1.FontSize = 20;
@@ -123,7 +149,7 @@ namespace PLWPF
             grid.RowDefinitions.Add(new RowDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
-            Grid.SetColumn(name,1);
+            Grid.SetColumn(name, 1);
             Grid.SetRow(name, 0);
             Grid.SetColumn(name1, 0);
             Grid.SetRow(name1, 0);
@@ -148,21 +174,56 @@ namespace PLWPF
             comments.Content = "!סיימת";
             //להכניס לתוך המבחן את ההערות
         }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void sinon_Func(object text)
         {
-            if (idStudent.Text != "")
+            string Text = text as string;
+            if (Text != "")
             {
                 DataGrid.ItemsSource = bl.AllTestsBy(T => T.IdTrainee == idStudent.Text, tester.Id);
             }
             else
             {
-                switch (sinon.SelectedItem)
+                switch (selection)
                 {
-                    default:
-                        MessageBox.Show(sinon.SelectedItem.ToString());
+                    case "הכל":
+                        tests = new List<Test>(bl.AllTestsBy(T => true, tester.Id));
+                        Value = 50;
+                        break;
+                    case "ללא ציון":
+                        tests = new List<Test>(bl.AllTestsBy(T => T.Grade == null, tester.Id));
+                        Value = 50;
+                        break;
+                    case "עם ציון":
+                        tests = new List<Test>(bl.AllTestsBy(T => T.Grade != null, tester.Id));
+                        Value = 50;
+                        break;
+                    case "עבר":
+                        tests = new List<Test>(bl.AllTestsBy(T => T.Grade == Grade.עבר, tester.Id));
+                        Value = 50;
+                        break;
+                    case "נכשל":
+                        tests = new List<Test>(bl.AllTestsBy(T => T.Grade == Grade.נכשל, tester.Id));
+                        Value = 50;
+                        break;
+                    case "לא קרו":
+                        tests = new List<Test>(bl.AllTestsBy(T => T.TestDay > DateTime.Now, tester.Id));
+                        Value = 50;
                         break;
                 }
+            }
+        }
+        private void Sinon_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                selection = sinon.SelectionBoxItem as string;
+                Thread thread = new Thread(sinon_Func);
+                Value = 50;
+                thread.Start(idStudent.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "אזהרה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

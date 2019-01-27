@@ -19,7 +19,7 @@ namespace PLWPF
     /// <summary>
     /// Interaction logic for loading.xaml
     /// </summary>
-    public partial class loading : Page
+    public partial class loading : UserControl
     {
         public MainWindow main;
         public int value = 0;
