@@ -10,11 +10,10 @@ using System.Xml.Serialization;
 
 namespace DAL
 {
-    class Dal_XML_imp :Idal
+    class Dal_XML_imp : Idal
     {
         XElement TraineesRoot;
         XElement ConfigRoot;
-        
         string ConfigPath = "@xml.c";
         string TraineesPath = @"TraineesXml.xml";
         string TestersPath = @"TestersXml.xml";
@@ -34,7 +33,7 @@ namespace DAL
                 TraineesRoot = XElement.Load(TraineesPath);
                 ConfigRoot = XElement.Load(ConfigPath);
             }
-            catch 
+            catch
             {
                 throw new Exception("File upload problem");
             }
@@ -45,7 +44,7 @@ namespace DAL
             TraineesRoot.Save(TraineesPath);
 
             ConfigRoot = new XElement("Config");
-            ConfigRoot.Add("num",0);
+            ConfigRoot.Add("num", 0);
             ConfigRoot.Save(ConfigPath);
 
         }
@@ -65,20 +64,25 @@ namespace DAL
             file.Close();
             return result;
         }
-
         public string AddTest(Test test)
         {
-          
-           CheckTest(test);
-           List<Test> tests =LoadFromXML<List<Test>>(TestsPath);
-           Test temp = new Test(test)
-           {
-               NumTest = (Configuration.num++).ToString("00000000")
-           };
-           DataSource.tests.Add(temp);
-           return new Test(temp).NumTest;
-            
+
+            CheckTest(test);
+
+            List<Test> tests = LoadFromXML<List<Test>>(TestsPath);
+            int n = int.Parse(ConfigRoot.Element("num").Value);
+            Test temp = new Test(test)
+            {
+                NumTest = n.ToString("00000000")
+            };
+            tests.Add(temp);
+            ConfigRoot.Element("num").SetValue(n + 1);
+            ConfigRoot.Save(ConfigPath);
+            SaveToXML(tests, TestsPath);
+            return new Test(temp).NumTest;
         }
+
+
         public void Update(Test test)
         {
             CheckTest(test);
@@ -96,7 +100,7 @@ namespace DAL
         /// Func that add a test to  the system
         /// </summary>
         /// <param name="test"></param>
-        void AddTester(Tester tester)
+        public void AddTester(Tester tester)
         {
             CheckTester(tester);
             Tester temp = new Tester(tester);
@@ -104,13 +108,13 @@ namespace DAL
             if (testers.Exists(T => T.CompareTo(temp) == 0))
                 throw new Exception("This tester already exist");
             testers.Add(temp);
-            SaveToXML(testers,TestersPath);
+            SaveToXML(testers, TestersPath);
         }
         /// <summary>
         /// func that delete a tester from the system
         /// </summary>
         /// <param name="tester"></param>
-        void DeleteTester(Tester tester)
+        public void DeleteTester(Tester tester)
         {
             List<Tester> testers = LoadFromXML<List<Tester>>(TestersPath);
             if (!testers.Exists(T => T.CompareTo(tester) == 0))
@@ -124,7 +128,7 @@ namespace DAL
         /// func that Update Tester
         /// </summary>
         /// <param name="tester"></param>
-        void UpdateTester(Tester tester)
+        public void UpdateTester(Tester tester)
         {
             CheckTester(tester);
             List<Tester> testers = LoadFromXML<List<Tester>>(TestersPath);
@@ -141,49 +145,49 @@ namespace DAL
         /// func that add a trainee to the system
         /// </summary>
         /// <param name="trainee"></param>
-        void AddTrainee(Trainee trainee)
+        public void AddTrainee(Trainee trainee)
         {
             CheckTrainee(trainee);
             var check = (from tr in TraineesRoot.Elements() where tr.Element("Id").Value == trainee.Id select tr.Element("Id").Value).FirstOrDefault();
-            if (check!=null)
+            if (check != null)
                 throw new Exception("This Trainee already exist");
-            XElement id = new XElement("Id",trainee.Id);
-            XElement PrivateName = new XElement("PrivateName",trainee.PrivateName);
-            XElement FamilyName = new XElement("FamilyName",trainee.FamilyName);
-            XElement Gender = new XElement("Gender",trainee.Gender);
-            XElement Phone = new XElement("Phone",trainee.Phone);
-            XElement Address = new XElement("Address",trainee.Address);
-            XElement DOB = new XElement("DOB",trainee.DOB);
-            XElement TypeOfCar = new XElement("TypeOfCar",trainee.TypeOfCar);
-            XElement TypeGearBox = new XElement("TypeGearBox",trainee.TypeGearBox);
-            XElement DrivingSchool = new XElement("DrivingSchool",trainee.DrivingSchool);
-            XElement DrivingTeacher = new XElement("DrivingTeacher",trainee.DrivingTeacher);
-            XElement DLessonPast = new XElement("DLessonPast",trainee.DLessonPast);
-            XElement Age = new XElement("Age",trainee.Age);
-            XElement Code = new XElement("Code",trainee.Code);
-            TraineesRoot.Add(new XElement("Trainee", id,PrivateName,FamilyName,Gender,Phone,Address,DOB,TypeOfCar,TypeGearBox,DrivingSchool,DrivingSchool,DrivingTeacher,DLessonPast,Age,Code));
+            XElement id = new XElement("Id", trainee.Id);
+            XElement PrivateName = new XElement("PrivateName", trainee.PrivateName);
+            XElement FamilyName = new XElement("FamilyName", trainee.FamilyName);
+            XElement Gender = new XElement("Gender", trainee.Gender);
+            XElement Phone = new XElement("Phone", trainee.Phone);
+            XElement Address = new XElement("Address", new XElement("City",trainee.Address.City), new XElement("Street", trainee.Address.Street), new XElement("NumOfHome", trainee.Address.NumOfHome));
+            XElement DOB = new XElement("DOB", trainee.DOB);
+            XElement TypeOfCar = new XElement("TypeOfCar", trainee.TypeOfCar);
+            XElement TypeGearBox = new XElement("TypeGearBox", trainee.TypeGearBox);
+            XElement DrivingSchool = new XElement("DrivingSchool", trainee.DrivingSchool);
+            XElement DrivingTeacher = new XElement("DrivingTeacher", trainee.DrivingTeacher);
+            XElement DLessonPast = new XElement("DLessonPast", trainee.DLessonPast);
+            XElement Age = new XElement("Age", trainee.Age);
+            XElement Code = new XElement("Code", trainee.Code);
+            TraineesRoot.Add(new XElement("Trainee", id, PrivateName, FamilyName, Gender, Phone, Address, DOB, TypeOfCar, TypeGearBox, DrivingSchool, DrivingSchool, DrivingTeacher, DLessonPast, Age, Code));
             TraineesRoot.Save(TraineesPath);
         }
         /// <summary>
         /// Func that delete a trainee from the system
         /// </summary>
         /// <param name="trainee"></param>
-        void DeleteTrainee(Trainee trainee)
+        public void DeleteTrainee(Trainee trainee)
         {
             XElement traineeElement;
             traineeElement = (from tr in TraineesRoot.Elements()
-                                  where tr.Element("id").Value == trainee.Id
-                                  select tr).FirstOrDefault();
+                              where tr.Element("id").Value == trainee.Id
+                              select tr).FirstOrDefault();
             if (traineeElement == null)
                 throw new Exception("לא ניתן למחוק בוחן שאינו קיים");
             traineeElement.Remove();
-            TraineesRoot.Save(TraineesPath);  
+            TraineesRoot.Save(TraineesPath);
         }
         /// <summary>
         /// func thatt Update aTrainee
         /// </summary>
         /// <param name="trainee"></param>
-        void UpdateTrainee(Trainee trainee)
+        public void UpdateTrainee(Trainee trainee)
         {
             CheckTrainee(trainee);
             XElement traineeElement = (from tr in TraineesRoot.Elements()
@@ -192,11 +196,13 @@ namespace DAL
 
             traineeElement.Element("PrivateName").SetValue(trainee.PrivateName);
             traineeElement.Element("FamilyName").SetValue(trainee.FamilyName);
-            traineeElement.Element("Address").SetValue(trainee.Address);
+            traineeElement.Element("Address").Element("City").SetValue(trainee.Address.City);
+            traineeElement.Element("Address").Element("Street").SetValue(trainee.Address.Street);
+            traineeElement.Element("Address").Element("NumOfHome").SetValue(trainee.Address.NumOfHome);
             traineeElement.Element("TypeOfCar").SetValue(trainee.TypeOfCar);
             traineeElement.Element("TypeGearBox").SetValue(trainee.TypeGearBox);
-            traineeElement.Element("DrivingSchool").SetValue( trainee.DrivingSchool);
-            traineeElement.Element("DrivingTeacher").SetValue( trainee.DrivingTeacher);
+            traineeElement.Element("DrivingSchool").SetValue(trainee.DrivingSchool);
+            traineeElement.Element("DrivingTeacher").SetValue(trainee.DrivingTeacher);
             traineeElement.Element("DLessonPast").SetValue(trainee.DLessonPast);
             traineeElement.Element("Code").SetValue(trainee.Code);
             traineeElement.Element("Phone").SetValue(trainee.Phone);
@@ -205,36 +211,35 @@ namespace DAL
 
         public List<Tester> TestersCollection()
         {
-            return LoadFromXML<List<Tester>>(TestersPath); 
+            return LoadFromXML<List<Tester>>(TestersPath);
         }
         public List<Test> TestsCollection()
         {
-            return LoadFromXML<List<Test>>(TestsPath);;
+            return LoadFromXML<List<Test>>(TestsPath); ;
         }
         public List<Trainee> TraineesCollection()
         {
-            
+
             List<Trainee> trainees;
             try
             {
                 trainees = (from trainee in TraineesRoot.Elements()
-                            select new Trainee()
+                            select new Trainee("")
                             {
-                               
-        //property
-                              Id = trainee.Element("Id").Value,
-        PrivateName= trainee.Element("PrivateName").Value,
-        FamilyName = trainee.Element("FamilyName").Value,
-        Gender = trainee.Element("Gender").Value,
-        Phone = trainee.Element("Phone").Value,
-        Address = trainee.Element("Id").Value,
-        DOB = trainee.Element("Address").Value,
-        TypeOfCar = trainee.Element("TypeOfCar").Value,
-        TypeGearBox = trainee.Element("TypeGearBox").Value, 
-        DrivingSchool = trainee.Element("DrivingSchool").Value,
-        DrivingTeacher = trainee.Element("DrivingTeacher").Value,
-        DLessonPast = int.Parse(trainee.Element("DLessonPast").Value),
-        Code = trainee.Element("Code").Value
+                                //property
+                                Id = trainee.Element("Id").Value,
+                                PrivateName = trainee.Element("PrivateName").Value,
+                                FamilyName = trainee.Element("FamilyName").Value,
+                                Gender = (Gender) Enum.Parse( typeof(Gender),trainee.Element("Gender").Value),
+                                Phone = trainee.Element("Phone").Value,
+                                Address = new Address(trainee.Element("Address").Element("City").Value, trainee.Element("Address").Element("Street").Value, trainee.Element("Address").Element("NumOfHome").Value),
+                                DOB = DateTime.Parse( trainee.Element("DOB").Value),
+                                TypeOfCar =(Car) Enum.Parse(typeof(Car), trainee.Element("TypeOfCar").Value),
+                                TypeGearBox = (Gearbox) Enum.Parse(typeof(Gearbox),trainee.Element("TypeGearBox").Value),
+                                DrivingSchool = trainee.Element("DrivingSchool").Value,
+                                DrivingTeacher = trainee.Element("DrivingTeacher").Value,
+                                DLessonPast = int.Parse(trainee.Element("DLessonPast").Value),
+                                Code = trainee.Element("Code").Value
                             }).ToList();
             }
             catch
@@ -245,7 +250,7 @@ namespace DAL
 
         }
 
-        
+
         public static void CheckTrainee(Trainee trainee)
         {
 
@@ -363,4 +368,5 @@ namespace DAL
             return from item in TestersCollection() orderby item.ToString() select new Tester(item);
         }
     }
+}
 }
