@@ -24,7 +24,6 @@ namespace BE
         public int DLessonPast { get; set; }
         public int Age { get { return DateTime.Now.Year - DOB.Year; }}
         public string Code { get; set; }
-        public Uri Uri { get; set; }
         //...
         //functions
         public override string ToString()
@@ -41,7 +40,7 @@ namespace BE
             Id = id;
         }
 
-        public Trainee(string id, string privateName, string familyName, Gender gender, string phone, Address address, DateTime dOB, Car typeOfCar, Gearbox typeGearBox, string drivingSchool, string drivingTeacher, int dLessonPast, bool criminalRecord ,string code, Uri Uri) : this(id)
+        public Trainee(string id, string privateName, string familyName, Gender gender, string phone, Address address, DateTime dOB, Car typeOfCar, Gearbox typeGearBox, string drivingSchool, string drivingTeacher, int dLessonPast, bool criminalRecord ,string code) : this(id)
         {
             if(privateName!=null)
                 PrivateName = string.Copy(privateName);
@@ -60,7 +59,6 @@ namespace BE
                 DrivingTeacher = string.Copy(drivingTeacher);
             DLessonPast = dLessonPast;
             this.Code = string.Copy(code);
-            this.Uri = new Uri(string.Copy(Uri.ToString()));
         }
 
         /// <summary>
@@ -90,7 +88,6 @@ namespace BE
             TypeOfCar = trainee.TypeOfCar;
             TypeGearBox = trainee.TypeGearBox;
             this.Code = string.Copy(trainee.Code);
-            this.Uri = new Uri(string.Copy(Uri.ToString()));
         }
 
     }
