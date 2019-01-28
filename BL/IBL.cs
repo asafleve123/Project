@@ -86,6 +86,5 @@ namespace BL
         IEnumerable<IGrouping<string, Trainee>> ListOfTraineesBySchool(bool order);
         IEnumerable<IGrouping<string, Trainee>> ListOfTraineesByDTeacher(bool order);
         IEnumerable<IGrouping<int, Trainee>> ListOfTraineesByNumOfTests(bool order);
-         Uri ConvertCriterions(Test test)
     }
 }

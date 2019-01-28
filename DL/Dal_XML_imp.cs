@@ -1,12 +1,12 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using System.Xml.Linq;
-//using System.IO;
-//using BE;
-//using System.Xml.Serialization;
+﻿////using System;
+////using System.Collections.Generic;
+////using System.Linq;
+////using System.Text;
+////using System.Threading.Tasks;
+////using System.Xml.Linq;
+////using System.IO;
+////using BE;
+////using System.Xml.Serialization;
 
 namespace DAL
 {
@@ -43,11 +43,29 @@ namespace DAL
             TraineesRoot = new XElement("Trainees");
             TraineesRoot.Save(TraineesPath);
 
-            ConfigRoot = new XElement("Config");
-            ConfigRoot.Add("num", 0);
-            ConfigRoot.Save(ConfigPath);
+//            ConfigRoot = new XElement("Config");
+//            ConfigRoot.Add("num", 0);
+//            ConfigRoot.Save(ConfigPath);
 
+////        }
+
+//        public static void SaveToXML<T>(T source, string path)
+//        {
+//            FileStream file = new FileStream(path, FileMode.Create);
+//            XmlSerializer xmlSerializer = new XmlSerializer(source.GetType());
+//            xmlSerializer.Serialize(file, source);
+//            file.Close();
 //        }
+//        public static T LoadFromXML<T>(string path)
+//        {
+//            FileStream file = new FileStream(path, FileMode.Open);
+//            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+//            T result = (T)xmlSerializer.Deserialize(file);
+//            file.Close();
+//            return result;
+//        }
+//        public string AddTest(Test test)
+//        {
 
         public static void SaveToXML<T>(T source, string path)
         {
@@ -85,6 +103,16 @@ namespace DAL
             return new Test(temp).NumTest;
         }
 
+//        public void Update(Test test)
+//        {
+//            CheckTest(test);
+//            List<Test> tests = LoadFromXML<List<Test>>(TestsPath);
+//            if (!tests.Exists(T => T.CompareTo(test) == 0))
+//            {
+//                throw new Exception("the test isnt exist");
+//            }
+//            tests[tests.IndexOf(tests.Find(T => T.CompareTo(test) == 0))] = new Test(test);
+//            SaveToXML(test, TestsPath);
 
         public void Update(Test test)
         {
@@ -209,20 +237,16 @@ namespace DAL
                                        where tr.Element("id").Value == trainee.Id
                                        select tr).FirstOrDefault();
 
-            traineeElement.Element("PrivateName").SetValue(trainee.PrivateName);
-            traineeElement.Element("FamilyName").SetValue(trainee.FamilyName);
-            traineeElement.Element("Address").Element("City").SetValue(trainee.Address.City);
-            traineeElement.Element("Address").Element("Street").SetValue(trainee.Address.Street);
-            traineeElement.Element("Address").Element("NumOfHome").SetValue(trainee.Address.NumOfHome);
-            traineeElement.Element("TypeOfCar").SetValue(trainee.TypeOfCar);
-            traineeElement.Element("TypeGearBox").SetValue(trainee.TypeGearBox);
-            traineeElement.Element("DrivingSchool").SetValue(trainee.DrivingSchool);
-            traineeElement.Element("DrivingTeacher").SetValue(trainee.DrivingTeacher);
-            traineeElement.Element("DLessonPast").SetValue(trainee.DLessonPast);
-            traineeElement.Element("Code").SetValue(trainee.Code);
-            traineeElement.Element("Phone").SetValue(trainee.Phone);
-            TraineesRoot.Save(TraineesPath);
-        }
+//        public List<Tester> TestersCollection()
+//        {
+//            return LoadFromXML<List<Tester>>(TestersPath);
+//        }
+//        public List<Test> TestsCollection()
+//        {
+//            return LoadFromXML<List<Test>>(TestsPath); ;
+//        }
+//        public List<Trainee> TraineesCollection()
+//        {
 
         public List<Tester> TestersCollection()
         {
@@ -267,99 +291,120 @@ namespace DAL
             }
             return trainees;
 
-//        }
 
-
-        public static void CheckTrainee(Trainee trainee)
-        {
-
-//            if (!trainee.PrivateName.All(Char.IsLetter))
-//                throw new Exception("שם פרטי אינו תקין");
-
-//            if (!trainee.FamilyName.All(Char.IsLetter))
-//                throw new Exception("שם משפחה אינו תקין");
-
-//            if (!IdCheck(trainee.Id))
-//                throw new Exception("מספר תעודת זהות אינו תקין");
-
-//            if (!trainee.DrivingSchool.All(Char.IsLetter))
-//                throw new Exception("שם בית הספר אינו תקין");
-
-//            if (!trainee.DrivingTeacher.All(Char.IsLetter))
-//                throw new Exception("שם המורה אינו תקין");
-
-//            if (trainee.Phone.Length != 10 || !trainee.Phone.All(Char.IsDigit))
-//                throw new Exception("מספר הפלאפון אינו תקין");
-
-//            if (trainee.DLessonPast < 0)
-//                throw new Exception("מספר השיעורים שעברת אינו תקין");
-
-//            if (!trainee.Address.City.All(char.IsLetter))
-//                throw new Exception("שם העיר אינו תקין");
-
-//            if (!trainee.Address.Street.All(char.IsLetter))
-//                throw new Exception("שם הרחוב אינו תקין");
-
-//            if (!trainee.Address.NumOfHome.All(char.IsDigit))
-//                throw new Exception("מספר הבית אינו תקין");
-
-//        }
-//        public static bool IdCheck(string id)
+//        public static void CheckTrainee(Trainee trainee)
 //        {
-//            if (id == null)
-//                return false;
 
-//            int tmp, count = 0;
+////            if (!trainee.PrivateName.All(Char.IsLetter))
+////                throw new Exception("שם פרטי אינו תקין");
 
-//            if (!(int.TryParse(id, out tmp)) || id.Length != 9)
-//                return false;
+////            if (!trainee.FamilyName.All(Char.IsLetter))
+////                throw new Exception("שם משפחה אינו תקין");
 
-//            int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
-//            id = id.PadLeft(9, '0');
+////            if (!IdCheck(trainee.Id))
+////                throw new Exception("מספר תעודת זהות אינו תקין");
 
-//            for (int i = 0; i < 9; i++)
+////            if (!trainee.DrivingSchool.All(Char.IsLetter))
+////                throw new Exception("שם בית הספר אינו תקין");
+
+////            if (!trainee.DrivingTeacher.All(Char.IsLetter))
+////                throw new Exception("שם המורה אינו תקין");
+
+////            if (trainee.Phone.Length != 10 || !trainee.Phone.All(Char.IsDigit))
+////                throw new Exception("מספר הפלאפון אינו תקין");
+
+////            if (trainee.DLessonPast < 0)
+////                throw new Exception("מספר השיעורים שעברת אינו תקין");
+
+////            if (!trainee.Address.City.All(char.IsLetter))
+////                throw new Exception("שם העיר אינו תקין");
+
+////            if (!trainee.Address.Street.All(char.IsLetter))
+////                throw new Exception("שם הרחוב אינו תקין");
+
+////            if (!trainee.Address.NumOfHome.All(char.IsDigit))
+////                throw new Exception("מספר הבית אינו תקין");
+
+////        }
+////        public static bool IdCheck(string id)
+////        {
+////            if (id == null)
+////                return false;
+
+////            int tmp, count = 0;
+
+////            if (!(int.TryParse(id, out tmp)) || id.Length != 9)
+////                return false;
+
+////            int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
+////            id = id.PadLeft(9, '0');
+
+////            for (int i = 0; i < 9; i++)
+////            {
+////                int num = Int32.Parse(id.Substring(i, 1)) * id_12_digits[i];
+
+////                if (num > 9)
+////                    num = (num / 10) + (num % 10);
+
+////                count += num;
+////            }
+
+////            return (count % 10 == 0);
+////        }
+////        public static void CheckTester(Tester tester)
+////        {
+
+////            if (!tester.PrivateName.All(Char.IsLetter))
+////                throw new Exception("שם פרטי אינו תקין");
+
+////            if (!tester.FamilyName.All(Char.IsLetter))
+////                throw new Exception("שם המשפחה אינו תקין");
+
+////            if (!IdCheck(tester.Id))
+////                throw new Exception("מספר תעודת זהות אינו תקין");
+
+////            if (tester.Phone.Length != 10 || !tester.Phone.All(Char.IsDigit))
+////                throw new Exception("מספר הפלאפון אינו תקין");
+
+////            if (tester.MaxTests < 0)
+////                throw new Exception("מספר המבחנים המקסימאלי אינו תקין");
+
+////            if (tester.MaxRange < 0)
+////                throw new Exception(tester + ":the Max Range cant be  a negative number");
+
+////            if (!tester.Address.City.All(char.IsLetter))
+////                throw new Exception("שם העיר אינו תקין");
+
+////            if (!tester.Address.Street.All(char.IsLetter))
+////                throw new Exception("שם הרחוב אינו תקין");
+////            if (!tester.Address.NumOfHome.All(char.IsDigit))
+////                throw new Exception("מספר הבית אינו תקין");
+
+////        }
+////        public static void CheckTest(Test test)
+////        {
+////            if (test.TestTime.All(char.IsLetter))
+////                throw new Exception(test + ":wrong test time");
+////            if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
+////                throw new Exception(test + ":the dates arent same");
+////            if ((test.IdTester != null) && !IdCheck(test.IdTester))
+////                throw new Exception(test + ":Wrong id tester!");
+////            if (!IdCheck(test.IdTrainee))
+////                throw new Exception(test + ":Wrong id trainee!");
+////            if (!test.TestAddress.Street.All(char.IsLetter))
+////                throw new Exception(test + ":Wrong street name!");
+
+//            if (!test.TestAddress.City.All(char.IsLetter))
+//                throw new Exception(test + ":Wrong city name!");
+//            foreach (Criterion item in test.Criterions)
 //            {
-//                int num = Int32.Parse(id.Substring(i, 1)) * id_12_digits[i];
-
-//                if (num > 9)
-//                    num = (num / 10) + (num % 10);
-
-//                count += num;
+//                if (!item.name.All(char.IsLetter))
+//                {
+//                    throw new Exception(test + ":wrong Criterion " + item.name + "!");
+//                }
 //            }
-
-//            return (count % 10 == 0);
 //        }
-//        public static void CheckTester(Tester tester)
-//        {
-
-//            if (!tester.PrivateName.All(Char.IsLetter))
-//                throw new Exception("שם פרטי אינו תקין");
-
-//            if (!tester.FamilyName.All(Char.IsLetter))
-//                throw new Exception("שם המשפחה אינו תקין");
-
-//            if (!IdCheck(tester.Id))
-//                throw new Exception("מספר תעודת זהות אינו תקין");
-
-//            if (tester.Phone.Length != 10 || !tester.Phone.All(Char.IsDigit))
-//                throw new Exception("מספר הפלאפון אינו תקין");
-
-//            if (tester.MaxTests < 0)
-//                throw new Exception("מספר המבחנים המקסימאלי אינו תקין");
-
-//            if (tester.MaxRange < 0)
-//                throw new Exception(tester + ":the Max Range cant be  a negative number");
-
-//            if (!tester.Address.City.All(char.IsLetter))
-//                throw new Exception("שם העיר אינו תקין");
-
-//            if (!tester.Address.Street.All(char.IsLetter))
-//                throw new Exception("שם הרחוב אינו תקין");
-//            if (!tester.Address.NumOfHome.All(char.IsDigit))
-//                throw new Exception("מספר הבית אינו תקין");
-
-//        }
-//        public static void CheckTest(Test test)
+//        public IEnumerable<Tester> testersByName()
 //        {
 //            if (test.TestTime.All(char.IsLetter))
 //                throw new Exception(test + ":wrong test time");

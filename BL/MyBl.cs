@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using BE;
 using DAL;
 using System.IO;
@@ -511,9 +513,6 @@ namespace BL
         {
             return from item in TestsCollection() where (func(item) && item.IdTrainee == idtrainee) select item;
         }
-        public Uri ConvertCriterions(Test test)
-        {
 
-        }
     } 
 }
