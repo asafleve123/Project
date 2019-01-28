@@ -468,5 +468,9 @@ namespace BL
         {
             return from item in TestsCollection() where (func(item) && item.IdTrainee == idtrainee) select item;
         }
+        public Uri ConvertCriterions(Test test)
+        {
+
+        }
     } 
 }

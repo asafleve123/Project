@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.IO;
-using BE;
-using System.Xml.Serialization;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.Xml.Linq;
+//using System.IO;
+//using BE;
+//using System.Xml.Serialization;
 
 namespace DAL
 {
@@ -47,7 +47,7 @@ namespace DAL
             ConfigRoot.Add("num", 0);
             ConfigRoot.Save(ConfigPath);
 
-        }
+//        }
 
         public static void SaveToXML<T>(T source, string path)
         {
@@ -267,110 +267,110 @@ namespace DAL
             }
             return trainees;
 
-        }
+//        }
 
 
         public static void CheckTrainee(Trainee trainee)
         {
 
-            if (!trainee.PrivateName.All(Char.IsLetter))
-                throw new Exception("שם פרטי אינו תקין");
+//            if (!trainee.PrivateName.All(Char.IsLetter))
+//                throw new Exception("שם פרטי אינו תקין");
 
-            if (!trainee.FamilyName.All(Char.IsLetter))
-                throw new Exception("שם משפחה אינו תקין");
+//            if (!trainee.FamilyName.All(Char.IsLetter))
+//                throw new Exception("שם משפחה אינו תקין");
 
-            if (!IdCheck(trainee.Id))
-                throw new Exception("מספר תעודת זהות אינו תקין");
+//            if (!IdCheck(trainee.Id))
+//                throw new Exception("מספר תעודת זהות אינו תקין");
 
-            if (!trainee.DrivingSchool.All(Char.IsLetter))
-                throw new Exception("שם בית הספר אינו תקין");
+//            if (!trainee.DrivingSchool.All(Char.IsLetter))
+//                throw new Exception("שם בית הספר אינו תקין");
 
-            if (!trainee.DrivingTeacher.All(Char.IsLetter))
-                throw new Exception("שם המורה אינו תקין");
+//            if (!trainee.DrivingTeacher.All(Char.IsLetter))
+//                throw new Exception("שם המורה אינו תקין");
 
-            if (trainee.Phone.Length != 10 || !trainee.Phone.All(Char.IsDigit))
-                throw new Exception("מספר הפלאפון אינו תקין");
+//            if (trainee.Phone.Length != 10 || !trainee.Phone.All(Char.IsDigit))
+//                throw new Exception("מספר הפלאפון אינו תקין");
 
-            if (trainee.DLessonPast < 0)
-                throw new Exception("מספר השיעורים שעברת אינו תקין");
+//            if (trainee.DLessonPast < 0)
+//                throw new Exception("מספר השיעורים שעברת אינו תקין");
 
-            if (!trainee.Address.City.All(char.IsLetter))
-                throw new Exception("שם העיר אינו תקין");
+//            if (!trainee.Address.City.All(char.IsLetter))
+//                throw new Exception("שם העיר אינו תקין");
 
-            if (!trainee.Address.Street.All(char.IsLetter))
-                throw new Exception("שם הרחוב אינו תקין");
+//            if (!trainee.Address.Street.All(char.IsLetter))
+//                throw new Exception("שם הרחוב אינו תקין");
 
-            if (!trainee.Address.NumOfHome.All(char.IsDigit))
-                throw new Exception("מספר הבית אינו תקין");
+//            if (!trainee.Address.NumOfHome.All(char.IsDigit))
+//                throw new Exception("מספר הבית אינו תקין");
 
-        }
-        public static bool IdCheck(string id)
-        {
-            if (id == null)
-                return false;
+//        }
+//        public static bool IdCheck(string id)
+//        {
+//            if (id == null)
+//                return false;
 
-            int tmp, count = 0;
+//            int tmp, count = 0;
 
-            if (!(int.TryParse(id, out tmp)) || id.Length != 9)
-                return false;
+//            if (!(int.TryParse(id, out tmp)) || id.Length != 9)
+//                return false;
 
-            int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
-            id = id.PadLeft(9, '0');
+//            int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
+//            id = id.PadLeft(9, '0');
 
-            for (int i = 0; i < 9; i++)
-            {
-                int num = Int32.Parse(id.Substring(i, 1)) * id_12_digits[i];
+//            for (int i = 0; i < 9; i++)
+//            {
+//                int num = Int32.Parse(id.Substring(i, 1)) * id_12_digits[i];
 
-                if (num > 9)
-                    num = (num / 10) + (num % 10);
+//                if (num > 9)
+//                    num = (num / 10) + (num % 10);
 
-                count += num;
-            }
+//                count += num;
+//            }
 
-            return (count % 10 == 0);
-        }
-        public static void CheckTester(Tester tester)
-        {
+//            return (count % 10 == 0);
+//        }
+//        public static void CheckTester(Tester tester)
+//        {
 
-            if (!tester.PrivateName.All(Char.IsLetter))
-                throw new Exception("שם פרטי אינו תקין");
+//            if (!tester.PrivateName.All(Char.IsLetter))
+//                throw new Exception("שם פרטי אינו תקין");
 
-            if (!tester.FamilyName.All(Char.IsLetter))
-                throw new Exception("שם המשפחה אינו תקין");
+//            if (!tester.FamilyName.All(Char.IsLetter))
+//                throw new Exception("שם המשפחה אינו תקין");
 
-            if (!IdCheck(tester.Id))
-                throw new Exception("מספר תעודת זהות אינו תקין");
+//            if (!IdCheck(tester.Id))
+//                throw new Exception("מספר תעודת זהות אינו תקין");
 
-            if (tester.Phone.Length != 10 || !tester.Phone.All(Char.IsDigit))
-                throw new Exception("מספר הפלאפון אינו תקין");
+//            if (tester.Phone.Length != 10 || !tester.Phone.All(Char.IsDigit))
+//                throw new Exception("מספר הפלאפון אינו תקין");
 
-            if (tester.MaxTests < 0)
-                throw new Exception("מספר המבחנים המקסימאלי אינו תקין");
+//            if (tester.MaxTests < 0)
+//                throw new Exception("מספר המבחנים המקסימאלי אינו תקין");
 
-            if (tester.MaxRange < 0)
-                throw new Exception(tester + ":the Max Range cant be  a negative number");
+//            if (tester.MaxRange < 0)
+//                throw new Exception(tester + ":the Max Range cant be  a negative number");
 
-            if (!tester.Address.City.All(char.IsLetter))
-                throw new Exception("שם העיר אינו תקין");
+//            if (!tester.Address.City.All(char.IsLetter))
+//                throw new Exception("שם העיר אינו תקין");
 
-            if (!tester.Address.Street.All(char.IsLetter))
-                throw new Exception("שם הרחוב אינו תקין");
-            if (!tester.Address.NumOfHome.All(char.IsDigit))
-                throw new Exception("מספר הבית אינו תקין");
+//            if (!tester.Address.Street.All(char.IsLetter))
+//                throw new Exception("שם הרחוב אינו תקין");
+//            if (!tester.Address.NumOfHome.All(char.IsDigit))
+//                throw new Exception("מספר הבית אינו תקין");
 
-        }
-        public static void CheckTest(Test test)
-        {
-            if (test.TestTime.All(char.IsLetter))
-                throw new Exception(test + ":wrong test time");
-            if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
-                throw new Exception(test + ":the dates arent same");
-            if ((test.IdTester != null) && !IdCheck(test.IdTester))
-                throw new Exception(test + ":Wrong id tester!");
-            if (!IdCheck(test.IdTrainee))
-                throw new Exception(test + ":Wrong id trainee!");
-            if (!test.TestAddress.Street.All(char.IsLetter))
-                throw new Exception(test + ":Wrong street name!");
+//        }
+//        public static void CheckTest(Test test)
+//        {
+//            if (test.TestTime.All(char.IsLetter))
+//                throw new Exception(test + ":wrong test time");
+//            if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
+//                throw new Exception(test + ":the dates arent same");
+//            if ((test.IdTester != null) && !IdCheck(test.IdTester))
+//                throw new Exception(test + ":Wrong id tester!");
+//            if (!IdCheck(test.IdTrainee))
+//                throw new Exception(test + ":Wrong id trainee!");
+//            if (!test.TestAddress.Street.All(char.IsLetter))
+//                throw new Exception(test + ":Wrong street name!");
 
             if (!test.TestAddress.City.All(char.IsLetter))
                 throw new Exception(test + ":Wrong city name!");
