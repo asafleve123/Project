@@ -43,20 +43,20 @@ namespace BE
         public Trainee(string id, string privateName, string familyName, Gender gender, string phone, Address address, DateTime dOB, Car typeOfCar, Gearbox typeGearBox, string drivingSchool, string drivingTeacher, int dLessonPast, bool criminalRecord ,string code) : this(id)
         {
             if(privateName!=null)
-            PrivateName = string.Copy(privateName);
+                PrivateName = string.Copy(privateName);
             if(familyName!=null)
-            FamilyName = string.Copy(familyName);
+                FamilyName = string.Copy(familyName);
             Gender = gender;
             if(phone!=null)
-            Phone = string.Copy(phone);
+                Phone = string.Copy(phone);
             Address = address;
             DOB = dOB;
             TypeOfCar = typeOfCar;
             TypeGearBox = typeGearBox;
             if(drivingSchool!=null)
-            DrivingSchool = string.Copy(drivingSchool);
+                DrivingSchool = string.Copy(drivingSchool);
             if(drivingTeacher!=null)
-            DrivingTeacher = string.Copy(drivingTeacher);
+                DrivingTeacher = string.Copy(drivingTeacher);
             DLessonPast = dLessonPast;
             this.Code = string.Copy(code);
         }

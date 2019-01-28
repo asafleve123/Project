@@ -36,9 +36,9 @@ namespace DAL
         {
             CheckTrainee(trainee);
             Trainee temp = new Trainee(trainee);
-                if(DataSource.trainees.Exists(T => T.CompareTo(temp) == 0))
-                    throw new Exception("This Trainee already exist");
-                DataSource.trainees.Add(temp);
+            if(DataSource.trainees.Exists(T => T.CompareTo(temp) == 0))
+                throw new Exception("This Trainee already exist");
+            DataSource.trainees.Add(temp);
         }
         public void DeleteTester(Tester tester)
         {
@@ -92,7 +92,7 @@ namespace DAL
                 throw new Exception("This tester doesn't exist");
             }
             DataSource.testers[DataSource.testers.IndexOf(DataSource.testers.Find(T => T.CompareTo(tester) == 0))] = new Tester(tester);
-           
+            
         }
         public void UpdateTrainee(Trainee trainee)
         {
@@ -224,6 +224,7 @@ namespace DAL
                 }
             }
         }
+
         public IEnumerable<Tester> testersByName()
         {
             return from item in TestersCollection() orderby item.ToString() select new Tester(item);
