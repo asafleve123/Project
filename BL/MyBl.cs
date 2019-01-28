@@ -7,12 +7,14 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using BE;
 using DAL;
+using System.IO;
+using System.Net;
+using System.Xml;
 namespace BL
 {
     public class MyBl : IBL
     {
         private DAL.Idal MyDal = FactoryDal.getDal();
-
         private int NumOfTestsByDays(Tester tester, DateTime time)
         {
             return (TestsCollection()).Count(delegate (Test tst) { if (tester.Id == tst.IdTester && DatesAreInTheSameWeek(time, tst.TestDay)) return true; return false; });
@@ -176,7 +178,6 @@ namespace BL
             }
             MyDal.AddTrainee(trainee);
         }
-
         public void DeleteTester(Tester tester)
         {
             if (!TestersCollection().Exists(T => tester.Id == T.Id))
@@ -253,7 +254,49 @@ namespace BL
         public IEnumerable<Tester> DistanseFromAdress(Address adress)
         {
             Random r = new Random();
-            return from item in TestersCollection() where (r.Next(Configuration.DISTANCE + 10) < Configuration.DISTANCE) select item;
+            return from item in TestersCollection() where () select item;
+            ;
+        }
+        public double DistanceBetweenAdress(string origin, string destination)
+        {
+            //string origin = "pisga 45 st. jerusalem"; //or "תקווה פתח 100 העם אחד "etc.
+            //string destination = "gilgal 78 st. ramat-gan";//or "גן רמת 10 בוטינסקי'ז "etc.
+            string KEY = @"<aNt5BLAa2aK3uAMZoR87F25z2VlhlE3u>";
+            string url = @"https://www.mapquestapi.com/directions/v2/route" +
+             @"?key=" + KEY +
+             @"&from=" + origin +
+             @"&to=" + destination +
+             @"&outFormat=xml" +
+             @"&ambiguities=ignore&routeType=fastest&doReverseGeocode=false" +
+             @"&enhancedNarrative=false&avoidTimedConditions=false";
+            //request from MapQuest service the distance between the 2 addresses
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader sreader = new StreamReader(dataStream);
+            string responsereader = sreader.ReadToEnd();
+            response.Close();
+            //the response is given in an XML format
+            XmlDocument xmldoc = new XmlDocument();
+            xmldoc.LoadXml(responsereader);
+            if (xmldoc.GetElementsByTagName("statusCode")[0].ChildNodes[0].InnerText == "0")
+            //we have the expected answer
+            {
+                //display the returned distance
+                XmlNodeList distance = xmldoc.GetElementsByTagName("distance");
+                double distInMiles = Convert.ToDouble(distance[0].ChildNodes[0].InnerText);
+                return distInMiles * 1.609344;
+                
+            }
+            else if (xmldoc.GetElementsByTagName("statusCode")[0].ChildNodes[0].InnerText == "402")
+            //we have an answer that an error occurred, one of the addresses is not found
+            {
+                throw new Exception("אחת הכתובות לא נמצאה");
+            }
+            else //busy network or other error...
+            {
+                throw new Exception("בעיות ברשת");
+            }
         }
         public IEnumerable<Tester> IsFree(DateTime time)
         {
