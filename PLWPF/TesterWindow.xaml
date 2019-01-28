@@ -143,7 +143,7 @@
                                 <Label Content="!מחיקת חשבון"  HorizontalAlignment="Center" VerticalAlignment="bottom" FontSize="40" />
                                 <Label Content="!פעולה זו בלתי הפיכה" VerticalContentAlignment="Top" HorizontalAlignment="Center" FontSize="25" Grid.Row="1"/>
                                 <Label Content=" אנא וודא שהזנת ציון לכל המבחנים שברשותך" HorizontalAlignment="Center" FontSize="25" Grid.Row="2"/>
-                            </Grid>
+                        </Grid>
 
                             <Label x:Name="DeleteWarningBox" Content="" Height="40"  Foreground="Red"  HorizontalAlignment="center" Grid.Row="1" VerticalAlignment="Center" FontSize="23" Margin="350,9.333,352.333,263.333"/>
                             <Button x:Name="delete" Content="מחיקה" FontSize="70"  HorizontalAlignment="Center"  Grid.Row="1" VerticalAlignment="Center" Width="350" Height="175" Click="Delete_Click" Margin="10" />
