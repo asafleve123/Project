@@ -18,8 +18,6 @@
             <Setter Property="Width" Value="277"/>
         </Style>
 
-        <CollectionViewSource x:Key="criterionViewSource" d:DesignSource="{d:DesignInstance {x:Type BE:Criterion}, CreateList=True}"/>
-
     </Window.Resources>
     <Grid >
         <Grid.RowDefinitions>
@@ -47,7 +45,7 @@
                             <ColumnDefinition Width="20*" Name="grid11"/>
                         </Grid.ColumnDefinitions>
                         <Button x:Name="refresh" Grid.Row="0" Grid.Column="1" Content="ריענון" Background="DeepSkyBlue" Click="Sinon_Click"/>
-                    <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding tests}" FontWeight="DemiBold" FontSize="20" />
+                        <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding tests}" FontWeight="DemiBold" FontSize="20" />
                         <Grid Grid.Row="0" Grid.Column="0" Background="Black">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"/>
@@ -78,7 +76,7 @@
                                 <ProgressBar  FlowDirection="RightToLeft" Background="Black"  x:Name="progressbar"/>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Column="1" Grid.Row="1" DataContext="{StaticResource criterionViewSource}">
+                        <Grid Grid.Column="1" Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
@@ -92,7 +90,7 @@
                                     <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="1" Grid.Row="0" Content=":ציון" FontWeight="DemiBold" HorizontalAlignment="Stretch" Background="White" />
+                                <Label Grid.Column="1" Grid.Row="0" Content=":ציון" FontWeight="DemiBold" HorizontalAlignment="Stretch" Background="White"/>
                                 <ComboBox ItemsSource="{Binding Grade?}" x:Name="gradecheckbox" Background="White"/>
                             </Grid>
                             <Button Grid.Row="1" Content="הוסף קריטריון" Click="Criterion_Click" Background="White" FontSize="22"/>
