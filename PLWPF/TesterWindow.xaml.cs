@@ -49,6 +49,7 @@ namespace PLWPF
             }
         }
         Thread thread ;
+        Comments comments = new Comments();
         public TesterWindow(Tester tester)
         {
             bl = BL.FactoryBL.getBl();
@@ -167,14 +168,60 @@ namespace PLWPF
         }
         private void Enter_Click(object sender, EventArgs e)
         {
-            //לעדכן מבחן
+            try
+            {
+                if (DataGrid.SelectedItem == null)
+                    throw new Exception("אתה צריך לבחור מבחן");
+                Test test = DataGrid.SelectedItem as Test;
+                if (comments.comments != null)
+                {
+                    test.Comments = comments.comments;
+                }
+                if (gradecheckbox.SelectedIndex == 0)
+                    test.Grade = Grade.עבר;
+                else if (gradecheckbox.SelectedIndex == 1)
+                    test.Grade = Grade.נכשל;
+                else
+                {
+                    throw new Exception("אתה צריך להזין ציון");
+                }
+                foreach (Grid item in panel.Children)
+                {
+                        if (item.RowDefinitions.Count == 2 && item.ColumnDefinitions.Count == 2)
+                        {
+                            ComboBox grade=new ComboBox();
+                            TextBox name=new TextBox();
+                            foreach (Control item1 in item.Children)
+                            {
+                                if (item1 is ComboBox)
+                                {
+                                if ((item1 as ComboBox).SelectedIndex == -1)
+                                    throw new Exception("אתה צריך לבחור ציונים לכל הקריטריונים");
+                                    grade = item1 as ComboBox;
+                                }
+                                if (item1 is TextBox)
+                                {
+                                if ((item1 as TextBox).Text == "")
+                                    throw new Exception("אתה צריך לבחור שמות לכל הקריטריונים");
+                                    name = item1 as TextBox;
+                                }
+                            }
+                            test.Criterions.Add(new Criterion(name.Text,(grade.SelectedIndex==0 ? Grade.עבר : Grade.נכשל)));
+                        }
+                }
+                bl.Update(test);
+                Sinon_Click(this,new RoutedEventArgs());
+            }
+            catch (Exception ex)
+            {
+                WBox.Visibility = Visibility.Visible;
+                WBox.Content = ex.Message;
+            }
         }
         private void Comment_Click(object sender, RoutedEventArgs e)
         {
-            Comments comments = new Comments();
             comments.ShowDialog();
             comments.Content = "!סיימת";
-            //להכניס לתוך המבחן את ההערות
         }
         private void sinon_Func(object text)
         {

@@ -21,10 +21,11 @@ namespace PLWPF
     /// </summary>
     public partial class Comments : Window
     {
-        string comments;
+       public  string comments;
         public Comments()
         {
             InitializeComponent();
+            comments = null;
             System.Windows.Input.InputLanguageManager.Current.InputLanguageChanged += language_Func;
             if (System.Windows.Input.InputLanguageManager.Current.CurrentInputLanguage.Name == "en-US")
             {
@@ -35,6 +36,13 @@ namespace PLWPF
                 comm.FlowDirection = FlowDirection.RightToLeft;
             }
             this.Closing += save;
+        }
+        public Comments( string commn)
+        {
+            InitializeComponent();
+            comm.Visibility = Visibility.Hidden;
+            commTr.Visibility = Visibility.Visible;
+            commTr.Text = commn;
         }
 
         private void language_Func(object sender, InputLanguageEventArgs e)
