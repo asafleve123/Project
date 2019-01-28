@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +25,28 @@ namespace PLWPF
         public Comments()
         {
             InitializeComponent();
+            System.Windows.Input.InputLanguageManager.Current.InputLanguageChanged += language_Func;
+            if (System.Windows.Input.InputLanguageManager.Current.CurrentInputLanguage.Name == "en-US")
+            {
+                comm.FlowDirection = FlowDirection.LeftToRight;
+            }
+            else
+            {
+                comm.FlowDirection = FlowDirection.RightToLeft;
+            }
             this.Closing += save;
+        }
+
+        private void language_Func(object sender, InputLanguageEventArgs e)
+        {
+            if (e.NewLanguage.DisplayName == "Hebrew (Israel)")
+            {
+                comm.FlowDirection = FlowDirection.RightToLeft;
+            }
+            else
+            {
+                comm.FlowDirection = FlowDirection.LeftToRight;
+            }
         }
 
         private void save(object sender, CancelEventArgs e)

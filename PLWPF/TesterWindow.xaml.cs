@@ -42,11 +42,13 @@ namespace PLWPF
         {
             set
             {
-                Action action = () => progressbar.Value += value;
-                Dispatcher.BeginInvoke(action);
-                Thread.Sleep(2000);
+                if (value != 0)
+                    progressbar.Value += value;
+                else
+                    progressbar.Value = value;
             }
         }
+        Thread thread ;
         public TesterWindow(Tester tester)
         {
             bl = BL.FactoryBL.getBl();
@@ -62,8 +64,16 @@ namespace PLWPF
             this.Street.Text = address.Street;
             this.NumOfHome.Text = address.NumOfHome;
             selection = "הכל";
+            Thread thread = new Thread(load_Func);
+            thread.Start();
         }
 
+        private void load_Func()
+        {
+            IEnumerable<Test> collection = bl.AllTestsBy(T => T.IdTester == tester.Id);
+            Action action = () => DataGrid.ItemsSource = collection;
+            Dispatcher.BeginInvoke(action);
+        }
         private void WorkTableButton_Click(object sender, RoutedEventArgs e)
         {
             WorkTable workTableWin = new WorkTable(tester.WorkTable);
@@ -106,19 +116,11 @@ namespace PLWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            try
-            {
                 tester.Code = this.Code.Password;
                 bl.UpdateTester(tester);
-            }
-            catch (Exception exp)
-            {
-
-            }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -187,37 +189,37 @@ namespace PLWPF
                 {
                     case "הכל":
                         tests = new List<Test>(bl.AllTestsBy(T => true, tester.Id));
-                        Value = 50;
                         break;
                     case "ללא ציון":
                         tests = new List<Test>(bl.AllTestsBy(T => T.Grade == null, tester.Id));
-                        Value = 50;
                         break;
                     case "עם ציון":
                         tests = new List<Test>(bl.AllTestsBy(T => T.Grade != null, tester.Id));
-                        Value = 50;
                         break;
                     case "עבר":
                         tests = new List<Test>(bl.AllTestsBy(T => T.Grade == Grade.עבר, tester.Id));
-                        Value = 50;
                         break;
                     case "נכשל":
                         tests = new List<Test>(bl.AllTestsBy(T => T.Grade == Grade.נכשל, tester.Id));
-                        Value = 50;
                         break;
                     case "לא קרו":
                         tests = new List<Test>(bl.AllTestsBy(T => T.TestDay > DateTime.Now, tester.Id));
-                        Value = 50;
                         break;
                 }
+                Action action = () => Value = 50;
+                Dispatcher.BeginInvoke(action);
+                Thread.Sleep(1000);
             }
+
         }
         private void Sinon_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                Value = 0;
+                Thread.Sleep(1000);
                 selection = sinon.SelectionBoxItem as string;
-                Thread thread = new Thread(sinon_Func);
+                thread = new Thread(sinon_Func);
                 Value = 50;
                 thread.Start(idStudent.Text);
             }

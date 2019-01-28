@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content=" התנתק " HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" FontWeight="Bold" FontSize="20" Click="Button_Click_1"/>
+            <Button Grid.Column="0" Content=" התנתק " HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" FontWeight="Bold" FontSize="20" Click="Close_Click"/>
             <Label Grid.Column="1" FontSize="30" HorizontalContentAlignment="Center" FontWeight="Bold" Content="!בוחן יקר ברוכים הבאים למערכת"  HorizontalAlignment="Stretch"   VerticalAlignment="Center"/>
         </Grid>
         <TabControl HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Background="#FFE5E5E5"  >
