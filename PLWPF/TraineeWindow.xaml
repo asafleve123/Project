@@ -19,7 +19,7 @@
         <Style TargetType="DataGrid">
             <Setter Property="FontWeight" Value="semibold"/>
             <Setter Property="FontSize" Value="25"/>
-            <Setter Property="FontFamily" Value="Sitka Banner"/>
+            <Setter Property="FontFamily" Value="Raavi"/>
         </Style>
     </Window.Resources>
     <Grid >
@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content=" התנתק " HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" FontWeight="Bold" FontSize="20" Click="Button_Click_1"/>
+            <Button Grid.Column="0" Content=" התנתק " HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" FontWeight="Bold" FontSize="20" Click="Close_Click"/>
             <Label Grid.Column="1" FontSize="30" HorizontalContentAlignment="Center" FontWeight="Bold" Content="!נבחן יקר ברוך הבא למערכת"  HorizontalAlignment="Stretch"   VerticalAlignment="Center"/>
         </Grid>
         <TabControl HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Background="#FFE5E5E5"  >
@@ -50,17 +50,38 @@
                             <RowDefinition Height="0.35*"/>
                             <RowDefinition Height="0.5*"/>
                         </Grid.RowDefinitions>
-
+                        <Grid.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="FontWeight" Value="DemiBold"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="24"/>
+                            </Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Height" Value="35"/>
+                                <Setter Property="Width" Value="175"/>
+                                <Setter Property="Margin" Value="3"/>
+                                <Setter Property="FontWeight" Value="DemiBold"/>
+                            </Style>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="FontWeight" Value="DemiBold"/>
+                                <Setter Property="FontSize" Value="20"/>
+                            </Style>
+                        </Grid.Resources>
 
                         <TextBlock Text=":הזמנת מבחן חדש" FontSize="27" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.ColumnSpan="2" Height="34" Margin="222,10,222,0"/>
-                        <Button Content="קביעת מבחן" FontSize="20" VerticalContentAlignment="Top" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Bottom" Width="199" Height="31" Margin="274,0,265.667,12.667" Click="sign_click" />
-                        <TextBlock FontSize="20" Text=":הכנס תאריך מבוקש" TextAlignment="Justify" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="505,0.333,41.667,0.333" Height="28" RenderTransformOrigin="0.5,0.5" Width="192" Grid.Row="1"/>
+                        <Button Content="קביעת מבחן" FontSize="20" VerticalContentAlignment="Top" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Bottom" Width="199" Height="31" Margin="10,10,10,15" Click="sign_click" />
+                        <TextBlock FontSize="20" Text=":הכנס תאריך מבוקש" TextAlignment="Justify" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="505,0.333,41.667,0.333" Height="28" RenderTransformOrigin="0.5,0.5" Width="192" Grid.Row="1" FontWeight="DemiBold"/>
 
 
                         <DatePicker FontSize="18" VerticalContentAlignment="Top" Name="TestDate" HorizontalAlignment="Center"  Grid.Row="1" VerticalAlignment="Center" Width="162" Margin="328,2.333,248.667,47.333" Height="29" Grid.RowSpan="2"/>
                         <Grid Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
-                            <Label Content=":כתובת יציאה" HorizontalAlignment="Left" FontSize="22" Margin="579,5,0,0" VerticalAlignment="Top" Height="35"/>
+                            <Label Content=":כתובת יציאה" HorizontalAlignment="Right" FontSize="22" Margin="0,6,12,0" VerticalAlignment="Top" Height="35"/>
 
                             <Label Content=":עיר" HorizontalAlignment="Left" FontSize="20" Margin="533,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.042,0.419"/>
                             <TextBox Name="TestCity" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="413,11,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
@@ -74,7 +95,7 @@
                         </Grid>
 
                         <TextBlock Text="" Grid.Row="2" Foreground="Red" Name="AddTestWarningBox"  FontSize="20" TextAlignment="Center"  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Height="29"  Width="Auto" Margin="0,49.667,-0.333,0" Grid.RowSpan="2" />
-                        <TextBlock FontSize="20" HorizontalAlignment="Left" Margin="167,42,0,0" TextWrapping="Wrap" Text=":שעה מבוקשת" VerticalAlignment="Top" Height="30" Grid.RowSpan="3"/>
+                        <TextBlock FontSize="20" HorizontalAlignment="Left" Margin="167,42,0,0" TextWrapping="Wrap" Text=":שעה מבוקשת" VerticalAlignment="Top" Height="30" Grid.RowSpan="3" FontWeight="DemiBold"/>
                         <ComboBox VerticalAlignment="Top" Name="TestHour" HorizontalAlignment="Left" Margin="56,34,0,0" Width="93" Height="35" VerticalContentAlignment="Top" FontSize="20" Grid.RowSpan="2"/>
                     </Grid>
                     <Rectangle Grid.Row="1" Fill="White" Stroke="Black" StrokeThickness="15"/>
@@ -86,12 +107,12 @@
                         <Label Content=":המבחנים שלך" VerticalContentAlignment="Bottom" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="280,0,272,0" Height="48" Width="184" />
 
                     </Grid>
-                    <DataGrid Name="DataGrid" HorizontalContentAlignment="Stretch" AutoGenerateColumns="False"  HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Margin="38,55,38,25" IsReadOnly="True">
+                    <DataGrid Name="DataGrid" HorizontalContentAlignment="Stretch" AutoGenerateColumns="False"  HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" Margin="38,55,38,25" IsReadOnly="True" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="מספר מבחן"  Binding="{Binding NumTest}"/>
                             <DataGridTextColumn Header="ת.ז בוחן" Binding="{Binding IdTester}"/>
                             <DataGridTextColumn Header="זמן המבחן" Binding="{Binding TestDay}"/>
-                            <DataGridTextColumn Header="כתובת" Binding="{Binding TestAdress}"/>
+                            <DataGridTextColumn Header="כתובת" Binding="{Binding TestAddress}"/>
                             <DataGridTextColumn Header="ציון" Binding="{Binding Grade}"/>
                             <DataGridTemplateColumn Header="הערות">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -168,7 +189,7 @@
                         <Grid x:Name="grid1" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
                             <Grid.Resources>
                                 <Style TargetType="Label">
-                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontWeight" Value="DemiBold"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="FontSize" Value="24"/>
@@ -181,6 +202,11 @@
                                     <Setter Property="Height" Value="35"/>
                                     <Setter Property="Width" Value="175"/>
                                     <Setter Property="Margin" Value="3"/>
+                                    <Setter Property="FontWeight" Value="DemiBold"/>
+                                </Style>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="FontWeight" Value="DemiBold"/>
+                                    <Setter Property="FontSize" Value="20"/>
                                 </Style>
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>

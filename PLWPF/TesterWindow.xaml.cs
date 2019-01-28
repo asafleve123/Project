@@ -42,11 +42,14 @@ namespace PLWPF
         {
             set
             {
-                Action action = () => progressbar.Value += value;
-                Dispatcher.BeginInvoke(action);
-                Thread.Sleep(2000);
+                if (value != 0)
+                    progressbar.Value += value;
+                else
+                    progressbar.Value = value;
             }
         }
+        Thread thread ;
+        Comments comments = new Comments();
         public TesterWindow(Tester tester)
         {
             bl = BL.FactoryBL.getBl();
@@ -62,8 +65,16 @@ namespace PLWPF
             this.Street.Text = address.Street;
             this.NumOfHome.Text = address.NumOfHome;
             selection = "הכל";
+            Thread thread = new Thread(load_Func);
+            thread.Start();
         }
 
+        private void load_Func()
+        {
+            IEnumerable<Test> collection = bl.AllTestsBy(T => T.IdTester == tester.Id);
+            Action action = () => DataGrid.ItemsSource = collection;
+            Dispatcher.BeginInvoke(action);
+        }
         private void WorkTableButton_Click(object sender, RoutedEventArgs e)
         {
             WorkTable workTableWin = new WorkTable(tester.WorkTable);
@@ -106,19 +117,11 @@ namespace PLWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            try
-            {
                 tester.Code = this.Code.Password;
                 bl.UpdateTester(tester);
-            }
-            catch (Exception exp)
-            {
-
-            }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -165,14 +168,60 @@ namespace PLWPF
         }
         private void Enter_Click(object sender, EventArgs e)
         {
-            //לעדכן מבחן
+            try
+            {
+                if (DataGrid.SelectedItem == null)
+                    throw new Exception("אתה צריך לבחור מבחן");
+                Test test = DataGrid.SelectedItem as Test;
+                if (comments.comments != null)
+                {
+                    test.Comments = comments.comments;
+                }
+                if (gradecheckbox.SelectedIndex == 0)
+                    test.Grade = Grade.עבר;
+                else if (gradecheckbox.SelectedIndex == 1)
+                    test.Grade = Grade.נכשל;
+                else
+                {
+                    throw new Exception("אתה צריך להזין ציון");
+                }
+                foreach (Grid item in panel.Children)
+                {
+                        if (item.RowDefinitions.Count == 2 && item.ColumnDefinitions.Count == 2)
+                        {
+                            ComboBox grade=new ComboBox();
+                            TextBox name=new TextBox();
+                            foreach (Control item1 in item.Children)
+                            {
+                                if (item1 is ComboBox)
+                                {
+                                if ((item1 as ComboBox).SelectedIndex == -1)
+                                    throw new Exception("אתה צריך לבחור ציונים לכל הקריטריונים");
+                                    grade = item1 as ComboBox;
+                                }
+                                if (item1 is TextBox)
+                                {
+                                if ((item1 as TextBox).Text == "")
+                                    throw new Exception("אתה צריך לבחור שמות לכל הקריטריונים");
+                                    name = item1 as TextBox;
+                                }
+                            }
+                            test.Criterions.Add(new Criterion(name.Text,(grade.SelectedIndex==0 ? Grade.עבר : Grade.נכשל)));
+                        }
+                }
+                bl.Update(test);
+                Sinon_Click(this,new RoutedEventArgs());
+            }
+            catch (Exception ex)
+            {
+                WBox.Visibility = Visibility.Visible;
+                WBox.Content = ex.Message;
+            }
         }
         private void Comment_Click(object sender, RoutedEventArgs e)
         {
-            Comments comments = new Comments();
             comments.ShowDialog();
-            comments.Content = "!סיימת";
-            //להכניס לתוך המבחן את ההערות
+            BuComments.Content = "!סיימת";
         }
         private void sinon_Func(object text)
         {
@@ -187,37 +236,37 @@ namespace PLWPF
                 {
                     case "הכל":
                         tests = new List<Test>(bl.AllTestsBy(T => true, tester.Id));
-                        Value = 50;
                         break;
                     case "ללא ציון":
                         tests = new List<Test>(bl.AllTestsBy(T => T.Grade == null, tester.Id));
-                        Value = 50;
                         break;
                     case "עם ציון":
                         tests = new List<Test>(bl.AllTestsBy(T => T.Grade != null, tester.Id));
-                        Value = 50;
                         break;
                     case "עבר":
                         tests = new List<Test>(bl.AllTestsBy(T => T.Grade == Grade.עבר, tester.Id));
-                        Value = 50;
                         break;
                     case "נכשל":
                         tests = new List<Test>(bl.AllTestsBy(T => T.Grade == Grade.נכשל, tester.Id));
-                        Value = 50;
                         break;
                     case "לא קרו":
                         tests = new List<Test>(bl.AllTestsBy(T => T.TestDay > DateTime.Now, tester.Id));
-                        Value = 50;
                         break;
                 }
+                Action action = () => Value = 50;
+                Dispatcher.BeginInvoke(action);
+                Thread.Sleep(1000);
             }
+
         }
         private void Sinon_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                Value = 0;
+                Thread.Sleep(1000);
                 selection = sinon.SelectionBoxItem as string;
-                Thread thread = new Thread(sinon_Func);
+                thread = new Thread(sinon_Func);
                 Value = 50;
                 thread.Start(idStudent.Text);
             }
@@ -225,6 +274,82 @@ namespace PLWPF
             {
                 MessageBox.Show(ex.Message, "אזהרה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+        private void Clear_Click(object sender, EventArgs e)
+        {
+            gradecheckbox.SelectedIndex = -1;
+            BuComments.Content = "הערות";
+            comments = new Comments();
+            WBox.Visibility = Visibility.Hidden;
+            panel.Children.Clear();
+        }
+
+        private void Change_Object(object sender, SelectionChangedEventArgs e)
+        {
+            Test test = e.Source as Test;
+            if (test.Grade == null && test.Comments == null && test.Criterions.Count == 0)
+            {
+                Clear_Click(this, e);
+            }
+            else
+            {
+                if (test.Grade != null)
+                {
+                    gradecheckbox.SelectedItem = test.Grade;
+                }
+                if (test.Comments != null)
+                {
+                    comments = new Comments();
+                    comments.comments = test.Comments;
+                    BuComments.Content = "!סיימת";
+                }
+                if (test.Criterions.Count != 0)
+                {
+                    foreach (Criterion item in test.Criterions)
+                    {
+                        Label name = new Label();
+                        name.Content = ":שם";
+                        name.FontWeight = FontWeights.DemiBold;
+                        name.Background = Brushes.White;
+                        name.HorizontalContentAlignment = HorizontalAlignment.Center;
+                        TextBox name1 = new TextBox();
+                        name1.Background = Brushes.White;
+                        name1.FontWeight = FontWeights.DemiBold;
+                        name1.FontSize = 20;
+                        name1.Text = item.name;
+                        Label grade = new Label();
+                        grade.Content = ":ציון";
+                        grade.FontWeight = FontWeights.DemiBold;
+                        grade.Background = Brushes.White;
+                        grade.HorizontalContentAlignment = HorizontalAlignment.Center;
+                        ComboBox grade1 = new ComboBox();
+                        grade1.ItemsSource = Enum.GetValues(typeof(BE.Grade));
+                        grade1.FontSize = 20;
+                        grade1.FontWeight = FontWeights.DemiBold;
+                        grade1.Background = Brushes.White;
+                        grade1.SelectedItem = item.grade;
+                        Grid grid = new Grid();
+                        grid.RowDefinitions.Add(new RowDefinition());
+                        grid.RowDefinitions.Add(new RowDefinition());
+                        grid.ColumnDefinitions.Add(new ColumnDefinition());
+                        grid.ColumnDefinitions.Add(new ColumnDefinition());
+                        Grid.SetColumn(name, 1);
+                        Grid.SetRow(name, 0);
+                        Grid.SetColumn(name1, 0);
+                        Grid.SetRow(name1, 0);
+                        Grid.SetColumn(grade, 1);
+                        Grid.SetRow(grade, 1);
+                        Grid.SetColumn(grade1, 0);
+                        Grid.SetRow(grade1, 1);
+                        grid.Children.Add(name);
+                        grid.Children.Add(name1);
+                        grid.Children.Add(grade);
+                        grid.Children.Add(grade1);
+                        panel.Children.Add(grid);
+                    }
+                }
+            }
+
         }
     }
 }

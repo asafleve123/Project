@@ -67,15 +67,8 @@ namespace PLWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
                 trainee.Code = this.Code.Password;
                 bl.UpdateTrainee(trainee);
-            }
-            catch (Exception exp)
-            {
-
-            }
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -96,7 +89,7 @@ namespace PLWPF
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -128,7 +121,7 @@ namespace PLWPF
                 Test test = new Test(trainee,dateTime,address);
                 bl.AddTest(test);
 
-                DataGrid.ItemsSource = bl.AllTestsBy(T => T.IdTrainee==trainee.Id );
+                DataGrid.ItemsSource =bl.AllTestsBy(T => T.IdTrainee==trainee.Id);
             }
             catch (Exception exp)
             {
@@ -138,7 +131,17 @@ namespace PLWPF
 
         private void Comments_Click(object sender, RoutedEventArgs e)
         {
-            throw new Exception("   ");
+            Test test= ((Button)sender).DataContext as Test;
+            if (test.Comments == null)
+            {
+                Comments comments = new Comments("אין הערות");
+                comments.ShowDialog();
+            }
+            else
+            {
+                Comments comments = new Comments(test.Comments);
+                comments.ShowDialog();
+            }
         }
     }
 }

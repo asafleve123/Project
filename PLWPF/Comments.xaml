@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Comments" Height="450" Width="800">
     <Grid>
-        <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="comments" VerticalAlignment="Stretch"  FontSize="20" FontFamily="segoe script" x:Name="comm"/>
+        <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="comments" VerticalAlignment="Stretch"  FontSize="20" FontFamily="segoe script" x:Name="comm" />
+        <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="comments" VerticalAlignment="Stretch"  FontSize="20" FontFamily="segoe script" x:Name="commTr" Visibility="Hidden" />
     </Grid>
 </Window>
