@@ -21,7 +21,7 @@ namespace PLWPF
     /// </summary>
     public partial class Comments : Window
     {
-       public  string comments;
+       public string comments { get { return comm.Text; } set { comm.Text = value; } }
         public Comments()
         {
             InitializeComponent();
@@ -35,7 +35,6 @@ namespace PLWPF
             {
                 comm.FlowDirection = FlowDirection.RightToLeft;
             }
-            this.Closing += save;
         }
         public Comments( string commn)
         {
@@ -55,11 +54,6 @@ namespace PLWPF
             {
                 comm.FlowDirection = FlowDirection.LeftToRight;
             }
-        }
-
-        private void save(object sender, CancelEventArgs e)
-        {
-            comments = comm.Text;
         }
     }
 }
