@@ -14,14 +14,14 @@ namespace DAL
     {
         XElement TraineesRoot;
         XElement ConfigRoot;
-        string ConfigPath = "@xml.c";
+        string ConfigPath = @"ConfigXml.xml";
         string TraineesPath = @"TraineesXml.xml";
         string TestersPath = @"TestersXml.xml";
         string TestsPath = @"TestsXml.xml";
 
         public Dal_XML_imp()
         {
-            if (!File.Exists(TraineesPath) || !File.Exists(ConfigPath) || !File.Exists(TestersPath))
+            if (!File.Exists(TraineesPath) || !File.Exists(ConfigPath) || !File.Exists(TestersPath) || !File.Exists(TestsPath))
                 CreateFiles();
             else
                 LoadData();
@@ -66,10 +66,13 @@ namespace DAL
         }
         public string AddTest(Test test)
         {
-
             CheckTest(test);
-
-            List<Test> tests = LoadFromXML<List<Test>>(TestsPath);
+            List<Test> tests;
+            if (File.Exists(TestsPath))
+                tests = LoadFromXML<List<Test>>(TestsPath);
+            else
+                tests = new List<Test>();
+            
             int n = int.Parse(ConfigRoot.Element("num").Value);
             Test temp = new Test(test)
             {
@@ -86,6 +89,8 @@ namespace DAL
         public void Update(Test test)
         {
             CheckTest(test);
+            if(!File.Exists(TestsPath))
+                throw new Exception("the test isnt exist");
             List<Test> tests = LoadFromXML<List<Test>>(TestsPath);
             if (!tests.Exists(T => T.CompareTo(test) == 0))
             {
@@ -104,7 +109,12 @@ namespace DAL
         {
             CheckTester(tester);
             Tester temp = new Tester(tester);
-            List<Tester> testers = LoadFromXML<List<Tester>>(TestersPath);
+            List<Tester> testers;
+            if (File.Exists(TestersPath))
+               testers = LoadFromXML<List<Tester>>(TestersPath);
+            else
+                testers = new List<Tester>();
+
             if (testers.Exists(T => T.CompareTo(temp) == 0))
                 throw new Exception("This tester already exist");
             testers.Add(temp);
@@ -116,6 +126,8 @@ namespace DAL
         /// <param name="tester"></param>
         public void DeleteTester(Tester tester)
         {
+            if(!File.Exists(TestersPath))
+                throw new Exception("The tester isn't found");
             List<Tester> testers = LoadFromXML<List<Tester>>(TestersPath);
             if (!testers.Exists(T => T.CompareTo(tester) == 0))
             {
@@ -130,6 +142,8 @@ namespace DAL
         /// <param name="tester"></param>
         public void UpdateTester(Tester tester)
         {
+            if(!File.Exists(TestersPath))
+                throw new Exception("This tester doesn't exist");
             CheckTester(tester);
             List<Tester> testers = LoadFromXML<List<Tester>>(TestersPath);
             if (!testers.Exists(T => T.CompareTo(tester) == 0))
@@ -139,6 +153,7 @@ namespace DAL
             testers[testers.IndexOf(testers.Find(T => T.CompareTo(tester) == 0))] = new Tester(tester);
             SaveToXML(testers, TestersPath);
         }
+
 
         //Trainee
         /// <summary>
@@ -211,10 +226,14 @@ namespace DAL
 
         public List<Tester> TestersCollection()
         {
+            if (!File.Exists(TestersPath))
+                return null;
             return LoadFromXML<List<Tester>>(TestersPath);
         }
         public List<Test> TestsCollection()
         {
+            if (!File.Exists(TestsPath))
+                return null;
             return LoadFromXML<List<Test>>(TestsPath); ;
         }
         public List<Trainee> TraineesCollection()
@@ -230,12 +249,12 @@ namespace DAL
                                 Id = trainee.Element("Id").Value,
                                 PrivateName = trainee.Element("PrivateName").Value,
                                 FamilyName = trainee.Element("FamilyName").Value,
-                                Gender = (Gender) Enum.Parse( typeof(Gender),trainee.Element("Gender").Value),
+                                Gender = (Gender)Enum.Parse(typeof(Gender), trainee.Element("Gender").Value),
                                 Phone = trainee.Element("Phone").Value,
                                 Address = new Address(trainee.Element("Address").Element("City").Value, trainee.Element("Address").Element("Street").Value, trainee.Element("Address").Element("NumOfHome").Value),
-                                DOB = DateTime.Parse( trainee.Element("DOB").Value),
-                                TypeOfCar =(Car) Enum.Parse(typeof(Car), trainee.Element("TypeOfCar").Value),
-                                TypeGearBox = (Gearbox) Enum.Parse(typeof(Gearbox),trainee.Element("TypeGearBox").Value),
+                                DOB = DateTime.Parse(trainee.Element("DOB").Value),
+                                TypeOfCar = (Car)Enum.Parse(typeof(Car), trainee.Element("TypeOfCar").Value),
+                                TypeGearBox = (Gearbox)Enum.Parse(typeof(Gearbox), trainee.Element("TypeGearBox").Value),
                                 DrivingSchool = trainee.Element("DrivingSchool").Value,
                                 DrivingTeacher = trainee.Element("DrivingTeacher").Value,
                                 DLessonPast = int.Parse(trainee.Element("DLessonPast").Value),
@@ -368,5 +387,4 @@ namespace DAL
             return from item in TestersCollection() orderby item.ToString() select new Tester(item);
         }
     }
-}
 }

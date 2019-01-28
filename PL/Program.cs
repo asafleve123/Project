@@ -5,16 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using BL;
 using BE;
+using DAL;
 namespace PL
 {
     class Program
     {
-        static BL.IBL myBl = FactoryBL.getBl();
+        static Idal myDal = FactoryDal.getDal();
 
 
         static void Main(string[] args)
         {
-
+            bool[,] worktable = new bool[6, 5]
+            {
+                    { true, true, true, true, true},
+                    { true, true, true, true, true},
+                    { true, true, true, true, true},
+                    { true, true, true, true, true},
+                    { true, true, true, true, true},
+                    { true, true, true, true, true},
+              };
+            Trainee trainee1 = new Trainee("058371246", "Renana", "Levi", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = "22" }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "moshe", 30, false,"1");
+            Trainee trainee2 = new Trainee("322263310", "Yossef", "Katri", Gender.זכר, "1234567890", new Address { City = "Net", Street = "somewhere", NumOfHome = "22" }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "Shimi", 20, false,"2");
+            //Trainee trainee3 = new Trainee("211780382", "Yosseg", "Kdtri", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "Shimi", 20, false,"3");
+            //Trainee trainee4 = new Trainee("212147870", "rrrr", "aaaaa", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "torahavomadaha", "David", 30, false,"4");
+           
+            Tester a = new Tester("212384507", "Levi", "Asaf", new DateTime(1950, 2, 2), Gender.זכר, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = "11" }, DateTime.Now, 20, Car.רכב_פרטי, worktable, 10, "1");
+            myDal.AddTester(a);
             //bool[,] worktable = new bool[6, 5]
             //{
             //        { true, true, true, true, true},
@@ -29,7 +45,7 @@ namespace PL
             //        Tester tester1 = new Tester("212384507", "Levi", "Asaf", new DateTime(1950, 2, 2), Gender.זכר, "0503363230", new Address { City = "Jer", Street = "somewhere", NumOfHome = 11 }, 19, 20, Car.רכב_פרטי, worktable, 10),
             //               tester2 = new Tester("323947747", "Garber", "Shmuel", new DateTime(1950, 5, 10), Gender.זכר, "0503363230", new Address { City = "Netania", Street = "somewhere", NumOfHome = 87 }, 19, 50, Car.רכב_פרטי, worktable, 20);
             //        Trainee trainee1 = new Trainee("058371246", "Renana", "Levi", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "moshe", 30, false);
-            //Trainee trainee2 = new Trainee("322263310", "Yossef", "Katri", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "Shimi", 20, false);
+            //        Trainee trainee2 = new Trainee("322263310", "Yossef", "Katri", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "Shimi", 20, false);
             //        Trainee trainee3 = new Trainee("211780382", "Yosseg", "Kdtri", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "toryarok", "Shimi", 20, false);
             //        Trainee trainee4 = new Trainee("212147870", "rrrr", "aaaaa", Gender.נקבה, "1234567890", new Address { City = "Jer", Street = "somewhere", NumOfHome = 22 }, new DateTime(1940, 12, 12), Car.רכב_פרטי, Gearbox.אוטומטי, "torahavomadaha", "David", 30, false);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BE
 {
@@ -20,16 +21,54 @@ namespace BE
         public DateTime DOB { get; set; }
         public Gender Gender { get; set; }
         public string Phone { get; set; }
-        public Address Address { get=>address; set=>address=value; }
+        public Address Address { get => address; set => address = value; }
         public int Years { get { return DateTime.Now.Year - RegisterDate.Year; } }
         public int MaxTests { get; set; }
-        public Car TypeOfCar { get;  set; }
+        public Car TypeOfCar { get; set; }
+
+        [XmlIgnore]
         public bool[,] WorkTable { get => worktable; set => worktable = value; }
+        public string TempWorkTable
+        {
+            get
+            {
+                if (WorkTable == null)
+                    return null;
+                string result = "";
+                if (WorkTable != null)
+                {
+                    int sizeA = WorkTable.GetLength(0);
+                    int sizeB = WorkTable.GetLength(1);
+                    result += "" + sizeA + "," + sizeB;
+                    for (int i = 0; i < sizeA; i++)
+                        for (int j = 0; j < sizeB; j++)
+                            result += "," + WorkTable[i, j];
+                }
+                return result;
+            }
+            set
+            {
+                if (value != null && value.Length > 0)
+                {
+                    string[] values = value.Split(',');
+                    int sizeA = int.Parse(values[0]);
+                    int sizeB = int.Parse(values[1]);
+                    WorkTable = new bool[sizeA, sizeB];
+                    int index = 2; for (int i = 0; i < sizeA; i++)
+                        for (int j = 0; j < sizeB; j++)
+                            WorkTable[i, j] = bool.Parse(values[index++]);
+                }
+            }
+
+        }
         public int MaxRange { get; set; }
         public int Age { get { return DateTime.Now.Year - DOB.Year; } }
         public string Code { get; set; }
         public DateTime RegisterDate { get; set; }
-        
+        public Tester()
+        {
+            Id = "";
+        }
         //...
         //functions
         public override string ToString()
@@ -40,8 +79,8 @@ namespace BE
         {
             return Id.CompareTo(((Tester)obj).Id);
         }
-        
-        public Tester(string Id, string FamilyName, string PrivateName, DateTime DOB, Gender Gender, string Phone, Address Address, DateTime RegisterDate, int MaxTests, Car TypeOfCar, bool[,] WorkTable, int MaxRange , string code)
+
+        public Tester(string Id, string FamilyName, string PrivateName, DateTime DOB, Gender Gender, string Phone, Address Address, DateTime RegisterDate, int MaxTests, Car TypeOfCar, bool[,] WorkTable, int MaxRange, string code)
         {
             this.Id = Id;
             this.FamilyName = FamilyName;
@@ -63,7 +102,7 @@ namespace BE
         /// <param name="tester"></param>
         public Tester(Tester tester)
         {
-            if(tester.Id!=null)
+            if (tester.Id != null)
                 Id = string.Copy(tester.Id);
             if (tester.FamilyName != null)
                 FamilyName = string.Copy(tester.FamilyName);
@@ -71,8 +110,8 @@ namespace BE
                 PrivateName = string.Copy(tester.PrivateName);
             DOB = tester.DOB;
             Gender = tester.Gender;
-            if(tester.Phone!=null)
-            Phone = string.Copy(tester.Phone);
+            if (tester.Phone != null)
+                Phone = string.Copy(tester.Phone);
             address.City = string.Copy(tester.Address.City);
             address.Street = string.Copy(tester.Address.Street);
             address.NumOfHome = string.Copy(tester.Address.NumOfHome);
@@ -97,6 +136,6 @@ namespace BE
             Id = id;
         }
 
-        
+
     }
 }

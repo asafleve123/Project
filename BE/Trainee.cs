@@ -35,7 +35,7 @@ namespace BE
             return Id.CompareTo(((Trainee)obj).Id);
         }
         //CTOR
-        public Trainee(string id)
+        public Trainee(string id="")
         {
             Id = id;
         }
