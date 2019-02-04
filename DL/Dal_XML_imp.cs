@@ -230,13 +230,13 @@ namespace DAL
         public List<Tester> TestersCollection()
         {
             if (!File.Exists(TestersPath))
-                return null;
+                return new List<Tester>();
             return LoadFromXML<List<Tester>>(TestersPath);
         }
         public List<Test> TestsCollection()
         {
             if (!File.Exists(TestsPath))
-                return null;
+                return new List<Test>();
             return LoadFromXML<List<Test>>(TestsPath); ;
         }
         public List<Trainee> TraineesCollection()
@@ -266,7 +266,7 @@ namespace DAL
             }
             catch
             {
-                trainees = null;
+                trainees = new List<Trainee>();
             }
             return trainees;
         }
