@@ -50,12 +50,6 @@ namespace PLWPF
             }
         }
         Thread thread ;
-        public string id
-        {
-            get{
-                return idStudent.Text;
-            }
-        }
         Comments comments = new Comments();
         public TesterWindow(Tester tester)
         {
@@ -237,8 +231,9 @@ namespace PLWPF
             comments.ShowDialog();
             BuComments.Content = "!סיימת";
         }
-        private void sinon_Func()
+        private void sinon_Func(object text)
         {
+            string id = text as string;
             if (id != "")
             {
                 tests = new List<Test>(bl.AllTestsBy(T => T.IdTrainee == id, tester.Id));
@@ -283,7 +278,7 @@ namespace PLWPF
                 selection = sinon.SelectionBoxItem as string;
                 thread = new Thread(sinon_Func);
                 Value = 50;
-                thread.Start();
+                thread.Start(idStudent.Text);
             }
             catch (Exception ex)
             {
