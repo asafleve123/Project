@@ -22,8 +22,8 @@ namespace BL
         }
         private bool IsHeFree(Tester item, DateTime time)
         {
-            if ((int)time.DayOfWeek > Configuration.THURSDAY || (time.Hour < Configuration.MIN_HOUR || time.Hour > Configuration.MAX_HOUR))
-                return false;
+            if ((int)time.DayOfWeek >= Configuration.THURSDAY || (time.Hour < Configuration.MIN_HOUR || time.Hour > Configuration.MAX_HOUR))
+                throw new Exception("אין בוחנים בזמנים כאלו");
             if (!item.WorkTable[time.Hour - Configuration.MIN_HOUR, (int)time.DayOfWeek])
                 return false;
             if (item.MaxTests <= NumOfTestsByDays(item, time))
