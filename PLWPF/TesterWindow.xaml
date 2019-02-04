@@ -35,17 +35,17 @@
         <TabControl HorizontalAlignment="Stretch"  Grid.Row="1"  VerticalAlignment="Stretch" Background="#FFE5E5E5"  FlowDirection="LeftToRight">
         
                 <TabItem Header="מבחנים"  >
-                    <Grid>
+                    <Grid Name="grid">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20*" Name="grid01"/>
-                            <RowDefinition Height="80*"/>
+                        <RowDefinition Height="80*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80*"/>
-                            <ColumnDefinition Width="20*" Name="grid11"/>
+                            <ColumnDefinition Width="20*" />
                         </Grid.ColumnDefinitions>
                         <Button x:Name="refresh" Grid.Row="0" Grid.Column="1" Content="ריענון" Background="DeepSkyBlue" Click="Sinon_Click"/>
-                    <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" FontWeight="DemiBold" FontSize="20" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" FontWeight="DemiBold" FontSize="20" AutoGenerateColumns="False" IsReadOnly="True" SelectedCellsChanged="Change_Object">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="מספר מבחן"  Binding="{Binding NumTest}"/>
                             <DataGridTextColumn Header="ת.ז בוחן" Binding="{Binding IdTester}"/>
@@ -99,7 +99,7 @@
                                 <ProgressBar  FlowDirection="RightToLeft" Background="Black"  x:Name="progressbar"/>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Column="1" Grid.Row="1">
+                        <Grid Grid.Column="1" Grid.Row="1" Name="grid11">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
