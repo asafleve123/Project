@@ -49,7 +49,7 @@
                             <TextBlock  Grid.Row="2" Background="LightGray" Text=":סיסמה" TextAlignment="Right" HorizontalAlignment="Right"   Height="auto" Width="666" VerticalAlignment="Top"/>
                             <PasswordBox x:Name="passwordTester"  Grid.Row="3"   VerticalAlignment="Stretch"/>
                             <TextBlock Grid.Row="4" Height="30" x:Name="WarnningTester" VerticalAlignment="Center" Text="warning text" TextAlignment="Center" Foreground="Red" FontSize="25" Visibility="Hidden"/>
-                            <CheckBox Grid.Row="4" Height="30"  VerticalAlignment="Center" x:Name="RemmberTe" FontSize="15" IsChecked="False" HorizontalAlignment="Right" Content="זכירת שם משתמש" FontWeight="SemiBold" FlowDirection="RightToLeft"/>
+                            <CheckBox Grid.Row="4" Height="30"  VerticalAlignment="Center" x:Name="RemmberTe" FontSize="15" IsChecked="False" HorizontalAlignment="Right" Content="זכירת שם משתמש" FontWeight="SemiBold" FlowDirection="RightToLeft" />
 
                             <Grid Grid.Row="5">
                                 <Grid.ColumnDefinitions>

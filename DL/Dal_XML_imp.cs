@@ -8,16 +8,16 @@ using System.IO;
 using BE;
 using System.Xml.Serialization;
 
-namespace DAL
-{
-    class Dal_XML_imp : Idal
-    {
-        XElement TraineesRoot;
-        XElement ConfigRoot;
-        string ConfigPath = @"ConfigXml.xml";
-        string TraineesPath = @"TraineesXml.xml";
-        string TestersPath = @"TestersXml.xml";
-        string TestsPath = @"TestsXml.xml";
+//namespace DAL
+//{
+//    class Dal_XML_imp : Idal
+//    {
+//        XElement TraineesRoot;
+//        XElement ConfigRoot;
+//        string ConfigPath = @"ConfigXml.xml";
+//        string TraineesPath = @"TraineesXml.xml";
+//        string TestersPath = @"TestersXml.xml";
+//        string TestsPath = @"TestsXml.xml";
 
         public Dal_XML_imp()
         {
@@ -226,20 +226,20 @@ namespace DAL
         }
 
 
-        public List<Tester> TestersCollection()
-        {
-            if (!File.Exists(TestersPath))
-                return null;
-            return LoadFromXML<List<Tester>>(TestersPath);
-        }
-        public List<Test> TestsCollection()
-        {
-            if (!File.Exists(TestsPath))
-                return null;
-            return LoadFromXML<List<Test>>(TestsPath); ;
-        }
-        public List<Trainee> TraineesCollection()
-        {
+//                            public List<Tester> TestersCollection()
+//                            {
+//                                if (!File.Exists(TestersPath))
+//                                    return null;
+//                                return LoadFromXML<List<Tester>>(TestersPath);
+//                            }
+//                            public List<Test> TestsCollection()
+//                            {
+//                                if (!File.Exists(TestsPath))
+//                                    return null;
+//                                return LoadFromXML<List<Test>>(TestsPath); ;
+//                            }
+//                            public List<Trainee> TraineesCollection()
+//                            {
 
             List<Trainee> trainees;
             try

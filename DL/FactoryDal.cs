@@ -12,7 +12,7 @@ namespace DAL
         public static Idal getDal()
         {
             if (instance == null)
-                instance = new Dal_XML_imp();
+                instance = new Dal_imp();
             return instance;
         }
     }

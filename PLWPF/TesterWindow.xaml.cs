@@ -351,5 +351,25 @@ namespace PLWPF
             }
 
         }
+        private void Comments_Click(object sender, RoutedEventArgs e)
+        {
+            Test test = ((Button)sender).DataContext as Test;
+            if (test.Comments == null)
+            {
+                Comments comments = new Comments("אין הערות");
+                comments.ShowDialog();
+            }
+            else
+            {
+                Comments comments = new Comments(test.Comments);
+                comments.ShowDialog();
+            }
+        }
+        private void Criterions_Click(object sender, RoutedEventArgs e)
+        {
+            Test test = ((Button)sender).DataContext as Test;
+            Criterions criterions = new Criterions(test.Criterions);
+            criterions.ShowDialog();
+        }
     }
 }

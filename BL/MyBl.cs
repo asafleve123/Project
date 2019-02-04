@@ -9,7 +9,8 @@ using BE;
 using DAL;
 using System.IO;
 using System.Net;
-using System.Xml;
+using System.Xml;
+
 namespace BL
 {
     public class MyBl : IBL
@@ -33,7 +34,7 @@ namespace BL
         }
         private Test LastTest(Trainee trainee)
         {
-            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id && T.TypeOfCar == trainee.TypeOfCar && T.ChosenTester);
+            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id && T.TypeOfCar == trainee.TypeOfCar);
             Test temp;
             try
             {
@@ -81,20 +82,6 @@ namespace BL
                 throw new Exception("הבוחן אינו קיים");
             return (from item in TestersCollection() where (item.Id == test.IdTrainee) select item).First();
         }
-        private void FindNewTester(Test test)
-        {
-            List<Tester> testersList = new List<Tester>(IsFree(test.TestDay));
-            testersList.RemoveAll(T => T.TypeOfCar != test.TypeOfCar);
-            if (testersList.Count() == 0)
-            {
-                test.ChosenTester = false;
-                test.Grade = Grade.נכשל;
-                test.IdTester = null;
-                Update(test);
-                throw new Exception(test + ":לא קיים בוחן פנוי בתאריך זה");
-            }
-            test.IdTester = testersList.First().Id;
-        }
         private int NumOfFutureTest(Trainee trainee)
         {
             return (AllTestsBy(T => T.IdTrainee == trainee.Id).Count() - NumOfTraineesTests(trainee));
@@ -135,9 +122,12 @@ namespace BL
                 if ((test.TestDay - PreTest.TestDay).Days < Configuration.RANGE_BETWEEN_TESTS)
                     throw new Exception("מוקדם מידי בשביל עוד מבחן");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                if (e.Message != "לא קיים מבחן אחרון")
+                {
+                    throw e;
+                }
             }
             if (trainee.DLessonPast < Configuration.MIN_NUMBER_OF_LESSONS)
                 throw new Exception("שיעורים " + (Configuration.MIN_NUMBER_OF_LESSONS - trainee.DLessonPast) + " אתה צריך עוד");
@@ -151,9 +141,8 @@ namespace BL
                 throw new Exception("לא קיים בוחן פנוי בתאריך זה");
             }
             test.IdTester = testersList.First().Id;
-            test.ChosenTester = true;
             return MyDal.AddTest(test);
-        }
+        }//
         public void AddTester(Tester tester)
         {
             CheckTester(tester);
@@ -185,12 +174,13 @@ namespace BL
                 throw new Exception("הבוחן לא קיים");
             }
 
-            MyDal.DeleteTester(tester);
-            var TestersTest = from item in TestsCollection() where (item.IdTester == tester.Id) select item;
-            foreach (Test item in TestersTest)
+
+            if (TestsCollection().Exists(T =>  DateTime.Now < T.TestDay && tester.Id == T.IdTester))
             {
-                FindNewTester(item);
+                throw new Exception("אתה לא יכול להימחק כשיש לך עוד מבחנים לעשות");
             }
+            MyDal.DeleteTester(tester);
+
         }
         public void DeleteTrainee(Trainee trainee)
         {
@@ -199,7 +189,7 @@ namespace BL
                 throw new Exception("התלמיד לא קיים");
             }
 
-            if (TestsCollection().Exists(T => T.ChosenTester && DateTime.Now < T.TestDay && trainee.Id == T.IdTrainee))
+            if (TestsCollection().Exists(T => DateTime.Now < T.TestDay && trainee.Id == T.IdTrainee))
             {
                 throw new Exception("אתה לא יכול להימחק כשיש לך עוד מבחנים לעשות");
             }
@@ -254,9 +244,8 @@ namespace BL
         public IEnumerable<Tester> DistanseFromAdress(Address adress)
         {
             Random r = new Random();
-            return from item in TestersCollection() where () select item;
-            ;
-        }
+            return from item in TestersCollection() /*where ()*/ select item;
+        }//
         public double DistanceBetweenAdress(string origin, string destination)
         {
             //string origin = "pisga 45 st. jerusalem"; //or "תקווה פתח 100 העם אחד "etc.
@@ -286,7 +275,7 @@ namespace BL
                 XmlNodeList distance = xmldoc.GetElementsByTagName("distance");
                 double distInMiles = Convert.ToDouble(distance[0].ChildNodes[0].InnerText);
                 return distInMiles * 1.609344;
-                
+
             }
             else if (xmldoc.GetElementsByTagName("statusCode")[0].ChildNodes[0].InnerText == "402")
             //we have an answer that an error occurred, one of the addresses is not found
@@ -297,7 +286,7 @@ namespace BL
             {
                 throw new Exception("בעיות ברשת");
             }
-        }
+        }//
         public IEnumerable<Tester> IsFree(DateTime time)
         {
             return from item in TestersCollection() where (IsHeFree(item, time)) select item;
@@ -326,7 +315,7 @@ namespace BL
         }
         public List<Test> ListByDay()
         {
-            return new List<Test>(from item in TestsCollection() where (item.TestDay >= DateTime.Now && item.ChosenTester) orderby item.TestDay select item);
+            return new List<Test>(from item in TestsCollection() where (item.TestDay >= DateTime.Now ) orderby item.TestDay select item);
         }
         public IEnumerable<IGrouping<Car, Tester>> ListOfTestersByCar(bool order)
         {
@@ -367,7 +356,7 @@ namespace BL
                 throw new Exception("לא קיים ערך תז");
             if (!IdCheck(id))
                 throw new Exception("ערך תז לא תקין");
-            Tester temp= TestersCollection().Find(T => T.Id == id);
+            Tester temp = TestersCollection().Find(T => T.Id == id);
             if (temp == null)
                 throw new Exception("לא קיים בוחן-חדש?לחץ על בוחן חדש");
             return temp;
@@ -428,7 +417,7 @@ namespace BL
             if (!trainee.DrivingTeacher.All(Char.IsLetter))
                 throw new Exception("שם המורה אינו תקין");
 
-            if (trainee.Phone.Length!=10 || !trainee.Phone.All(Char.IsDigit))
+            if (trainee.Phone.Length != 10 || !trainee.Phone.All(Char.IsDigit))
                 throw new Exception("מספר הפלאפון אינו תקין");
 
             if (trainee.DLessonPast < 0)
@@ -470,49 +459,49 @@ namespace BL
 
             if (!tester.Address.Street.All(char.IsLetter))
                 throw new Exception("שם הרחוב אינו תקין");
-            if(!tester.Address.NumOfHome.All(char.IsDigit))
+            if (!tester.Address.NumOfHome.All(char.IsDigit))
                 throw new Exception("מספר הבית אינו תקין");
 
         }
         public static void CheckTest(Test test)
         {
             if (test.TestTime.All(char.IsLetter))
-                throw new Exception(test+":תאריל לא נכון");
+                throw new Exception(test + ":תאריל לא נכון");
             if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
-                 throw new Exception(test + ":התאריכים לא זהים");
-            if ((test.IdTester != null)&&!IdCheck(test.IdTester))
-                 throw new Exception(test + ":ת'ז בוחן שגוי");
+                throw new Exception(test + ":התאריכים לא זהים");
+            if ((test.IdTester != null) && !IdCheck(test.IdTester))
+                throw new Exception(test + ":ת'ז בוחן שגוי");
             if (!IdCheck(test.IdTrainee))
-                 throw new Exception(test + ":ת'ז נבחן שגוי");
+                throw new Exception(test + ":ת'ז נבחן שגוי");
             if (!test.TestAddress.Street.All(char.IsLetter))
                 throw new Exception(test + ":שם רחוב שגוי");
-            
+
             if (!test.TestAddress.City.All(char.IsLetter))
-                 throw new Exception(test + ":שם עיר שגוי");
+                throw new Exception(test + ":שם עיר שגוי");
             foreach (Criterion item in test.Criterions)
             {
                 if (!item.name.All(char.IsLetter))
                 {
-                    throw new Exception("!שגוי"+test + "-ב"+item.name+":שמו של הקריטריון");
+                    throw new Exception("!שגוי" + test + "-ב" + item.name + ":שמו של הקריטריון");
                 }
             }
         }
         public IEnumerable<object> TestsByDay(DateTime date)
         {
-            return from item in TestsCollection() where (item.TestDay.Day == date.Day) orderby item.NumTest select new {test=item,trainee=GetTrainee(item),tester=GetTester(item)};
+            return from item in TestsCollection() where (item.TestDay.Day == date.Day) orderby item.NumTest select new { test = item, trainee = GetTrainee(item), tester = GetTester(item) };
         }
         public IEnumerable<object> TestsNow()
         {
             return TestsByDay(DateTime.Now);
         }
-        public IEnumerable<Test> AllTestsBy(Predicate<Test> func,string idtester)
+        public IEnumerable<Test> AllTestsBy(Predicate<Test> func, string idtester)
         {
-            return from item in TestsCollection() where (func(item)&&item.IdTester==idtester) select item;
+            return from item in TestsCollection() where (func(item) && item.IdTester == idtester) select item;
         }
         public IEnumerable<Test> AllTestsByTR(Predicate<Test> func, string idtrainee)
         {
             return from item in TestsCollection() where (func(item) && item.IdTrainee == idtrainee) select item;
         }
 
-    } 
+    }
 }

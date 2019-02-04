@@ -63,6 +63,9 @@
     <Compile Include="Comments.xaml.cs">
       <DependentUpon>Comments.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Criterions.xaml.cs">
+      <DependentUpon>Criterions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="loading.xaml.cs">
       <DependentUpon>loading.xaml</DependentUpon>
     </Compile>
@@ -87,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Comments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Criterions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -180,9 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\Rishoi.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Criterions.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
