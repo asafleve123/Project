@@ -284,71 +284,82 @@ namespace PLWPF
             panel.Children.Clear();
         }
 
-        private void Change_Object(object sender, SelectionChangedEventArgs e)
+        private void Change_Object(object sender, EventArgs e)
         {
-            Test test = e.Source as Test;
-            if (test.Grade == null && test.Comments == null && test.Criterions.Count == 0)
-            {
-                Clear_Click(this, e);
-            }
-            else
-            {
-                if (test.Grade != null)
+            Test test = DataGrid.SelectedItem as Test;
+            //if (test.TestDay>DateTime.Now)
+            //{
+            //    foreach (Control item in grid11.Children)
+            //    {
+            //        item.Visibility = Visibility.Hidden;
+            //    }
+            //}
+            //else{
+            if (test == null)
+                return;
+                if (test.Grade == null && test.Comments == null && test.Criterions.Count == 0)
                 {
-                    gradecheckbox.SelectedItem = test.Grade;
+                    Clear_Click(this, e);
                 }
-                if (test.Comments != null)
+                else
                 {
-                    comments = new Comments();
-                    comments.comments = test.Comments;
-                    BuComments.Content = "!סיימת";
-                }
-                if (test.Criterions.Count != 0)
-                {
-                    foreach (Criterion item in test.Criterions)
+                    if (test.Grade != null)
                     {
-                        Label name = new Label();
-                        name.Content = ":שם";
-                        name.FontWeight = FontWeights.DemiBold;
-                        name.Background = Brushes.White;
-                        name.HorizontalContentAlignment = HorizontalAlignment.Center;
-                        TextBox name1 = new TextBox();
-                        name1.Background = Brushes.White;
-                        name1.FontWeight = FontWeights.DemiBold;
-                        name1.FontSize = 20;
-                        name1.Text = item.name;
-                        Label grade = new Label();
-                        grade.Content = ":ציון";
-                        grade.FontWeight = FontWeights.DemiBold;
-                        grade.Background = Brushes.White;
-                        grade.HorizontalContentAlignment = HorizontalAlignment.Center;
-                        ComboBox grade1 = new ComboBox();
-                        grade1.ItemsSource = Enum.GetValues(typeof(BE.Grade));
-                        grade1.FontSize = 20;
-                        grade1.FontWeight = FontWeights.DemiBold;
-                        grade1.Background = Brushes.White;
-                        grade1.SelectedItem = item.grade;
-                        Grid grid = new Grid();
-                        grid.RowDefinitions.Add(new RowDefinition());
-                        grid.RowDefinitions.Add(new RowDefinition());
-                        grid.ColumnDefinitions.Add(new ColumnDefinition());
-                        grid.ColumnDefinitions.Add(new ColumnDefinition());
-                        Grid.SetColumn(name, 1);
-                        Grid.SetRow(name, 0);
-                        Grid.SetColumn(name1, 0);
-                        Grid.SetRow(name1, 0);
-                        Grid.SetColumn(grade, 1);
-                        Grid.SetRow(grade, 1);
-                        Grid.SetColumn(grade1, 0);
-                        Grid.SetRow(grade1, 1);
-                        grid.Children.Add(name);
-                        grid.Children.Add(name1);
-                        grid.Children.Add(grade);
-                        grid.Children.Add(grade1);
-                        panel.Children.Add(grid);
+                        gradecheckbox.SelectedItem = test.Grade;
+                    }
+                    if (test.Comments != null)
+                    {
+                        comments = new Comments();
+                        comments.comments = test.Comments;
+                        BuComments.Content = "!סיימת";
+                    }
+                    if (test.Criterions.Count != 0)
+                    {
+                        foreach (Criterion item in test.Criterions)
+                        {
+                            Label name = new Label();
+                            name.Content = ":שם";
+                            name.FontWeight = FontWeights.DemiBold;
+                            name.Background = Brushes.White;
+                            name.HorizontalContentAlignment = HorizontalAlignment.Center;
+                            TextBox name1 = new TextBox();
+                            name1.Background = Brushes.White;
+                            name1.FontWeight = FontWeights.DemiBold;
+                            name1.FontSize = 20;
+                            name1.Text = item.name;
+                            Label grade = new Label();
+                            grade.Content = ":ציון";
+                            grade.FontWeight = FontWeights.DemiBold;
+                            grade.Background = Brushes.White;
+                            grade.HorizontalContentAlignment = HorizontalAlignment.Center;
+                            ComboBox grade1 = new ComboBox();
+                            grade1.ItemsSource = Enum.GetValues(typeof(BE.Grade));
+                            grade1.FontSize = 20;
+                            grade1.FontWeight = FontWeights.DemiBold;
+                            grade1.Background = Brushes.White;
+                            grade1.SelectedItem = item.grade;
+                            Grid grid = new Grid();
+                            grid.RowDefinitions.Add(new RowDefinition());
+                            grid.RowDefinitions.Add(new RowDefinition());
+                            grid.ColumnDefinitions.Add(new ColumnDefinition());
+                            grid.ColumnDefinitions.Add(new ColumnDefinition());
+                            Grid.SetColumn(name, 1);
+                            Grid.SetRow(name, 0);
+                            Grid.SetColumn(name1, 0);
+                            Grid.SetRow(name1, 0);
+                            Grid.SetColumn(grade, 1);
+                            Grid.SetRow(grade, 1);
+                            Grid.SetColumn(grade1, 0);
+                            Grid.SetRow(grade1, 1);
+                            grid.Children.Add(name);
+                            grid.Children.Add(name1);
+                            grid.Children.Add(grade);
+                            grid.Children.Add(grade1);
+                            panel.Children.Add(grid);
+                        }
                     }
                 }
-            }
+            //}
 
         }
         private void Comments_Click(object sender, RoutedEventArgs e)
