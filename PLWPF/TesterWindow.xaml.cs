@@ -299,20 +299,20 @@ namespace PLWPF
             Test test = DataGrid.SelectedItem as Test;
              if (test == null)
                     return;
-            if (test.TestDay > DateTime.Now)
-            {
-                foreach (object item in grid11.Children)
-                {
-                    if (item is Control)
-                    {
+            //if (test.TestDay > DateTime.Now)
+            //{
+            //    foreach (object item in grid11.Children)
+            //    {
+            //        if (item is Control)
+            //        {
 
-                        (item as Control).Visibility = Visibility.Hidden;
-                    }
-                }
-                label.Visibility = Visibility.Visible;
-            }
-            else
-            {
+            //            (item as Control).Visibility = Visibility.Hidden;
+            //        }
+            //    }
+            //    label.Visibility = Visibility.Visible;
+            //}
+            //else
+            //{
                 foreach (object item in grid11.Children)
                 {
                     if (item is Control)
@@ -389,22 +389,16 @@ namespace PLWPF
                         BuComments.Content = "!סיימת";
                     }
                 }
-            }
+            //}
 
         }
         private void Comments_Click(object sender, RoutedEventArgs e)
         {
             Test test = ((Button)sender).DataContext as Test;
-            if (test.Comments == null)
-            {
-                Comments comments = new Comments("אין הערות");
-                comments.ShowDialog();
-            }
-            else
-            {
-                Comments comments = new Comments(test.Comments);
-                comments.ShowDialog();
-            }
+
+            Comments comments = new Comments(test.Comments);
+            comments.ShowDialog();
+
         }
         private void Criterions_Click(object sender, RoutedEventArgs e)
         {
