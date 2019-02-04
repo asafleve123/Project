@@ -24,6 +24,7 @@ namespace PLWPF
     public partial class TesterWindow : Window
     {
         IBL bl;
+        Label label;
         public Tester tester { get; set; }
         public List<Test> tests
         {
@@ -49,6 +50,12 @@ namespace PLWPF
             }
         }
         Thread thread ;
+        public string id
+        {
+            get{
+                return idStudent.Text;
+            }
+        }
         Comments comments = new Comments();
         public TesterWindow(Tester tester)
         {
@@ -64,6 +71,13 @@ namespace PLWPF
             this.City.Text = address.City;
             this.Street.Text = address.Street;
             this.NumOfHome.Text = address.NumOfHome;
+            label = new Label();
+            label.Content = "מבחן עוד לא קרה";
+            label.HorizontalAlignment = HorizontalAlignment.Stretch;
+            label.VerticalAlignment = VerticalAlignment.Stretch;
+            label.Foreground = Brushes.Red;
+            label.Visibility = Visibility.Hidden;
+            grid11.Children.Add(label);
             selection = "הכל";
             Thread thread = new Thread(load_Func);
             thread.Start();
@@ -223,12 +237,11 @@ namespace PLWPF
             comments.ShowDialog();
             BuComments.Content = "!סיימת";
         }
-        private void sinon_Func(object text)
+        private void sinon_Func()
         {
-            string Text = text as string;
-            if (Text != "")
+            if (id != "")
             {
-               tests =new List<Test>( bl.AllTestsBy(T => T.IdTrainee == idStudent.Text, tester.Id));
+                tests = new List<Test>(bl.AllTestsBy(T => T.IdTrainee == id, tester.Id));
             }
             else
             {
@@ -253,10 +266,12 @@ namespace PLWPF
                         tests = new List<Test>(bl.AllTestsBy(T => T.TestDay > DateTime.Now, tester.Id));
                         break;
                 }
+            }
+
                 Action action = () => Value = 50;
                 Dispatcher.BeginInvoke(action);
                 Thread.Sleep(1000);
-            }
+            
 
         }
         private void Sinon_Click(object sender, RoutedEventArgs e)
@@ -268,7 +283,7 @@ namespace PLWPF
                 selection = sinon.SelectionBoxItem as string;
                 thread = new Thread(sinon_Func);
                 Value = 50;
-                thread.Start(idStudent.Text);
+                thread.Start();
             }
             catch (Exception ex)
             {
@@ -287,34 +302,50 @@ namespace PLWPF
         private void Change_Object(object sender, EventArgs e)
         {
             Test test = DataGrid.SelectedItem as Test;
-            //if (test.TestDay>DateTime.Now)
-            //{
-            //    foreach (Control item in grid11.Children)
-            //    {
-            //        item.Visibility = Visibility.Hidden;
-            //    }
-            //}
-            //else{
-            if (test == null)
-                return;
+             if (test == null)
+                    return;
+            if (test.TestDay > DateTime.Now)
+            {
+                foreach (object item in grid11.Children)
+                {
+                    if (item is Control)
+                    {
+
+                        (item as Control).Visibility = Visibility.Hidden;
+                    }
+                }
+                label.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                foreach (object item in grid11.Children)
+                {
+                    if (item is Control)
+                    {
+                        if (!(item is Label))
+                        {
+                            (item as Control).Visibility = Visibility.Visible;
+                        }
+                    }
+                }
+                label.Visibility = Visibility.Hidden;
                 if (test.Grade == null && test.Comments == null && test.Criterions.Count == 0)
                 {
                     Clear_Click(this, e);
                 }
                 else
                 {
+                    comments = new Comments();
+                    comments.comments = test.Comments;
                     if (test.Grade != null)
                     {
                         gradecheckbox.SelectedItem = test.Grade;
-                    }
-                    if (test.Comments != null)
-                    {
-                        comments = new Comments();
-                        comments.comments = test.Comments;
-                        BuComments.Content = "!סיימת";
+                        BuComments.Content = "הערות";
                     }
                     if (test.Criterions.Count != 0)
                     {
+                        BuComments.Content = "הערות";
+                        panel.Children.Clear();
                         foreach (Criterion item in test.Criterions)
                         {
                             Label name = new Label();
@@ -358,8 +389,12 @@ namespace PLWPF
                             panel.Children.Add(grid);
                         }
                     }
+                    if (test.Comments != "")
+                    {
+                        BuComments.Content = "!סיימת";
+                    }
                 }
-            //}
+            }
 
         }
         private void Comments_Click(object sender, RoutedEventArgs e)
