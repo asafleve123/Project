@@ -45,8 +45,31 @@
                             <ColumnDefinition Width="20*" Name="grid11"/>
                         </Grid.ColumnDefinitions>
                         <Button x:Name="refresh" Grid.Row="0" Grid.Column="1" Content="ריענון" Background="DeepSkyBlue" Click="Sinon_Click"/>
-                        <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding tests}" FontWeight="DemiBold" FontSize="20" />
-                        <Grid Grid.Row="0" Grid.Column="0" Background="Black">
+                    <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" FontWeight="DemiBold" FontSize="20" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="מספר מבחן"  Binding="{Binding NumTest}"/>
+                            <DataGridTextColumn Header="ת.ז בוחן" Binding="{Binding IdTester}"/>
+                            <DataGridTextColumn Header="זמן המבחן" Binding="{Binding TestDay}"/>
+                            <DataGridTextColumn Header="כתובת" Binding="{Binding TestAddress}"/>
+                            <DataGridTextColumn Header="ציון" Binding="{Binding Grade}"/>
+                            <DataGridTemplateColumn Header="הערות">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="Comments_Click">הערות</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="סוג הרכב" Binding="{Binding TypeOfCar}"/>
+                            <DataGridTemplateColumn Header="קריטריונים">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="Criterions_Click">קריטריונים</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="0" Grid.Column="0" Background="Black">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>

@@ -144,5 +144,11 @@ namespace PLWPF
                 comments.ShowDialog();
             }
         }
+        private void Criterions_Click(object sender, RoutedEventArgs e)
+        {
+            Test test = ((Button)sender).DataContext as Test;
+            Criterions criterions = new Criterions(test.Criterions);
+            criterions.ShowDialog();
+        }
     }
 }

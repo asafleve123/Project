@@ -122,16 +122,13 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="סוג הרכב" Binding="{Binding TypeOfCar}"/>
-                            <!--<DataGridTemplateColumn Header="קריטריונים">
+                            <DataGridTemplateColumn Header="קריטריונים">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Hyperlink NavigateUri="http://www.google.com" Click="OnHyperlinkClick" >
-                                            Click here
-                                        </Hyperlink>
+                                        <Button Click="Criterions_Click">קריטריונים</Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>-->
-                            <DataGridHyperlinkColumn Header="קריטריונים" Binding="{Binding Uri}"/>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
 

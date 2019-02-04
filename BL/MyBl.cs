@@ -34,7 +34,7 @@ namespace BL
         }
         private Test LastTest(Trainee trainee)
         {
-            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id && T.TypeOfCar == trainee.TypeOfCar && T.ChosenTester);
+            var tests = AllTestsBy(T => T.IdTrainee == trainee.Id && T.TypeOfCar == trainee.TypeOfCar);
             Test temp;
             try
             {
@@ -141,7 +141,6 @@ namespace BL
                 throw new Exception("לא קיים בוחן פנוי בתאריך זה");
             }
             test.IdTester = testersList.First().Id;
-            test.ChosenTester = true;
             return MyDal.AddTest(test);
         }//
         public void AddTester(Tester tester)
@@ -176,7 +175,7 @@ namespace BL
             }
 
 
-            if (TestsCollection().Exists(T => T.ChosenTester && DateTime.Now < T.TestDay && tester.Id == T.IdTester))
+            if (TestsCollection().Exists(T =>  DateTime.Now < T.TestDay && tester.Id == T.IdTester))
             {
                 throw new Exception("אתה לא יכול להימחק כשיש לך עוד מבחנים לעשות");
             }
@@ -190,7 +189,7 @@ namespace BL
                 throw new Exception("התלמיד לא קיים");
             }
 
-            if (TestsCollection().Exists(T => T.ChosenTester && DateTime.Now < T.TestDay && trainee.Id == T.IdTrainee))
+            if (TestsCollection().Exists(T => DateTime.Now < T.TestDay && trainee.Id == T.IdTrainee))
             {
                 throw new Exception("אתה לא יכול להימחק כשיש לך עוד מבחנים לעשות");
             }
@@ -316,7 +315,7 @@ namespace BL
         }
         public List<Test> ListByDay()
         {
-            return new List<Test>(from item in TestsCollection() where (item.TestDay >= DateTime.Now && item.ChosenTester) orderby item.TestDay select item);
+            return new List<Test>(from item in TestsCollection() where (item.TestDay >= DateTime.Now ) orderby item.TestDay select item);
         }
         public IEnumerable<IGrouping<Car, Tester>> ListOfTestersByCar(bool order)
         {
