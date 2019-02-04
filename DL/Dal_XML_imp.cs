@@ -272,6 +272,31 @@ namespace DAL
         }
 
 
+        public static bool IdCheck(string id)
+        {
+            if (id == null)
+                return false;
+
+            int tmp, count = 0;
+
+            if (!(int.TryParse(id, out tmp)) || id.Length != 9)
+                return false;
+
+            int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
+            id = id.PadLeft(9, '0');
+
+            for (int i = 0; i < 9; i++)
+            {
+                int num = Int32.Parse(id.Substring(i, 1)) * id_12_digits[i];
+
+                if (num > 9)
+                    num = (num / 10) + (num % 10);
+
+                count += num;
+            }
+
+            return (count % 10 == 0);
+        }
         public static void CheckTrainee(Trainee trainee)
         {
 
@@ -306,31 +331,6 @@ namespace DAL
                 throw new Exception("מספר הבית אינו תקין");
 
         }
-        public static bool IdCheck(string id)
-        {
-            if (id == null)
-                return false;
-
-            int tmp, count = 0;
-
-            if (!(int.TryParse(id, out tmp)) || id.Length != 9)
-                return false;
-
-            int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
-            id = id.PadLeft(9, '0');
-
-            for (int i = 0; i < 9; i++)
-            {
-                int num = Int32.Parse(id.Substring(i, 1)) * id_12_digits[i];
-
-                if (num > 9)
-                    num = (num / 10) + (num % 10);
-
-                count += num;
-            }
-
-            return (count % 10 == 0);
-        }
         public static void CheckTester(Tester tester)
         {
 
@@ -350,7 +350,7 @@ namespace DAL
                 throw new Exception("מספר המבחנים המקסימאלי אינו תקין");
 
             if (tester.MaxRange < 0)
-                throw new Exception(tester + ":the Max Range cant be  a negative number");
+                throw new Exception("טווח איננו תקין");
 
             if (!tester.Address.City.All(char.IsLetter))
                 throw new Exception("שם העיר אינו תקין");
@@ -364,23 +364,23 @@ namespace DAL
         public static void CheckTest(Test test)
         {
             if (test.TestTime.All(char.IsLetter))
-                throw new Exception(test + ":wrong test time");
+                throw new Exception(test + ":תאריל לא נכון");
             if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
-                throw new Exception(test + ":the dates arent same");
+                throw new Exception(test + ":התאריכים לא זהים");
             if ((test.IdTester != null) && !IdCheck(test.IdTester))
-                throw new Exception(test + ":Wrong id tester!");
+                throw new Exception(test + ":ת'ז בוחן שגוי");
             if (!IdCheck(test.IdTrainee))
-                throw new Exception(test + ":Wrong id trainee!");
+                throw new Exception(test + ":ת'ז נבחן שגוי");
             if (!test.TestAddress.Street.All(char.IsLetter))
-                throw new Exception(test + ":Wrong street name!");
+                throw new Exception(test + ":שם רחוב שגוי");
 
             if (!test.TestAddress.City.All(char.IsLetter))
-                throw new Exception(test + ":Wrong city name!");
+                throw new Exception(test + ":שם עיר שגוי");
             foreach (Criterion item in test.Criterions)
             {
                 if (!item.name.All(char.IsLetter))
                 {
-                    throw new Exception(test + ":wrong Criterion " + item.name + "!");
+                    throw new Exception("!שגוי" + test + "-ב" + item.name + ":שמו של הקריטריון");
                 }
             }
         }

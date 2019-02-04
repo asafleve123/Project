@@ -10,6 +10,7 @@ using DAL;
 using System.IO;
 using System.Net;
 using System.Xml;
+using System.ComponentModel;
 
 namespace BL
 {
@@ -243,7 +244,6 @@ namespace BL
         //the functions
         public IEnumerable<Tester> DistanseFromAdress(Address adress)
         {
-            Random r = new Random();
             return from item in TestersCollection() /*where ()*/ select item;
         }//
         public double DistanceBetweenAdress(string origin, string destination)
@@ -286,7 +286,7 @@ namespace BL
             {
                 throw new Exception("בעיות ברשת");
             }
-        }//
+        }
         public IEnumerable<Tester> IsFree(DateTime time)
         {
             return from item in TestersCollection() where (IsHeFree(item, time)) select item;
@@ -452,7 +452,7 @@ namespace BL
                 throw new Exception("מספר המבחנים המקסימאלי אינו תקין");
 
             if (tester.MaxRange < 0)
-                throw new Exception(tester + ":the Max Range cant be  a negative number");
+                throw new Exception("טווח איננו תקין");
 
             if (!tester.Address.City.All(char.IsLetter))
                 throw new Exception("שם העיר אינו תקין");
