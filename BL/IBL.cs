@@ -48,7 +48,7 @@ namespace BL
         /// func that add a test to the system 
         /// </summary>
         /// <param name="test"></param>
-        string AddTest(Test test);
+        string AddTest(Test test, List<Tester> AblesTesters);
         /// <summary>
         /// func that update a test 
         /// </summary>
@@ -72,6 +72,8 @@ namespace BL
         List<Test> TestsCollection();
         //the functions
         IEnumerable<Tester> DistanseFromAdress(Address adress);
+        bool IsCanTest(Tester tester, Test test);
+         double DistanceBetweenAdress(string origin, string destination);
         IEnumerable<Tester> IsFree(DateTime time);
         IEnumerable<Test> AllTestsBy(Predicate<Test> func);
         IEnumerable<Test> AllTestsBy(Predicate<Test> func, string idtester);

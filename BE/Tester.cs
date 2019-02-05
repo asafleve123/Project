@@ -61,7 +61,7 @@ namespace BE
             }
 
         }
-        public int MaxRange { get; set; }
+        //public int MaxRange { get; set; }
         public int Age { get { return DateTime.Now.Year - DOB.Year; } }
         public string Code { get; set; }
         public DateTime RegisterDate { get; set; }
@@ -92,7 +92,6 @@ namespace BE
             this.MaxTests = MaxTests;
             this.TypeOfCar = TypeOfCar;
             this.WorkTable = WorkTable;
-            this.MaxRange = MaxRange;
             this.Gender = Gender;
             this.Code = string.Copy(code);
         }
@@ -118,7 +117,6 @@ namespace BE
             RegisterDate = tester.RegisterDate;
             MaxTests = tester.MaxTests;
             TypeOfCar = tester.TypeOfCar;
-            MaxRange = tester.MaxRange;
             Code = tester.Code;
             worktable = new bool[Configuration.HOURS, Configuration.THURSDAY];
             for (int i = 0; i < Configuration.HOURS; i++)

@@ -87,7 +87,7 @@ namespace BL
         {
             return (AllTestsBy(T => T.IdTrainee == trainee.Id).Count() - NumOfTraineesTests(trainee));
         }
-        public string AddTest(Test test)
+        public string AddTest(Test test,List<Tester> AblesTesters)
         {
             CheckTest(test);
             if (test.TestDay <= DateTime.Now)
@@ -137,6 +137,7 @@ namespace BL
             List<Tester> testersList = new List<Tester>(IsFree(test.TestDay));
             //לא לשכוח לעשות חיתוך על מרחק
             testersList.RemoveAll(T => T.TypeOfCar != test.TypeOfCar);
+            testersList.RemoveAll(T=>!AblesTesters.Exists(A=>A.CompareTo(T)==0));
             if (testersList.Count() == 0)
             {
                 throw new Exception("לא קיים בוחן פנוי בתאריך זה");
@@ -244,8 +245,18 @@ namespace BL
         //the functions
         public IEnumerable<Tester> DistanseFromAdress(Address adress)
         {
-            return from item in TestersCollection() /*where ()*/ select item;
-        }//
+            Random r = new Random();
+            return from item in TestersCollection() where (r.Next(Configuration.DISTANCE + 10) < Configuration.DISTANCE) select item;
+        }
+        public bool IsCanTest(Tester tester,Test test)
+        {
+            string origin = string.Format("{1} {2} {0}",tester.Address.City, tester.Address.Street, tester.Address.NumOfHome);
+            string destination = string.Format("{1} {2} {0}", test.TestAddress.City, test.TestAddress.Street, test.TestAddress.NumOfHome);
+            double distance = DistanceBetweenAdress(origin, destination);
+            if (distance <= Configuration.DISTANCE)
+                return true;
+            return false;
+        }
         public double DistanceBetweenAdress(string origin, string destination)
         {
             //string origin = "pisga 45 st. jerusalem"; //or "תקווה פתח 100 העם אחד "etc.
@@ -451,8 +462,8 @@ namespace BL
             if (tester.MaxTests < 0)
                 throw new Exception("מספר המבחנים המקסימאלי אינו תקין");
 
-            if (tester.MaxRange < 0)
-                throw new Exception("טווח איננו תקין");
+            //if (tester.MaxRange < 0)
+            //    throw new Exception("טווח איננו תקין");
 
             if (!tester.Address.City.All(char.IsLetter))
                 throw new Exception("שם העיר אינו תקין");

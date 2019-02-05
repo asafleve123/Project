@@ -120,8 +120,13 @@ namespace PLWPF
                     throw new Exception("!הכנס שעה");
                 dateTime = dateTime.AddHours(TestHour.SelectedIndex+9);
                 Test test = new Test(trainee,dateTime,address);
-                bl.AddTest(test);
-
+                //bl.AddTest(test,);
+                backgroundwork addtest=new backgroundwork(test);
+                addtest.ShowDialog();
+                if (addtest.Sex!=null)
+                {
+                    throw new Exception(addtest.Sex);
+                }
                 DataGrid.ItemsSource =bl.AllTestsBy(T => T.IdTrainee==trainee.Id);
             }
             catch (Exception exp)

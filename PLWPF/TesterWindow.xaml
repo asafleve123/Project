@@ -241,12 +241,9 @@
 
                                 <Label Content=":מספר בית" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
                                 <TextBox x:Name="NumOfHome" Grid.Column="2"  Grid.Row="1"/>
-
-                                <Label Content=":מרחק מקסימום" Grid.Column="3" HorizontalAlignment="Center" Margin="9.333,20,1.667,26" Grid.Row="2" VerticalAlignment="Center" Width="199" Height="46"/>
-                                <TextBox x:Name="maxRangeTextBox" Grid.Column="2"   Grid.Row="2" Text="{Binding MaxRange, Mode=TwoWay}"  />
-
-                                <Label Content=":התמכות על" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="typeOfCarComboBox" Width="175" Text=":סוג רכב" Grid.Column="2" SelectedItem="{Binding TypeOfCar, Mode=TwoWay}" HorizontalAlignment="center" Height="auto"  Margin="3" Grid.Row="3" VerticalAlignment="Center" />
+                                
+                                <Label Content=":התמכות על" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                                <ComboBox x:Name="typeOfCarComboBox" Width="175" Text=":סוג רכב" Grid.Column="2" SelectedItem="{Binding TypeOfCar, Mode=TwoWay}" HorizontalAlignment="center" Height="auto"  Margin="3" Grid.Row="2" VerticalAlignment="Center" />
 
                                 <Label Content=":כמות טסטים שבועית" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
                                 <TextBox x:Name="maxTestsTextBox" Grid.Column="0" HorizontalAlignment="center" Grid.ColumnSpan="2"  Grid.Row="5" Text="{Binding MaxTests, Mode=TwoWay}" />

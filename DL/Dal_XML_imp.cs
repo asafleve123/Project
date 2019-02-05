@@ -349,8 +349,8 @@ namespace DAL
             if (tester.MaxTests < 0)
                 throw new Exception("מספר המבחנים המקסימאלי אינו תקין");
 
-            if (tester.MaxRange < 0)
-                throw new Exception("טווח איננו תקין");
+            //if (tester.MaxRange < 0)
+            //    throw new Exception("טווח איננו תקין");
 
             if (!tester.Address.City.All(char.IsLetter))
                 throw new Exception("שם העיר אינו תקין");

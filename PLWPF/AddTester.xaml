@@ -90,18 +90,15 @@
                     <Label Content=":מספר בית" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
                     <TextBox x:Name="NumOfHome" Grid.Column="2" HorizontalAlignment="center" Height="23" Margin="3" Grid.Row="1" VerticalAlignment="Center" Width="120"/>
 
-                    <Label Content=":מרחק מקסימום" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
-                    <TextBox x:Name="maxRangeTextBox" Grid.Column="2" HorizontalAlignment="center" Height="23" Margin="3" Grid.Row="2" Text="{Binding MaxRange, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
+                    <Label Content=":התמכות על" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="typeOfCarComboBox" Text=":סוג רכב" Grid.Column="2" SelectedItem="{Binding TypeOfCar,Mode=TwoWay}" HorizontalAlignment="center" Height="auto"  Margin="3" Grid.Row="2" VerticalAlignment="Center" Width="120"/>
 
-                    <Label Content=":התמכות על" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="typeOfCarComboBox" Text=":סוג רכב" Grid.Column="2" SelectedItem="{Binding TypeOfCar,Mode=TwoWay}" HorizontalAlignment="center" Height="auto"  Margin="3" Grid.Row="3" VerticalAlignment="Center" Width="120"/>
-
-                    <Label Content=":בחר סיסמה" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
-                    <PasswordBox x:Name="code" Grid.Column="2" HorizontalAlignment="center" Height="23" Margin="3" Grid.Row="4" VerticalAlignment="Center"  Width="120"/>
+                    <Label Content=":בחר סיסמה" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+                    <PasswordBox x:Name="code" Grid.Column="2" HorizontalAlignment="center" Height="23" Margin="3" Grid.Row="3" VerticalAlignment="Center"  Width="120"/>
 
 
-                    <Label Content=":כמות טסטים שבועית" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
-                    <TextBox x:Name="maxTestsTextBox" Grid.Column="2" HorizontalAlignment="center" Height="23" Margin="3" Grid.Row="5" Text="{Binding MaxTests, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
+                    <Label Content=":כמות טסטים שבועית" Grid.Column="3" HorizontalAlignment="Center" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+                    <TextBox x:Name="maxTestsTextBox" Grid.Column="2" HorizontalAlignment="center" Height="23" Margin="3" Grid.Row="4" Text="{Binding MaxTests, Mode=TwoWay}" VerticalAlignment="Center" Width="120"/>
 
                 </Grid>
                 <Button Name="WorkTableButton" Content="לקביעת שעות עבודה - לחץ כאן" FontWeight="Bold" Height="30" Margin="3" Grid.ColumnSpan="2" Click="WorkTableButton_Click" Grid.Row="1" />
