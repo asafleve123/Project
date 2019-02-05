@@ -123,9 +123,9 @@ namespace PLWPF
                 //bl.AddTest(test,);
                 backgroundwork addtest=new backgroundwork(test);
                 addtest.ShowDialog();
-                if (addtest.Sex!=null)
+                if (addtest.Se!=null)
                 {
-                    throw new Exception(addtest.Sex);
+                    throw new Exception(addtest.Se);
                 }
                 DataGrid.ItemsSource =bl.AllTestsBy(T => T.IdTrainee==trainee.Id);
             }

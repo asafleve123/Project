@@ -26,7 +26,7 @@ namespace PLWPF
         IBL bL = FactoryBL.getBl();
         List<Tester> ablesTester;
         Test test;
-        public string Sex;
+        public string Se;
         public double Value {
             get {
                 return PBar.Value;
@@ -48,7 +48,7 @@ namespace PLWPF
             }
             catch(Exception e)
             {
-                Sex = e.Message;
+                Se = e.Message;
                 this.Close();
              }
         }
@@ -59,7 +59,7 @@ namespace PLWPF
             this.test = test;
             ablesTester = new List<Tester>();
             worker = new BackgroundWorker();
-            Sex = null;
+            Se = null;
             worker.DoWork += Do_Work;
             worker.ProgressChanged += Progress_Changed;
             worker.RunWorkerCompleted += Run_Worker_Completed;
@@ -109,7 +109,7 @@ namespace PLWPF
             }
             catch (Exception ex)
             {
-                Sex = ex.Message;
+                Se = ex.Message;
                 worker.CancelAsync();
             }
         }
