@@ -44,7 +44,8 @@
                             <ColumnDefinition Width="80*"/>
                             <ColumnDefinition Width="20*" />
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="refresh" Grid.Row="0" Grid.Column="1" Content="ריענון" Background="DeepSkyBlue" Click="Sinon_Click"/>
+                        <Button x:Name="refresh" Grid.Row="0" Grid.Column="1" Content="ריענון" Background="DeepSkyBlue" Click="Sinon_Click" Margin="0.333,59,-0.333,0.333" />
+                    <Button x:Name="Charts" Grid.Row="0" Grid.Column="1" Content="טבלאות" Click="Charts_Click" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Red" Height="60" Margin="0.333,0,-0.333,0"  FontSize="20"/>
                     <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" FontWeight="DemiBold" FontSize="20" AutoGenerateColumns="False" IsReadOnly="True" SelectedCellsChanged="Change_Object">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="מספר מבחן"  Binding="{Binding NumTest}"/>

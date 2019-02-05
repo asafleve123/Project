@@ -6,7 +6,7 @@
     xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     x:Class="WpfChartControl.MainWindow"  ScrollViewer.VerticalScrollBarVisibility="Auto"
    ScrollViewer.CanContentScroll="True"
-        Title="MainWindow" Height="440" Width="600">
+        Title="MainWindow" Height="440" Width="600" ResizeMode="NoResize">
 
 
     <Grid Height="400" >
@@ -19,18 +19,18 @@
         <Button Name="tests"  Content="מספר טסטים" VerticalAlignment="Center" Height="44" Margin="413,8,94.333,8" Click="Tests_Click"/>
         
         <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <chartingToolkit:Chart Margin="50" Name="ColumnChart1" Title="Department">
+            <chartingToolkit:Chart Margin="50"  Name="ColumnChart1" Title="קבוצות התלמידים לפי בתי הספר">
                 <chartingToolkit:ColumnSeries DependentValuePath="Value"  IndependentValuePath="Key" ItemsSource="{Binding}" IsSelectionEnabled="True">
                     
                 </chartingToolkit:ColumnSeries>
             </chartingToolkit:Chart>
             
-            <chartingToolkit:Chart Margin="50" Name="ColumnChart2" Title="Department">
+            <chartingToolkit:Chart Margin="50" Name="ColumnChart2" Title="קבוצות התלמידים לפי המורים לנהיגה">
                 <chartingToolkit:ColumnSeries DependentValuePath="Value"  IndependentValuePath="Key" ItemsSource="{Binding}" IsSelectionEnabled="True">
                 </chartingToolkit:ColumnSeries>
             </chartingToolkit:Chart>
 
-            <chartingToolkit:Chart Margin="50" Name="ColumnChart3" Title="Department">
+            <chartingToolkit:Chart Margin="50" Name="ColumnChart3" Title="קבוצות התלמידים לפי מספר הטסטים שעברו">
                 <chartingToolkit:ColumnSeries DependentValuePath="Value"  IndependentValuePath="Key" ItemsSource="{Binding}" IsSelectionEnabled="True">
                 </chartingToolkit:ColumnSeries>
             </chartingToolkit:Chart>

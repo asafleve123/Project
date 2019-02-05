@@ -15,27 +15,26 @@ using System.Windows.Shapes;
 
 namespace WpfChartControl
 {
+    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public List<KeyValuePair<string, int>> ByTests { get; set; }
+        public List<KeyValuePair<string, int>> BySchool { get; set; }
+        public List<KeyValuePair<string, int>> ByTeacher { get; set; }
+        public MainWindow(List<KeyValuePair<string, int>> s, List<KeyValuePair<string, int>> teacher, List<KeyValuePair<string, int>> tests)
         {
             InitializeComponent();
+            ByTests = tests;
+            BySchool = s;
+            ByTeacher =teacher;
             showChart();
         }
         private void showChart()
         {
-            List<KeyValuePair<string, int>> BySchool = new List<KeyValuePair<string, int>>();
-            List<KeyValuePair<string, int>> ByTeacher= new List<KeyValuePair<string, int>>();
-            List<KeyValuePair<string, int>> ByTests = new List<KeyValuePair<string, int>>();
-            BySchool.Add(new KeyValuePair<string, int>("Administration", 2));
-            BySchool.Add(new KeyValuePair<string, int>("Management", 3));
-            ByTeacher.Add(new KeyValuePair<string, int>("Development", 8));
-            ByTeacher.Add(new KeyValuePair<string, int>("Support", 2));
-            ByTests.Add(new KeyValuePair<string, int>("Sales", 14));
-            ByTests.Add(new KeyValuePair<string, int>("A", 15));
+            
             ColumnChart1.DataContext = BySchool;
             ColumnChart2.DataContext = ByTeacher;
             ColumnChart3.DataContext = ByTests;
