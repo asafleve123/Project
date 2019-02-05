@@ -48,7 +48,7 @@
                     <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" FontWeight="DemiBold" FontSize="20" AutoGenerateColumns="False" IsReadOnly="True" SelectedCellsChanged="Change_Object">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="מספר מבחן"  Binding="{Binding NumTest}"/>
-                            <DataGridTextColumn Header="ת.ז בוחן" Binding="{Binding IdTester}"/>
+                            <DataGridTextColumn Header="ת.ז נבחן" Binding="{Binding IdTrainee}"/>
                             <DataGridTextColumn Header="זמן המבחן" Binding="{Binding TestDay}"/>
                             <DataGridTextColumn Header="כתובת" Binding="{Binding TestAddress}"/>
                             <DataGridTextColumn Header="ציון" Binding="{Binding Grade}"/>

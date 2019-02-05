@@ -50,12 +50,6 @@ namespace PLWPF
             }
         }
         Thread thread ;
-        public string id
-        {
-            get{
-                return idStudent.Text;
-            }
-        }
         Comments comments = new Comments();
         public TesterWindow(Tester tester)
         {
@@ -237,8 +231,9 @@ namespace PLWPF
             comments.ShowDialog();
             BuComments.Content = "!סיימת";
         }
-        private void sinon_Func()
+        private void sinon_Func(object text)
         {
+            string id = text as string;
             if (id != "")
             {
                 tests = new List<Test>(bl.AllTestsBy(T => T.IdTrainee == id, tester.Id));
@@ -283,7 +278,7 @@ namespace PLWPF
                 selection = sinon.SelectionBoxItem as string;
                 thread = new Thread(sinon_Func);
                 Value = 50;
-                thread.Start();
+                thread.Start(idStudent.Text);
             }
             catch (Exception ex)
             {
@@ -304,20 +299,20 @@ namespace PLWPF
             Test test = DataGrid.SelectedItem as Test;
              if (test == null)
                     return;
-            if (test.TestDay > DateTime.Now)
-            {
-                foreach (object item in grid11.Children)
-                {
-                    if (item is Control)
-                    {
+            //if (test.TestDay > DateTime.Now)
+            //{
+            //    foreach (object item in grid11.Children)
+            //    {
+            //        if (item is Control)
+            //        {
 
-                        (item as Control).Visibility = Visibility.Hidden;
-                    }
-                }
-                label.Visibility = Visibility.Visible;
-            }
-            else
-            {
+            //            (item as Control).Visibility = Visibility.Hidden;
+            //        }
+            //    }
+            //    label.Visibility = Visibility.Visible;
+            //}
+            //else
+            //{
                 foreach (object item in grid11.Children)
                 {
                     if (item is Control)
@@ -394,22 +389,16 @@ namespace PLWPF
                         BuComments.Content = "!סיימת";
                     }
                 }
-            }
+            //}
 
         }
         private void Comments_Click(object sender, RoutedEventArgs e)
         {
             Test test = ((Button)sender).DataContext as Test;
-            if (test.Comments == null)
-            {
-                Comments comments = new Comments("אין הערות");
-                comments.ShowDialog();
-            }
-            else
-            {
-                Comments comments = new Comments(test.Comments);
-                comments.ShowDialog();
-            }
+
+            Comments comments = new Comments(test.Comments);
+            comments.ShowDialog();
+
         }
         private void Criterions_Click(object sender, RoutedEventArgs e)
         {
