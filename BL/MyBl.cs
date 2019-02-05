@@ -250,12 +250,24 @@ namespace BL
         }
         public bool IsCanTest(Tester tester,Test test)
         {
-            string origin = string.Format("{1} {2} {0}",tester.Address.City, tester.Address.Street, tester.Address.NumOfHome);
-            string destination = string.Format("{1} {2} {0}", test.TestAddress.City, test.TestAddress.Street, test.TestAddress.NumOfHome);
-            double distance = DistanceBetweenAdress(origin, destination);
-            if (distance <= Configuration.DISTANCE)
-                return true;
-            return false;
+            try
+            {
+                string origin = string.Format("{1} {2} {0}", tester.Address.City, tester.Address.Street, tester.Address.NumOfHome);
+                string destination = string.Format("{1} {2} {0}", test.TestAddress.City, test.TestAddress.Street, test.TestAddress.NumOfHome);
+                double distance = DistanceBetweenAdress(origin, destination);
+                if (distance <= Configuration.DISTANCE)
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "אחת הכתובות לא נמצאה" || ex.Message == "בעיות ברשת")
+                {
+                    throw ex;
+                }
+                Random r = new Random();
+                return (r.Next(0,1)==1?true:false);
+            }
+                return false;
         }
         public double DistanceBetweenAdress(string origin, string destination)
         {
