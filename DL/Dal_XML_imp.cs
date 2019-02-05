@@ -22,7 +22,7 @@ namespace DAL
 
         public Dal_XML_imp()
         {
-            if (!File.Exists(TraineesPath) || !File.Exists(ConfigPath) || !File.Exists(TestersPath) || !File.Exists(TestsPath))
+            if (!File.Exists(TraineesPath) || !File.Exists(ConfigPath))
                 CreateFiles();
             else
                 LoadData();
@@ -45,7 +45,7 @@ namespace DAL
             TraineesRoot.Save(TraineesPath);
 
             ConfigRoot = new XElement("Config");
-            ConfigRoot.Add("num", 0);
+            ConfigRoot.Add(new XElement("num", 0));
             ConfigRoot.Save(ConfigPath);
         }
         public static void SaveToXML<T>(T source, string path)
