@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{53A2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLWPF", "PLWPF\PLWPF.csproj", "{5D3F01F8-5C7C-4F5D-AB36-D7006615931A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfChartControl", "..\..\Downloads\Chart Control in WPF\C#\WpfChartControl\WpfChartControl.csproj", "{D228E5E3-0A98-4B8C-9A7D-516C3A76835B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfChartControl", "WpfChartControl\WpfChartControl.csproj", "{D228E5E3-0A98-4B8C-9A7D-516C3A76835B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
