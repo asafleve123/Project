@@ -120,7 +120,6 @@ namespace PLWPF
                     throw new Exception("!הכנס שעה");
                 dateTime = dateTime.AddHours(TestHour.SelectedIndex+9);
                 Test test = new Test(trainee,dateTime,address);
-                //bl.AddTest(test,);
                 backgroundwork addtest=new backgroundwork(test);
                 addtest.ShowDialog();
                 if (addtest.Se!=null)

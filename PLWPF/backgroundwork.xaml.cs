@@ -104,7 +104,7 @@ namespace PLWPF
                         e.Result = "Error";
                     }
                     worker.ReportProgress(i * 100 / length,e.Result);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2000);
                 }
             }
             catch (Exception ex)
