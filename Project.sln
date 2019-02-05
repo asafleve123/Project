@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{53A2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLWPF", "PLWPF\PLWPF.csproj", "{5D3F01F8-5C7C-4F5D-AB36-D7006615931A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfChartControl", "WpfChartControl\WpfChartControl.csproj", "{D228E5E3-0A98-4B8C-9A7D-516C3A76835B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{5D3F01F8-5C7C-4F5D-AB36-D7006615931A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D3F01F8-5C7C-4F5D-AB36-D7006615931A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D3F01F8-5C7C-4F5D-AB36-D7006615931A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D228E5E3-0A98-4B8C-9A7D-516C3A76835B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D228E5E3-0A98-4B8C-9A7D-516C3A76835B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D228E5E3-0A98-4B8C-9A7D-516C3A76835B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D228E5E3-0A98-4B8C-9A7D-516C3A76835B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
