@@ -35,8 +35,7 @@ namespace PLWPF
             }
             set
             {
-                Action action = () => DataGrid.ItemsSource = value;
-                Dispatcher.BeginInvoke(action);
+                DataGrid.ItemsSource = value;
             }
         }
         public string selection;
@@ -50,7 +49,6 @@ namespace PLWPF
                     progressbar.Value = value;
             }
         }
-        Thread thread ;
         Comments comments = new Comments();
         public TesterWindow(Tester tester)
         {
@@ -74,15 +72,12 @@ namespace PLWPF
             label.Visibility = Visibility.Hidden;
             grid11.Children.Add(label);
             selection = "הכל";
-            Thread thread = new Thread(load_Func);
-            thread.Start();
+            load_Func();
         }
 
         private void load_Func()
         {
-            IEnumerable<Test> collection = bl.AllTestsBy(T => T.IdTester == tester.Id);
-            Action action = () => DataGrid.ItemsSource = collection;
-            Dispatcher.BeginInvoke(action);
+            DataGrid.ItemsSource = bl.AllTestsBy(T => T.IdTester == tester.Id);
         }
         private void WorkTableButton_Click(object sender, RoutedEventArgs e)
         {
@@ -232,9 +227,9 @@ namespace PLWPF
             comments.ShowDialog();
             BuComments.Content = "!סיימת";
         }
-        private void sinon_Func(object text)
+        private void sinon_Func(string text)
         {
-            string id = text as string;
+            string id = text;
             if (id != "")
             {
                 tests = new List<Test>(bl.AllTestsBy(T => T.IdTrainee == id, tester.Id));
@@ -264,11 +259,8 @@ namespace PLWPF
                 }
             }
 
-                Action action = () => Value = 50;
-                Dispatcher.BeginInvoke(action);
+                 Value = 50;
                 Thread.Sleep(1000);
-            
-
         }
         private void Sinon_Click(object sender, RoutedEventArgs e)
         {
@@ -277,9 +269,8 @@ namespace PLWPF
                 Value = 0;
                 Thread.Sleep(1000);
                 selection = sinon.SelectionBoxItem as string;
-                thread = new Thread(sinon_Func);
                 Value = 50;
-                thread.Start(idStudent.Text);
+                sinon_Func(idStudent.Text);
             }
             catch (Exception ex)
             {

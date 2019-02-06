@@ -82,6 +82,7 @@ namespace PLWPF
         {
                 Value = e.ProgressPercentage;
                 label.Content = string.Format("{0}%", e.ProgressPercentage);
+            if ((string)e.UserState!="Error")
                 Name.Content = (string)e.UserState;
         }
 

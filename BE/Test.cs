@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BE
 {
@@ -19,7 +20,39 @@ namespace BE
         public Grade? Grade { get; set; }
         public string Comments { get; set; }
         public Car TypeOfCar { get; set; }
+        
+        //[XmlIgnore]
         public List<Criterion> Criterions { get=>criterions; set=>criterions=value; }
+        //public string TmpCriterions
+        //{
+        //    get
+        //    {
+        //        if (Criterions == null)
+        //            return null;
+        //        string result = "";
+        //        if (Criterions != null)
+        //        {
+        //            int size = Criterions.Count;
+        //            result += "" + size ;
+        //            for (int i = 0; i < size; i++)
+        //                    result += "," + Criterions[i];
+        //        }
+        //        return result;
+        //    }
+        //    set {
+        //        if (value != null && value.Length > 0)
+        //        {
+        //            string[] values = value.Split(',');
+        //            int size = int.Parse(values[0]);
+        //            Criterions = new List<Criterion>();
+        //            int index = 2;
+        //            for (int i = 0; i < size; i++)
+        //                Criterions.Add ( Criterion.Pharse(values[index++]));
+        //        }
+        //    }
+        //}
+
+
         //functions
         public override string ToString()
         {
@@ -79,6 +112,10 @@ namespace BE
                 criterions.Add(new Criterion(string.Copy(item.name),item.grade));
             }
             TypeOfCar = test.TypeOfCar;
+        }
+        public Test()
+        {
+
         }
     }
 }

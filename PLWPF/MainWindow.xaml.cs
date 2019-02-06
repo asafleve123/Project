@@ -102,8 +102,8 @@ namespace PLWPF
                     }
                     else
                     {
-                        tz.Text = null;
-                        passwordTester.Password = null;
+                        tz.Text = "";
+                        passwordTester.Password = "";
                     }
                     testerWindow.ShowDialog();
                 }

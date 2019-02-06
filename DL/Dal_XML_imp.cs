@@ -96,7 +96,7 @@ namespace DAL
                 throw new Exception("the test isnt exist");
             }
             tests[tests.IndexOf(tests.Find(T => T.CompareTo(test) == 0))] = new Test(test);
-            SaveToXML(test, TestsPath);
+            SaveToXML(tests, TestsPath);
         }
 
         //Tester
@@ -189,7 +189,7 @@ namespace DAL
         {
             XElement traineeElement;
             traineeElement = (from tr in TraineesRoot.Elements()
-                              where tr.Element("id").Value == trainee.Id
+                              where tr.Element("Id").Value == trainee.Id
                               select tr).FirstOrDefault();
             if (traineeElement == null)
                 throw new Exception("לא ניתן למחוק נבחן שאינו קיים");
@@ -204,7 +204,7 @@ namespace DAL
         {
             CheckTrainee(trainee);
             XElement traineeElement = (from tr in TraineesRoot.Elements()
-                                       where tr.Element("id").Value == trainee.Id
+                                       where tr.Element("Id").Value == trainee.Id
                                        select tr).FirstOrDefault();
             if (traineeElement == null)
                 throw new Exception("לא ניתן לעדכן נבחן שאינו קיים");
@@ -237,7 +237,7 @@ namespace DAL
         {
             if (!File.Exists(TestsPath))
                 return new List<Test>();
-            return LoadFromXML<List<Test>>(TestsPath); ;
+            return LoadFromXML<List<Test>>(TestsPath); 
         }
         public List<Trainee> TraineesCollection()
         {
@@ -300,19 +300,19 @@ namespace DAL
         public static void CheckTrainee(Trainee trainee)
         {
 
-            if (!trainee.PrivateName.All(Char.IsLetter))
+            if (!trainee.PrivateName.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception("שם פרטי אינו תקין");
 
-            if (!trainee.FamilyName.All(Char.IsLetter))
+            if (!trainee.FamilyName.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception("שם משפחה אינו תקין");
 
-            if (!IdCheck(trainee.Id))
+            if ((trainee.Id != null) && !IdCheck(trainee.Id))
                 throw new Exception("מספר תעודת זהות אינו תקין");
 
-            if (!trainee.DrivingSchool.All(Char.IsLetter))
+            if (!trainee.DrivingSchool.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception("שם בית הספר אינו תקין");
 
-            if (!trainee.DrivingTeacher.All(Char.IsLetter))
+            if (!trainee.DrivingTeacher.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception("שם המורה אינו תקין");
 
             if (trainee.Phone.Length != 10 || !trainee.Phone.All(Char.IsDigit))
@@ -321,10 +321,10 @@ namespace DAL
             if (trainee.DLessonPast < 0)
                 throw new Exception("מספר השיעורים שעברת אינו תקין");
 
-            if (!trainee.Address.City.All(char.IsLetter))
+            if (!trainee.Address.City.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception("שם העיר אינו תקין");
 
-            if (!trainee.Address.Street.All(char.IsLetter))
+            if (!trainee.Address.Street.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception("שם הרחוב אינו תקין");
 
             if (!trainee.Address.NumOfHome.All(char.IsDigit))
@@ -334,13 +334,13 @@ namespace DAL
         public static void CheckTester(Tester tester)
         {
 
-            if (!tester.PrivateName.All(Char.IsLetter))
+            if (!tester.PrivateName.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception("שם פרטי אינו תקין");
 
-            if (!tester.FamilyName.All(Char.IsLetter))
+            if (!tester.FamilyName.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception("שם המשפחה אינו תקין");
 
-            if (!IdCheck(tester.Id))
+            if ((tester.Id != null) && !IdCheck(tester.Id))
                 throw new Exception("מספר תעודת זהות אינו תקין");
 
             if (tester.Phone.Length != 10 || !tester.Phone.All(Char.IsDigit))
@@ -349,13 +349,10 @@ namespace DAL
             if (tester.MaxTests < 0)
                 throw new Exception("מספר המבחנים המקסימאלי אינו תקין");
 
-            //if (tester.MaxRange < 0)
-            //    throw new Exception("טווח איננו תקין");
-
-            if (!tester.Address.City.All(char.IsLetter))
+            if (!tester.Address.City.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception("שם העיר אינו תקין");
 
-            if (!tester.Address.Street.All(char.IsLetter))
+            if (!tester.Address.Street.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception("שם הרחוב אינו תקין");
             if (!tester.Address.NumOfHome.All(char.IsDigit))
                 throw new Exception("מספר הבית אינו תקין");
@@ -364,21 +361,23 @@ namespace DAL
         public static void CheckTest(Test test)
         {
             if (test.TestTime.All(char.IsLetter))
-                throw new Exception(test + ":תאריל לא נכון");
+                throw new Exception(test + ":תאריך לא נכון");
             if (test.TestTime != test.TestDay.Day + "/" + test.TestDay.Month + "/" + test.TestDay.Year)
                 throw new Exception(test + ":התאריכים לא זהים");
             if ((test.IdTester != null) && !IdCheck(test.IdTester))
                 throw new Exception(test + ":ת'ז בוחן שגוי");
-            if (!IdCheck(test.IdTrainee))
+            if ((test.IdTrainee != null) && !IdCheck(test.IdTrainee))
                 throw new Exception(test + ":ת'ז נבחן שגוי");
-            if (!test.TestAddress.Street.All(char.IsLetter))
+            if (!test.TestAddress.Street.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception(test + ":שם רחוב שגוי");
 
-            if (!test.TestAddress.City.All(char.IsLetter))
+            if (!test.TestAddress.City.All(x => char.IsLetter(x) || x == ' '))
                 throw new Exception(test + ":שם עיר שגוי");
+            if (!test.TestAddress.NumOfHome.All(char.IsDigit))
+                throw new Exception(test + ":מספר בית שגוי");
             foreach (Criterion item in test.Criterions)
             {
-                if (!item.name.All(char.IsLetter))
+                if (!item.name.All(x => char.IsLetter(x) || x == ' '))
                 {
                     throw new Exception("!שגוי" + test + "-ב" + item.name + ":שמו של הקריטריון");
                 }

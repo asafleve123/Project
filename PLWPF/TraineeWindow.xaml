@@ -172,7 +172,7 @@
                             <Label Content="!פעולה זו בלתי הפיכה" VerticalAlignment="Center" VerticalContentAlignment="Top" HorizontalAlignment="Center" FontSize="27.5" Grid.Row="1"/>
                         </Grid>
 
-                        <Label Name="DeleteWarningBox" Content="" Height="40"  Foreground="Red"  HorizontalAlignment="center" Grid.Row="1" VerticalAlignment="Center" FontSize="23" Margin="350,9.333,352.333,263.333"/>
+                        <Label Name="DeleteWarningBox" Content="" Height="40" Foreground="Red"  HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Center" FontSize="23" Margin="-2,9.333,-2.333,264" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                         <Button Name="delete" Content="מחיקה" FontSize="70"  HorizontalAlignment="Center"  Grid.Row="1" VerticalAlignment="Center" Width="350" Height="175" Click="Delete_Click" Margin="10" />
 
                     </Grid>
@@ -271,7 +271,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition Height="4*"/>
                         </Grid.RowDefinitions>
-                        <Label x:Name="WarningBox" Content="" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" VerticalContentAlignment="Top" Foreground="Red" />
+                        <Label x:Name="WarningBox" Content="" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontSize="20" VerticalContentAlignment="Center" Foreground="Red" HorizontalContentAlignment="Center" Height="50" Margin="0,-31,-0.333,0" Grid.RowSpan="2"/>
                         <Button Name="sign" Content="עידכון פרטים" VerticalAlignment="Stretch" FontWeight="Bold" Grid.Row="1" Click="Sign_Click"  />
                     </Grid>
                 </Grid>

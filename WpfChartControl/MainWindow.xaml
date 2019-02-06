@@ -30,7 +30,7 @@
                 </chartingToolkit:ColumnSeries>
             </chartingToolkit:Chart>
 
-            <chartingToolkit:Chart Margin="50" Name="ColumnChart3" Title="קבוצות התלמידים לפי מספר הטסטים שעברו">
+            <chartingToolkit:Chart Margin="50" Name="ColumnChart3" Title="קבוצות התלמידים לפי מספר השיעורים שעברו">
                 <chartingToolkit:ColumnSeries DependentValuePath="Value"  IndependentValuePath="Key" ItemsSource="{Binding}" IsSelectionEnabled="True">
                 </chartingToolkit:ColumnSeries>
             </chartingToolkit:Chart>
