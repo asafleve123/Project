@@ -70,7 +70,19 @@ namespace PLWPF
 
         private void start(object sender, RoutedEventArgs e)
         {
-            worker.RunWorkerAsync(bL.TestersCollection().Count());
+            try
+            {
+                if (bL.TestersCollection().Count() == 0)
+                {
+                    throw new Exception("אין בוחן זמין");
+                }
+                worker.RunWorkerAsync(bL.TestersCollection().Count());
+            }
+            catch (Exception ex)
+            {
+                Se = ex.Message;
+                this.Close();
+            }
         }
 
         private void Run_Worker_Completed(object sender, RunWorkerCompletedEventArgs e)

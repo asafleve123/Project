@@ -31,11 +31,11 @@ namespace PLWPF
                 name.HorizontalContentAlignment = HorizontalAlignment.Center;
                 name.Background = Brushes.LightGoldenrodYellow;
                 name.FontSize = 30;
-                TextBox name1 = new TextBox();
+                Label name1 = new Label();
                 name1.Background = Brushes.White;
                 name1.FontWeight = FontWeights.DemiBold;
                 name1.FontSize = 20;
-                name1.Text = item.name;
+                name1.Content = item.name;
                 Label grade = new Label();
                 grade.Content = ":ציון";
                 grade.FontWeight = FontWeights.Thin;

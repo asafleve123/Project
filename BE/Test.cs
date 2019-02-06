@@ -20,9 +20,20 @@ namespace BE
         public Grade? Grade { get; set; }
         public string Comments { get; set; }
         public Car TypeOfCar { get; set; }
-        
+
         //[XmlIgnore]
-        public List<Criterion> Criterions { get=>criterions; set=>criterions=value; }
+        public List<Criterion> Criterions { get => criterions; set => criterions = value; }
+        public Criterion this[int index]
+            {
+                get
+                {
+                return criterions[index];
+                }
+                set
+                {
+                criterions[index] = value;
+                }
+            }//to index the criterion
         //public string TmpCriterions
         //{
         //    get
