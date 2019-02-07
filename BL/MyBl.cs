@@ -17,10 +17,18 @@ namespace BL
     public class MyBl : IBL
     {
         private DAL.Idal MyDal = FactoryDal.getDal();
+
+        /// <summary>
+        /// calculate amount of tester's tests that in the week of a date.
+        /// </summary>
+        /// <param name="tester"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
         private int NumOfTestsByDays(Tester tester, DateTime time)
         {
             return (TestsCollection()).Count(delegate (Test tst) { if (tester.Id == tst.IdTester && DatesAreInTheSameWeek(time, tst.TestDay)) return true; return false; });
         }
+
         private bool IsHeFree(Tester item, DateTime time)
         {
             if ((int)time.DayOfWeek >= Configuration.THURSDAY || (time.Hour < Configuration.MIN_HOUR || time.Hour > Configuration.MAX_HOUR))
@@ -59,6 +67,11 @@ namespace BL
 
             return d1 == d2;
         }
+        /// <summary>
+        /// check if the number of criterions he past bigger than he failed
+        /// </summary>
+        /// <param name="test"></param>
+        /// <returns></returns>
         private bool FailedCriterion(Test test)
         {
             int Failnum = 0;
@@ -83,10 +96,20 @@ namespace BL
                 throw new Exception("הבוחן אינו קיים");
             return (from item in TestersCollection() where (item.Id == test.IdTrainee) select item).First();
         }
+        /// <summary>
+        /// number of tests in the past
+        /// </summary>
+        /// <param name="trainee"></param>
+        /// <returns></returns>
+        public int NumOfTraineesTests(Trainee trainee)
+        {
+            return AllTestsBy(T => T.IdTrainee == trainee.Id && (DateTime.Now > T.TestDay)).Count<Test>();
+        }
         private int NumOfFutureTest(Trainee trainee)
         {
             return (AllTestsBy(T => T.IdTrainee == trainee.Id).Count() - NumOfTraineesTests(trainee));
         }
+
         public string AddTest(Test test,List<Tester> AblesTesters)
         {
             CheckTest(test);
@@ -169,6 +192,7 @@ namespace BL
             }
             MyDal.AddTrainee(trainee);
         }
+
         public void DeleteTester(Tester tester)
         {
             if (!TestersCollection().Exists(T => tester.Id == T.Id))
@@ -310,6 +334,7 @@ namespace BL
                 throw new Exception("בעיות ברשת");
             }
         }
+
         public IEnumerable<Tester> IsFree(DateTime time)
         {
             return from item in TestersCollection() where (IsHeFree(item, time)) select item;
@@ -317,10 +342,6 @@ namespace BL
         public IEnumerable<Test> AllTestsBy(Predicate<Test> func)
         {
             return from item in TestsCollection() where (func(item)) select item;
-        }
-        public int NumOfTraineesTests(Trainee trainee)
-        {
-            return AllTestsBy(T => T.IdTrainee == trainee.Id && (DateTime.Now > T.TestDay)).Count<Test>();
         }
         public bool IsAllowed(Trainee trainee)
         {
@@ -340,6 +361,7 @@ namespace BL
         {
             return new List<Test>(from item in TestsCollection() where (item.TestDay >= DateTime.Now ) orderby item.TestDay select item);
         }
+
         public IEnumerable<IGrouping<Car, Tester>> ListOfTestersByCar(bool order)
         {
             if (order)
@@ -373,6 +395,7 @@ namespace BL
             }
             return from item in TraineesCollection() group item by item.DLessonPast;
         }
+
         public Tester GetTester(string id)
         {
             if (id == null)
@@ -397,6 +420,23 @@ namespace BL
             return temp;
         }
         //...
+        public IEnumerable<object> TestsByDay(DateTime date)
+        {
+            return from item in TestsCollection() where (item.TestDay.Day == date.Day) orderby item.NumTest select new { test = item, trainee = GetTrainee(item), tester = GetTester(item) };
+        }
+        public IEnumerable<object> TestsNow()
+        {
+            return TestsByDay(DateTime.Now);
+        }
+        public IEnumerable<Test> AllTestsBy(Predicate<Test> func, string idtester)
+        {
+            return from item in TestsCollection() where (func(item) && item.IdTester == idtester) select item;
+        }
+        public IEnumerable<Test> AllTestsByTR(Predicate<Test> func, string idtrainee)
+        {
+            return from item in TestsCollection() where (func(item) && item.IdTrainee == idtrainee) select item;
+        }
+
         public static bool IdCheck(string id)
         {
             if (id == null)
@@ -507,22 +547,6 @@ namespace BL
                     throw new Exception("!שגוי" + test + "-ב" + item.name + ":שמו של הקריטריון");
                 }
             }
-        }
-        public IEnumerable<object> TestsByDay(DateTime date)
-        {
-            return from item in TestsCollection() where (item.TestDay.Day == date.Day) orderby item.NumTest select new { test = item, trainee = GetTrainee(item), tester = GetTester(item) };
-        }
-        public IEnumerable<object> TestsNow()
-        {
-            return TestsByDay(DateTime.Now);
-        }
-        public IEnumerable<Test> AllTestsBy(Predicate<Test> func, string idtester)
-        {
-            return from item in TestsCollection() where (func(item) && item.IdTester == idtester) select item;
-        }
-        public IEnumerable<Test> AllTestsByTR(Predicate<Test> func, string idtrainee)
-        {
-            return from item in TestsCollection() where (func(item) && item.IdTrainee == idtrainee) select item;
         }
 
     }

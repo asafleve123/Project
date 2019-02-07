@@ -80,6 +80,7 @@ namespace PLWPF
                 }
             }
         }
+
         private void New_Trainee(object sender, RoutedEventArgs e)
         {
             var AddTrainneWin = new AddTrainee();

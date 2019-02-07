@@ -23,35 +23,37 @@ namespace BE
         
         //[XmlIgnore]
         public List<Criterion> Criterions { get=>criterions; set=>criterions=value; }
-        //public string TmpCriterions
-        //{
-        //    get
-        //    {
-        //        if (Criterions == null)
-        //            return null;
-        //        string result = "";
-        //        if (Criterions != null)
-        //        {
-        //            int size = Criterions.Count;
-        //            result += "" + size ;
-        //            for (int i = 0; i < size; i++)
-        //                    result += "," + Criterions[i];
-        //        }
-        //        return result;
-        //    }
-        //    set {
-        //        if (value != null && value.Length > 0)
-        //        {
-        //            string[] values = value.Split(',');
-        //            int size = int.Parse(values[0]);
-        //            Criterions = new List<Criterion>();
-        //            int index = 2;
-        //            for (int i = 0; i < size; i++)
-        //                Criterions.Add ( Criterion.Pharse(values[index++]));
-        //        }
-        //    }
-        //}
-
+        /*
+        public string TmpCriterions
+        {
+            get
+            {
+                if (Criterions == null)
+                    return null;
+                string result = "";
+                if (Criterions != null)
+                {
+                    int size = Criterions.Count;
+                    result += "" + size;
+                    for (int i = 0; i < size; i++)
+                        result += "," + Criterions[i];
+                }
+                return result;
+            }
+            set
+            {
+                if (value != null && value.Length > 0)
+                {
+                    string[] values = value.Split(',');
+                    int size = int.Parse(values[0]);
+                    Criterions = new List<Criterion>();
+                    int index = 2;
+                    for (int i = 0; i < size; i++)
+                        Criterions.Add(Criterion.Pharse(values[index++]));
+                }
+            }
+        }
+        */
 
         //functions
         public override string ToString()

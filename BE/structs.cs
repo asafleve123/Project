@@ -34,11 +34,12 @@ namespace BE
         
         public string name { get; set; }
         public Grade grade { get; set; }
+        /*
         public static Criterion Pharse(string str)
         {
             string[] values = str.Split(' ');
             return new Criterion(values[0], (Grade)Enum.Parse(typeof(Grade), values[1]));
-        }
+        }*/
         public Criterion(string Name,Grade grade)
         {
             name =string.Copy( Name);

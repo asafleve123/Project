@@ -178,7 +178,7 @@ namespace DAL
             XElement DLessonPast = new XElement("DLessonPast", trainee.DLessonPast);
             XElement Age = new XElement("Age", trainee.Age);
             XElement Code = new XElement("Code", trainee.Code);
-            TraineesRoot.Add(new XElement("Trainee", id, PrivateName, FamilyName, Gender, Phone, Address, DOB, TypeOfCar, TypeGearBox, DrivingSchool, DrivingSchool, DrivingTeacher, DLessonPast, Age, Code));
+            TraineesRoot.Add(new XElement("Trainee", id, PrivateName, FamilyName, Gender, Phone, Address, DOB, TypeOfCar, TypeGearBox, DrivingSchool, DrivingTeacher, DLessonPast, Age, Code));
             TraineesRoot.Save(TraineesPath);
         }
         /// <summary>
@@ -383,12 +383,11 @@ namespace DAL
                 }
             }
         }
+
         public IEnumerable<Tester> testersByName()
         {
             return from item in TestersCollection() orderby item.ToString() select new Tester(item);
         }
-
-
     }
 }
 
