@@ -297,7 +297,7 @@ namespace BL
         {
             //string origin = "pisga 45 st. jerusalem"; //or "תקווה פתח 100 העם אחד "etc.
             //string destination = "gilgal 78 st. ramat-gan";//or "גן רמת 10 בוטינסקי'ז "etc.
-            string KEY = @"<aNt5BLAa2aK3uAMZoR87F25z2VlhlE3u>";
+            string KEY = @"aNt5BLAa2aK3uAMZoR87F25z2VlhlE3u";
             string url = @"https://www.mapquestapi.com/directions/v2/route" +
              @"?key=" + KEY +
              @"&from=" + origin +
