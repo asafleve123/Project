@@ -176,7 +176,7 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Header="עדכון פרטים" Width="auto">
+            <TabItem Header="עדכון פרטים" Width="auto" Margin="-1.667,-2,-37.333,0.333">
                 <Grid>
                     <Grid.Resources>
                         <Style TargetType="Label">

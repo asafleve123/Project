@@ -413,43 +413,43 @@ namespace PLWPF
         private void Charts_Click(object sender, RoutedEventArgs e)
         {
 
-            //var l= bl.ListOfTraineesBySchool(true);
-            //List<KeyValuePair<string, int>> BySchool = new List<KeyValuePair<string, int>>();
-            //int count=0;
-            //foreach (var items in l)
-            //{
-            //    foreach (var item in items)
-            //        if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
-            //            count++;
-            //    BySchool.Add(new KeyValuePair<string, int>(items.Key,count));
-            //    count = 0;
-            //}
-            
+            var l = bl.ListOfTraineesBySchool(true);
+            List<KeyValuePair<string, int>> BySchool = new List<KeyValuePair<string, int>>();
+            int count = 0;
+            foreach (var items in l)
+            {
+                foreach (var item in items)
+                    if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
+                        count++;
+                BySchool.Add(new KeyValuePair<string, int>(items.Key, count));
+                count = 0;
+            }
 
-            //l = bl.ListOfTraineesByDTeacher(true);
-            //List<KeyValuePair<string, int>> ByTeacher = new List<KeyValuePair<string, int>>();
-            //foreach (var items in l)
-            //{
-            //    foreach (var item in items)
-            //        if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
-            //            count++;
-            //    ByTeacher.Add(new KeyValuePair<string, int>(items.Key, count));
-            //    count = 0;
-            //}
 
-            //var l2 = bl.ListOfTraineesByNumOfTests(true);
-            //List<KeyValuePair<string, int>> ByTests = new List<KeyValuePair<string, int>>();
-            //foreach (var items in l2)
-            //{
-            //    foreach (var item in items)
-            //        if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
-            //            count++;
-            //    ByTests.Add(new KeyValuePair<string, int>(items.Key.ToString(), count));
-            //    count = 0;
-            //}
-            //var CWin= new WpfChartControl.MainWindow(BySchool, ByTeacher, ByTests);
-           
-            //CWin.ShowDialog();
+            l = bl.ListOfTraineesByDTeacher(true);
+            List<KeyValuePair<string, int>> ByTeacher = new List<KeyValuePair<string, int>>();
+            foreach (var items in l)
+            {
+                foreach (var item in items)
+                    if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
+                        count++;
+                ByTeacher.Add(new KeyValuePair<string, int>(items.Key, count));
+                count = 0;
+            }
+
+            var l2 = bl.ListOfTraineesByNumOfTests(true);
+            List<KeyValuePair<string, int>> ByTests = new List<KeyValuePair<string, int>>();
+            foreach (var items in l2)
+            {
+                foreach (var item in items)
+                    if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
+                        count++;
+                ByTests.Add(new KeyValuePair<string, int>(items.Key.ToString(), count));
+                count = 0;
+            }
+            var CWin = new WpfChartControl.MainWindow(BySchool, ByTeacher, ByTests);
+
+            CWin.ShowDialog();
         }
     }
 }
