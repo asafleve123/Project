@@ -106,6 +106,7 @@ namespace PLWPF
                         tz.Text = "";
                         passwordTester.Password = "";
                     }
+                    WarnningTester.Text = "";
                     testerWindow.ShowDialog();
                 }
                 else
@@ -115,7 +116,7 @@ namespace PLWPF
             }
             catch (Exception ex)
             {
-                RemmberTe.Visibility = Visibility.Hidden;
+                //RemmberTe.Visibility = Visibility.Hidden;
                 WarnningTester.Visibility = Visibility.Visible;
                 WarnningTester.Text = ex.Message;
             }
@@ -141,6 +142,7 @@ namespace PLWPF
                         tz1.Text = null;
                         passwordTrainne.Password = null;
                     }
+                    WarnningTrainee.Text = "";
                     testerWindow.ShowDialog();
                 }
                 else
@@ -150,7 +152,7 @@ namespace PLWPF
             }
             catch (Exception ex)
             {
-                RemmberTr.Visibility = Visibility.Hidden;
+                //RemmberTr.Visibility = Visibility.Hidden;
                 WarnningTrainee.Visibility = Visibility.Visible;
                 WarnningTrainee.Text = ex.Message;
             }

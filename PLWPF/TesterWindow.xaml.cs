@@ -210,7 +210,18 @@ namespace PLWPF
                                     name = item1 as TextBox;
                                 }
                             }
-                            test.Criterions.Add(new Criterion(name.Text,(grade.SelectedIndex==0 ? Grade.עבר : Grade.נכשל)));
+                        if (test.Criterions.All(T => T.name != name.Text))
+                            test.Criterions.Add(new Criterion(name.Text, (grade.SelectedIndex == 0 ? Grade.עבר : Grade.נכשל)));
+                        else
+                        {
+                                for (int i = 0; i < test.Criterions.Count(); i++)
+                                {
+                                    if (test.Criterions[i].name == name.Text)
+                                    {
+                                    test[i] = new Criterion(name.Text, (grade.SelectedIndex == 0 ? Grade.עבר : Grade.נכשל));
+                                    }
+                                }
+                            }
                         }
                 }
                 bl.Update(test);
@@ -340,11 +351,11 @@ namespace PLWPF
                             name.FontWeight = FontWeights.DemiBold;
                             name.Background = Brushes.White;
                             name.HorizontalContentAlignment = HorizontalAlignment.Center;
-                            TextBox name1 = new TextBox();
+                            Label name1 = new Label();
                             name1.Background = Brushes.White;
                             name1.FontWeight = FontWeights.DemiBold;
                             name1.FontSize = 20;
-                            name1.Text = item.name;
+                            name1.Content = item.name;
                             Label grade = new Label();
                             grade.Content = ":ציון";
                             grade.FontWeight = FontWeights.DemiBold;
@@ -402,43 +413,43 @@ namespace PLWPF
         private void Charts_Click(object sender, RoutedEventArgs e)
         {
 
-            var l= bl.ListOfTraineesBySchool(true);
-            List<KeyValuePair<string, int>> BySchool = new List<KeyValuePair<string, int>>();
-            int count=0;
-            foreach (var items in l)
-            {
-                foreach (var item in items)
-                    if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
-                        count++;
-                BySchool.Add(new KeyValuePair<string, int>(items.Key,count));
-                count = 0;
-            }
+            //var l= bl.ListOfTraineesBySchool(true);
+            //List<KeyValuePair<string, int>> BySchool = new List<KeyValuePair<string, int>>();
+            //int count=0;
+            //foreach (var items in l)
+            //{
+            //    foreach (var item in items)
+            //        if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
+            //            count++;
+            //    BySchool.Add(new KeyValuePair<string, int>(items.Key,count));
+            //    count = 0;
+            //}
             
 
-            l = bl.ListOfTraineesByDTeacher(true);
-            List<KeyValuePair<string, int>> ByTeacher = new List<KeyValuePair<string, int>>();
-            foreach (var items in l)
-            {
-                foreach (var item in items)
-                    if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
-                        count++;
-                ByTeacher.Add(new KeyValuePair<string, int>(items.Key, count));
-                count = 0;
-            }
+            //l = bl.ListOfTraineesByDTeacher(true);
+            //List<KeyValuePair<string, int>> ByTeacher = new List<KeyValuePair<string, int>>();
+            //foreach (var items in l)
+            //{
+            //    foreach (var item in items)
+            //        if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
+            //            count++;
+            //    ByTeacher.Add(new KeyValuePair<string, int>(items.Key, count));
+            //    count = 0;
+            //}
 
-            var l2 = bl.ListOfTraineesByNumOfTests(true);
-            List<KeyValuePair<string, int>> ByTests = new List<KeyValuePair<string, int>>();
-            foreach (var items in l2)
-            {
-                foreach (var item in items)
-                    if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
-                        count++;
-                ByTests.Add(new KeyValuePair<string, int>(items.Key.ToString(), count));
-                count = 0;
-            }
-            var CWin= new WpfChartControl.MainWindow(BySchool, ByTeacher, ByTests);
+            //var l2 = bl.ListOfTraineesByNumOfTests(true);
+            //List<KeyValuePair<string, int>> ByTests = new List<KeyValuePair<string, int>>();
+            //foreach (var items in l2)
+            //{
+            //    foreach (var item in items)
+            //        if (bl.TestsCollection().Exists(T => (T.IdTester == tester.Id) && (T.IdTrainee == item.Id)))
+            //            count++;
+            //    ByTests.Add(new KeyValuePair<string, int>(items.Key.ToString(), count));
+            //    count = 0;
+            //}
+            //var CWin= new WpfChartControl.MainWindow(BySchool, ByTeacher, ByTests);
            
-            CWin.ShowDialog();
+            //CWin.ShowDialog();
         }
     }
 }

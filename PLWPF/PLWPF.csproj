@@ -179,10 +179,6 @@
       <Project>{8aa905fb-2604-4691-ac44-0263320fdd55}</Project>
       <Name>BL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WpfChartControl\WpfChartControl.csproj">
-      <Project>{d228e5e3-0a98-4b8c-9a7d-516c3a76835b}</Project>
-      <Name>WpfChartControl</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\cars.jpg" />
