@@ -35,8 +35,7 @@ namespace BL
                 throw new Exception("אין בוחנים בזמנים כאלו");
             if (!item.WorkTable[time.Hour - Configuration.MIN_HOUR, (int)time.DayOfWeek])
                 return false;
-            if (item.MaxTests <= NumOfTestsByDays(item, time))
-                return false;
+            if (item.MaxTests <= NumOfTestsByDays(item, time))                return false;
             if (!TestsCollection().TrueForAll(T => (T.IdTester != item.Id) || (T.TestDay != time)))
                 return false;
             return true;
